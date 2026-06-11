@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Letíc[IA] — Agente de Qualificação · daCosta[IA]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #0A0A0A;
+      --surface:    #111111;
+      --surface2:   #181818;
+      --surface3:   #222222;
+      --border:     rgba(255,255,255,0.07);
+      --border2:    rgba(255,255,255,0.13);
+      --gold-1:     #C9952A;
+      --gold-2:     #E8B84B;
+      --gold-3:     #F5D27A;
+      --text-1:     #F0EDE8;
+      --text-2:     #9A9188;
+      --text-3:     #5A5450;
+      --teal:       #1D9E75;
+      --teal-dim:   rgba(29,158,117,0.12);
+      --amber-dim:  rgba(201,149,42,0.10);
+      --red-dim:    rgba(180,60,40,0.12);
+      --font-d:     'Playfair Display', Georgia, serif;
+      --font-b:     'Inter', system-ui, sans-serif;
+    }
+
+    html, body { height: 100%; background: var(--black); color: var(--text-1);
+      font-family: var(--font-b); font-size: 15px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; }
+
+    /* ── TELA DE ENTRADA ─────────────────────────────── */
+    #before-screen {
+      position: fixed; inset: 0; background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100; padding: 24px;
+      /* MELHORIA 1: fade-in suave na tela de entrada */
+      animation: fadeIn .4s ease;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    @keyframes popIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+
+    .before-card {
+      max-width: 560px; width: 100%;
+      border: 0.5px solid var(--border2);
+      border-radius: 16px; overflow: hidden;
+    }
+
+    .before-top {
+      padding: 32px 36px 24px; background: var(--surface);
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .before-eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 20px;
+    }
+
+    .before-headline {
+      font-family: var(--font-d); font-size: 26px; font-weight: 400;
+      color: var(--text-1); line-height: 1.35; margin-bottom: 10px;
+    }
+
+    .before-headline span {
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-3));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .before-sub { font-size: 14px; color: var(--text-2); line-height: 1.65; }
+
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border-bottom: 0.5px solid var(--border);
+    }
+
+    .stat-box { background: var(--surface2); padding: 20px 16px; text-align: center; }
+
+    /* MELHORIA 2: contadores animados */
+    .stat-val {
+      font-family: var(--font-d); font-size: 28px; font-weight: 400;
+      color: var(--text-1); line-height: 1;
+    }
+
+    .stat-lbl { font-size: 11px; color: var(--text-3); margin-top: 5px; line-height: 1.4; }
+
+    .before-config { padding: 24px 36px; background: var(--surface); }
+
+    .config-title {
+      font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 16px;
+    }
+
+    .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+
+    .config-field label {
+      display: block; font-size: 11px; color: var(--text-3);
+      margin-bottom: 5px; letter-spacing: .04em;
+    }
+
+    .config-field input,
+    .config-field select {
+      width: 100%; background: var(--surface2); border: 0.5px solid var(--border2);
+      border-radius: 8px; padding: 9px 12px; font-family: var(--font-b);
+      font-size: 13px; color: var(--text-1); outline: none;
+      transition: border-color .15s; appearance: none;
+    }
+
+    .config-field input:focus,
+    .config-field select:focus { border-color: rgba(201,149,42,.4); }
+    .config-field input::placeholder { color: var(--text-3); }
+
+    /* MELHORIA 3: botão com estado de loading */
+    .start-btn {
+      width: 100%; padding: 13px; background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      border: none; border-radius: 10px; font-family: var(--font-b); font-size: 14px;
+      font-weight: 500; color: var(--black); cursor: pointer;
+      transition: opacity .15s, transform .1s; display: flex;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+
+    .start-btn:hover { opacity: .9; }
+    .start-btn:active { transform: scale(.98); }
+    .start-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    .btn-spinner {
+      width: 14px; height: 14px; border: 2px solid rgba(0,0,0,.3);
+      border-top-color: #000; border-radius: 50%;
+      animation: spin .7s linear infinite; display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── APP LAYOUT ──────────────────────────────────── */
+    #app {
+      display: none; grid-template-columns: 1fr 340px;
+      grid-template-rows: 64px 1fr; height: 100vh;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    #app.visible { display: grid; animation: fadeIn .35s ease; }
+
+    /* Header */
+    .header {
+      grid-column: 1 / -1; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 28px;
+      border-bottom: 0.5px solid var(--border); background: var(--black);
+    }
+
+    .logo { font-family: var(--font-d); font-size: 18px; font-weight: 400; color: var(--text-1); }
+    .logo .ia-highlight {
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-3));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 500;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+
+    .header-badge {
+      font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-3);
+      border: 0.5px solid var(--border2); padding: 4px 10px; border-radius: 3px;
+    }
+
+    .reset-header {
+      font-size: 12px; color: var(--text-3); cursor: pointer; padding: 4px 8px;
+      border-radius: 4px; border: 0.5px solid transparent; transition: color .15s, border-color .15s;
+    }
+    .reset-header:hover { color: var(--text-2); border-color: var(--border2); }
+
+    /* Chat */
+    .chat-panel {
+      display: flex; flex-direction: column;
+      border-right: 0.5px solid var(--border); overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 18px 28px 14px; border-bottom: 0.5px solid var(--border);
+    }
+
+    .agent-row { display: flex; align-items: center; gap: 12px; }
+
+    .agent-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-d); font-size: 16px; font-weight: 500;
+      color: var(--black); flex-shrink: 0;
+    }
+
+    .agent-name-el { font-size: 14px; font-weight: 500; color: var(--text-1); }
+
+    .agent-name-el .ia-tag {
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-3));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 500;
+    }
+
+    .agent-status {
+      font-size: 11px; color: var(--teal); display: flex;
+      align-items: center; gap: 5px; margin-top: 1px;
+    }
+
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+
+    /* MELHORIA 4: pulse no status dot quando digitando */
+    .status-dot.typing { animation: pulse 1s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+    /* Messages */
+    .messages {
+      flex: 1; overflow-y: auto; padding: 24px 28px;
+      display: flex; flex-direction: column; gap: 18px; scroll-behavior: smooth;
+    }
+
+    .messages::-webkit-scrollbar { width: 4px; }
+    .messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+    .msg { display: flex; gap: 10px; max-width: 86%; }
+    .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+    /* MELHORIA 5: mensagens aparecem com animação */
+    .msg { animation: slideUp .2s ease; }
+
+    .msg-av {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 500; margin-top: 2px;
+    }
+
+    .msg.agent .msg-av {
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      color: var(--black); font-family: var(--font-d);
+    }
+
+    .msg.user .msg-av { background: var(--surface3); color: var(--text-2); }
+
+    .msg-bubble { padding: 11px 15px; font-size: 14px; line-height: 1.65; }
+
+    .msg.agent .msg-bubble {
+      background: var(--surface2); border: 0.5px solid var(--border);
+      color: var(--text-1); border-radius: 2px 14px 14px 14px;
+    }
+
+    .msg.user .msg-bubble {
+      background: var(--amber-dim); border: 0.5px solid rgba(201,149,42,.18);
+      color: var(--text-1); border-radius: 14px 2px 14px 14px;
+    }
+
+    .msg-time { font-size: 10px; color: var(--text-3); margin-top: 4px; padding: 0 4px; }
+    .msg.user .msg-time { text-align: right; }
+
+    /* MELHORIA 6: contador de mensagens visível no header */
+    .msg-counter {
+      font-size: 11px; color: var(--text-3); padding: 3px 8px;
+      background: var(--surface3); border-radius: 10px;
+    }
+
+    /* Typing */
+    .typing-indicator { display: flex; align-items: center; gap: 10px; animation: slideUp .2s ease; }
+
+    .typing-dots {
+      display: flex; gap: 4px; padding: 12px 16px;
+      background: var(--surface2); border: 0.5px solid var(--border);
+      border-radius: 2px 14px 14px 14px;
+    }
+
+    .typing-dots span {
+      width: 6px; height: 6px; background: var(--text-3); border-radius: 50%;
+      animation: bounce 1.2s infinite;
+    }
+
+    .typing-dots span:nth-child(2) { animation-delay: .2s; }
+    .typing-dots span:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* Input */
+    .input-area { padding: 14px 28px 18px; border-top: 0.5px solid var(--border); }
+    .input-row { display: flex; gap: 10px; align-items: flex-end; }
+
+    .input-field {
+      flex: 1; background: var(--surface2); border: 0.5px solid var(--border2);
+      border-radius: 10px; padding: 11px 16px; font-family: var(--font-b);
+      font-size: 14px; color: var(--text-1); resize: none; outline: none;
+      min-height: 44px; max-height: 120px; transition: border-color .15s; line-height: 1.5;
+    }
+
+    .input-field::placeholder { color: var(--text-3); }
+    .input-field:focus { border-color: rgba(201,149,42,.35); }
+
+    .send-btn {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+      border: none; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; transition: opacity .15s, transform .1s;
+    }
+
+    .send-btn:hover { opacity: .9; }
+    .send-btn:active { transform: scale(.96); }
+    .send-btn:disabled { opacity: .35; cursor: not-allowed; }
+    .send-btn svg { width: 18px; height: 18px; fill: var(--black); }
+
+    /* MELHORIA 7: indicador de caracteres + hint melhorado */
+    .input-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 7px; }
+    .input-hint { font-size: 11px; color: var(--text-3); }
+    .char-count { font-size: 11px; color: var(--text-3); }
+    .char-count.warn { color: #E07060; }
+
+    /* Score panel */
+    .score-panel {
+      display: flex; flex-direction: column; overflow-y: auto; background: var(--surface);
+    }
+
+    .score-panel::-webkit-scrollbar { width: 4px; }
+    .score-panel::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+    .sp-header { padding: 18px 24px 14px; border-bottom: 0.5px solid var(--border); }
+
+    .sp-title {
+      font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 2px;
+    }
+
+    .sp-subtitle { font-family: var(--font-d); font-size: 15px; color: var(--text-2); }
+
+    .sp-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 22px; }
+
+    /* Ring */
+    .ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .ring-el { position: relative; width: 120px; height: 120px; }
+    .ring-el svg { transform: rotate(-90deg); width: 120px; height: 120px; }
+    .ring-bg { fill: none; stroke: var(--surface3); stroke-width: 8; }
+
+    .ring-fill {
+      fill: none; stroke-width: 8; stroke-linecap: round;
+      transition: stroke-dashoffset 1s cubic-bezier(.4,0,.2,1);
+    }
+
+    .ring-label {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+
+    .ring-score {
+      font-family: var(--font-d); font-size: 28px; font-weight: 400;
+      color: var(--text-1); line-height: 1;
+      transition: all .3s ease;
+    }
+
+    /* MELHORIA: score animado conta até o valor */
+    .ring-score.pop { animation: popIn .4s cubic-bezier(.34,1.56,.64,1); }
+
+    .ring-max { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+    .routing-badge {
+      font-size: 12px; font-weight: 500; padding: 5px 14px;
+      border-radius: 3px; text-align: center;
+      transition: all .3s ease;
+    }
+
+    .r-wait { background: var(--surface3); color: var(--text-3); }
+    .r-hot { background: var(--teal-dim); color: var(--teal); border: 0.5px solid rgba(29,158,117,.2); }
+    .r-potencial { background: var(--amber-dim); color: var(--gold-2); border: 0.5px solid rgba(201,149,42,.2); }
+    .r-nao-pronto { background: var(--red-dim); color: #E07060; border: 0.5px solid rgba(180,60,40,.2); }
+
+    .sep { height: 0.5px; background: var(--border); }
+
+    /* Dims */
+    .dims-title {
+      font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 12px;
+    }
+
+    .dim-item { margin-bottom: 11px; }
+
+    .dim-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .dim-name { font-size: 12px; color: var(--text-2); }
+    .dim-val { font-size: 12px; font-weight: 500; color: var(--text-1); }
+
+    .bar-bg { height: 4px; background: var(--surface3); border-radius: 2px; overflow: hidden; }
+    .bar-fill {
+      height: 100%; border-radius: 2px; width: 0%;
+      transition: width .8s cubic-bezier(.4,0,.2,1) .15s;
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-3));
+    }
+
+    /* Brief */
+    .brief-title {
+      font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 12px;
+    }
+
+    .brief-empty { font-size: 13px; color: var(--text-3); text-align: center; padding: 18px 0; font-style: italic; }
+
+    .brief-card {
+      background: var(--surface2); border: 0.5px solid var(--border);
+      border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;
+      animation: slideUp .3s ease;
+    }
+
+    .brief-field-label {
+      font-size: 10px; font-weight: 500; letter-spacing: .07em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 3px;
+    }
+
+    .brief-field-value { font-size: 12px; color: var(--text-2); line-height: 1.55; }
+
+    .brief-opener {
+      background: var(--amber-dim); border: 0.5px solid rgba(201,149,42,.15);
+      border-radius: 6px; padding: 10px 12px;
+    }
+
+    .brief-opener .brief-field-label { color: var(--gold-2); }
+    .brief-opener .brief-field-value { color: var(--gold-3); font-style: italic; }
+
+    /* CTA */
+    #cta-block { display: none; }
+    #cta-block.visible { display: block; animation: popIn .4s cubic-bezier(.34,1.56,.64,1); }
+
+    .cta-card {
+      border-radius: 10px; padding: 16px; text-align: center; border: 0.5px solid var(--border);
+    }
+
+    .cta-hot { background: var(--teal-dim); border-color: rgba(29,158,117,.25); }
+    .cta-potencial { background: var(--amber-dim); border-color: rgba(201,149,42,.2); }
+    .cta-nao-pronto { background: var(--surface2); border-color: var(--border); }
+
+    .cta-title { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+    .cta-hot .cta-title { color: var(--teal); }
+    .cta-potencial .cta-title { color: var(--gold-2); }
+    .cta-nao-pronto .cta-title { color: var(--text-2); }
+
+    .cta-desc { font-size: 12px; color: var(--text-2); line-height: 1.55; margin-bottom: 12px; }
+
+    .cta-btn {
+      display: inline-block; padding: 9px 20px; border-radius: 7px;
+      font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none;
+      border: none; transition: opacity .15s, transform .1s;
+    }
+
+    .cta-btn:hover { opacity: .85; transform: translateY(-1px); }
+    .cta-btn:active { transform: translateY(0); }
+    .cta-hot .cta-btn { background: var(--teal); color: #fff; }
+    .cta-potencial .cta-btn { background: linear-gradient(135deg, var(--gold-1), var(--gold-2)); color: var(--black); }
+    .cta-nao-pronto .cta-btn { background: var(--surface3); color: var(--text-2); border: 0.5px solid var(--border2); }
+
+    /* MELHORIA 6: toast de notificação */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--surface2); border: 0.5px solid var(--border2);
+      border-radius: 8px; padding: 10px 18px; font-size: 13px; color: var(--text-1);
+      z-index: 200; transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+      opacity: 0; white-space: nowrap; pointer-events: none;
+    }
+
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* Watermark */
+    .watermark {
+      padding: 12px 24px; font-size: 10px; color: var(--text-3);
+      text-align: center; border-top: 0.5px solid var(--border);
+      margin-top: auto; letter-spacing: .04em;
+    }
+
+    .watermark span {
+      background: linear-gradient(90deg, var(--gold-1), var(--gold-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @media (max-width: 768px) {
+      #app { grid-template-columns: 1fr; grid-template-rows: 64px 1fr auto; }
+      .score-panel { border-top: 0.5px solid var(--border); border-right: none; max-height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- ── TELA DE ENTRADA ─────────────────────────────────── -->
+<div id="before-screen">
+  <div class="before-card">
+    <div class="before-top">
+      <div class="before-eyebrow">daCosta[IA] · Qualificação Inteligente</div>
+      <div class="before-headline">
+        Quantas reuniões do seu time<br>
+        <span>terminam sem venda?</span>
+      </div>
+      <div class="before-sub">
+        Sem qualificação, seu time comercial desperdiça tempo com quem nunca ia comprar. Veja como a Letíc[IA] resolve isso antes de qualquer contato humano.
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <!-- MELHORIA 2: contador animado -->
+        <div class="stat-val" data-target="38" data-suffix="%">0%</div>
+        <div class="stat-lbl">dos leads chegam sem budget real para fechar</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" data-prefix="R$" data-target="4" data-suffix="K">R$0K</div>
+        <div class="stat-lbl">desperdiçados por mês em tempo de closer não qualificado</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" data-target="3" data-suffix="×">0×</div>
+        <div class="stat-lbl">mais conversão com leads qualificados antes da call</div>
+      </div>
+    </div>
+
+    <div class="before-config">
+      <div class="config-title">Configure a demonstração</div>
+      <div class="config-grid">
+        <div class="config-field">
+          <label>Nome do atendente</label>
+          <input type="text" id="cfg-name" placeholder="Letícia" maxlength="30" />
+        </div>
+        <div class="config-field">
+          <label>Setor da empresa</label>
+          <select id="cfg-sector">
+            <option value="geral">Empresas em geral</option>
+            <option value="coaching">Coaching / Consultoria</option>
+            <option value="odontologia">Odontologia / Clínica</option>
+            <option value="agronegocio">Agronegócio</option>
+            <option value="juridico">Jurídico / Advocacia</option>
+            <option value="imobiliario">Imobiliário</option>
+            <option value="industria">Indústria / Distribuição</option>
+            <option value="educacao">Educação / Cursos</option>
+            <option value="saude">Saúde / Medicina</option>
+          </select>
+        </div>
+        <div class="config-field" style="grid-column: 1 / -1;">
+          <label>Nome da empresa (opcional)</label>
+          <input type="text" id="cfg-company" placeholder="daCosta[IA]" maxlength="50" />
+        </div>
+      </div>
+      <!-- MELHORIA 3: botão com loading -->
+      <button class="start-btn" id="start-btn" onclick="startDemo()">
+        <span id="btn-label">Iniciar demonstração →</span>
+        <div class="btn-spinner" id="btn-spinner"></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── APP ─────────────────────────────────────────────── -->
+<div id="app">
+  <header class="header">
+    <div class="logo" id="logo-el">Letíc<span class="ia-highlight">[IA]</span></div>
+    <div class="header-right">
+      <div class="header-badge" id="sector-badge">Demo</div>
+      <!-- MELHORIA 6: contador de mensagens -->
+      <div class="msg-counter" id="msg-counter">0 mensagens</div>
+      <div class="reset-header" onclick="resetDemo()">← Reiniciar</div>
+    </div>
+  </header>
+
+  <main class="chat-panel">
+    <div class="chat-header">
+      <div class="agent-row">
+        <div class="agent-avatar" id="av-el">L</div>
+        <div>
+          <div class="agent-name-el" id="agent-name-el">Letíc<span class="ia-tag">[IA]</span></div>
+          <div class="agent-status">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="agent-status-text">Online</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="messages" id="messages" role="log"></div>
+
+    <div class="input-area">
+      <div class="input-row">
+        <textarea class="input-field" id="input" placeholder="Digite sua mensagem..." rows="1" maxlength="1000"></textarea>
+        <button class="send-btn" id="send-btn">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+      <!-- MELHORIA 7: footer com hint e contador de chars -->
+      <div class="input-footer">
+        <div class="input-hint">Enter para enviar · Shift+Enter para nova linha</div>
+        <div class="char-count" id="char-count">0/1000</div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="score-panel">
+    <div class="sp-header">
+      <div class="sp-title">Qualificação em tempo real</div>
+      <div class="sp-subtitle">Briefing do consultor</div>
+    </div>
+
+    <div class="sp-body">
+      <div class="ring-wrap">
+        <div class="ring-el">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52"
+              stroke-dasharray="326.7" stroke-dashoffset="326.7"
+              stroke="url(#gold-grad)"/>
+            <defs>
+              <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#C9952A"/>
+                <stop offset="100%" style="stop-color:#F5D27A"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="ring-label">
+            <div class="ring-score" id="ring-score">—</div>
+            <div class="ring-max">/ 100</div>
+          </div>
+        </div>
+        <div class="routing-badge r-wait" id="routing-badge">Qualificando...</div>
+      </div>
+
+      <div class="sep"></div>
+
+      <div>
+        <div class="dims-title">Dimensões</div>
+        <div class="dim-item">
+          <div class="dim-row"><span class="dim-name">Clareza do problema</span><span class="dim-val" id="d-prob">—/15</span></div>
+          <div class="bar-bg"><div class="bar-fill" id="b-prob"></div></div>
+        </div>
+        <div class="dim-item">
+          <div class="dim-row"><span class="dim-name">Capacidade financeira</span><span class="dim-val" id="d-fin">—/20</span></div>
+          <div class="bar-bg"><div class="bar-fill" id="b-fin"></div></div>
+        </div>
+        <div class="dim-item">
+          <div class="dim-row"><span class="dim-name">Urgência</span><span class="dim-val" id="d-urg">—/20</span></div>
+          <div class="bar-bg"><div class="bar-fill" id="b-urg"></div></div>
+        </div>
+        <div class="dim-item">
+          <div class="dim-row"><span class="dim-name">Autoridade de decisão</span><span class="dim-val" id="d-aut">—/20</span></div>
+          <div class="bar-bg"><div class="bar-fill" id="b-aut"></div></div>
+        </div>
+        <div class="dim-item">
+          <div class="dim-row"><span class="dim-name">Prontidão para investir</span><span class="dim-val" id="d-inv">—/25</span></div>
+          <div class="bar-bg"><div class="bar-fill" id="b-inv"></div></div>
+        </div>
+      </div>
+
+      <div class="sep"></div>
+
+      <div id="cta-block"></div>
+
+      <div>
+        <div class="brief-title">Briefing do consultor</div>
+        <div id="brief-content">
+          <div class="brief-empty">O briefing aparece ao final da qualificação.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="watermark">Desenvolvido por <span>daCosta[IA]</span></div>
+  </aside>
+</div>
+
+<script>
+  let agentName   = 'Letícia';
+  let companyName = 'daCosta[IA]';
+  let sector      = 'geral';
+  let history     = [];
+  let isTyping    = false;
+  let msgCount    = 0;
+
+  const sectorLabels = {
+    geral:'Empresas em Geral', coaching:'Coaching / Consultoria',
+    odontologia:'Odontologia', agronegocio:'Agronegócio',
+    juridico:'Jurídico', imobiliario:'Imobiliário',
+    industria:'Indústria', educacao:'Educação', saude:'Saúde'
+  };
+
+  // ── MELHORIA 2: Contadores animados ───────────────────
+  function animateCounters() {
+    document.querySelectorAll('.stat-val[data-target]').forEach(el => {
+      const target  = parseInt(el.dataset.target);
+      const prefix  = el.dataset.prefix || '';
+      const suffix  = el.dataset.suffix || '';
+      let current   = 0;
+      const step    = Math.ceil(target / 30);
+      const interval = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = prefix + current + suffix;
+        if (current >= target) clearInterval(interval);
+      }, 40);
+    });
+  }
+
+  // Roda os contadores quando a página carrega
+  window.addEventListener('load', () => setTimeout(animateCounters, 300));
+
+  // ── Toast ──────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ── MELHORIA 3: Iniciar com loading no botão ──────────
+  function startDemo() {
+    const btn     = document.getElementById('start-btn');
+    const label   = document.getElementById('btn-label');
+    const spinner = document.getElementById('btn-spinner');
+    btn.disabled  = true;
+    label.textContent = 'Iniciando...';
+    spinner.style.display = 'block';
+
+    agentName   = document.getElementById('cfg-name').value.trim()    || 'Letícia';
+    companyName = document.getElementById('cfg-company').value.trim() || 'daCosta[IA]';
+    sector      = document.getElementById('cfg-sector').value;
+
+    const initial = agentName.charAt(0).toUpperCase();
+    document.getElementById('logo-el').innerHTML = `${agentName}<span class="ia-highlight">[IA]</span>`;
+    document.getElementById('av-el').textContent  = initial;
+    document.getElementById('agent-name-el').innerHTML = `${agentName}<span class="ia-tag"> [IA]</span>`;
+    document.getElementById('sector-badge').textContent = sectorLabels[sector] || 'Demo';
+
+    setTimeout(() => {
+      document.getElementById('before-screen').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      btn.disabled = false;
+      label.textContent = 'Iniciar demonstração →';
+      spinner.style.display = 'none';
+
+      const greetings = {
+        geral:       `Olá! Eu sou ${agentName}, do time da ${companyName}. Fico feliz que você entrou em contato.\n\nPara que eu possa te ajudar da melhor forma, pode me contar um pouco sobre o que está acontecendo no seu negócio? O que te trouxe aqui hoje?`,
+        coaching:    `Olá! Sou ${agentName}, da ${companyName}. Que bom ter você aqui.\n\nMe conta — o que está rolando no seu negócio hoje? Qual é o maior desafio que você está enfrentando?`,
+        odontologia: `Olá! Sou ${agentName}, da ${companyName}. Tudo bem?\n\nQueria entender melhor a sua clínica antes de tudo. Me conta — o que te trouxe até aqui hoje?`,
+        agronegocio: `Olá! Sou ${agentName}, da ${companyName}. Bem-vindo.\n\nMe conta um pouco sobre a sua operação — o que está acontecendo e o que te motivou a entrar em contato?`,
+        juridico:    `Olá! Sou ${agentName}, da ${companyName}. Obrigada pelo contato.\n\nPara eu entender melhor, pode me contar o que está acontecendo no seu escritório?`,
+        imobiliario: `Olá! Sou ${agentName}, da ${companyName}. Boa tarde!\n\nMe fala — o que está acontecendo no seu negócio hoje?`,
+        industria:   `Olá! Sou ${agentName}, representando a ${companyName}. Obrigada pelo contato.\n\nPode me contar um pouco sobre a sua operação?`,
+        educacao:    `Olá! Sou ${agentName}, da ${companyName}. Que bom falar com você.\n\nMe conta — o que está acontecendo na sua escola ou curso?`,
+        saude:       `Olá! Sou ${agentName}, da ${companyName}. Tudo bem?\n\nPode me contar o que está acontecendo na sua clínica? O que te trouxe até aqui?`
+      };
+
+      addAgentMsg(greetings[sector] || greetings.geral);
+      document.getElementById('input').focus();
+    }, 600);
+  }
+
+  // ── Reset ──────────────────────────────────────────────
+  function resetDemo() {
+    history = []; isTyping = false; msgCount = 0;
+    document.getElementById('messages').innerHTML = '';
+    document.getElementById('ring-score').textContent = '—';
+    document.getElementById('ring-fill').style.strokeDashoffset = 326.7;
+    const badge = document.getElementById('routing-badge');
+    badge.className = 'routing-badge r-wait';
+    badge.textContent = 'Qualificando...';
+    ['prob','fin','urg','aut','inv'].forEach(id => {
+      document.getElementById(`d-${id}`).textContent = id==='prob'?'—/15':id==='inv'?'—/25':'—/20';
+      document.getElementById(`b-${id}`).style.width = '0%';
+    });
+    document.getElementById('brief-content').innerHTML =
+      '<div class="brief-empty">O briefing aparece ao final da qualificação.</div>';
+    const ctaEl = document.getElementById('cta-block');
+    ctaEl.innerHTML = ''; ctaEl.classList.remove('visible');
+    document.getElementById('msg-counter').textContent = '0 mensagens';
+    document.getElementById('agent-status-text').textContent = 'Online';
+    document.getElementById('status-dot').classList.remove('typing');
+    document.getElementById('before-screen').style.display = 'flex';
+    document.getElementById('app').classList.remove('visible');
+  }
+
+  // ── Mensagens ──────────────────────────────────────────
+  function addAgentMsg(text) {
+    const time = new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    const initial = agentName.charAt(0).toUpperCase();
+    const el = document.createElement('div');
+    el.className = 'msg agent';
+    el.innerHTML = `
+      <div class="msg-av">${initial}</div>
+      <div>
+        <div class="msg-bubble">${fmt(text)}</div>
+        <div class="msg-time">${time}</div>
+      </div>`;
+    document.getElementById('messages').appendChild(el);
+    scrollBottom();
+  }
+
+  function addUserMsg(text) {
+    const time = new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    const el = document.createElement('div');
+    el.className = 'msg user';
+    el.innerHTML = `
+      <div class="msg-av">Você</div>
+      <div>
+        <div class="msg-bubble">${fmt(text)}</div>
+        <div class="msg-time">${time}</div>
+      </div>`;
+    document.getElementById('messages').appendChild(el);
+    // MELHORIA 6: atualiza contador
+    msgCount++;
+    document.getElementById('msg-counter').textContent =
+      msgCount === 1 ? '1 mensagem' : `${msgCount} mensagens`;
+    scrollBottom();
+  }
+
+  // MELHORIA 4: status pulse enquanto digita
+  function showTyping() {
+    const initial = agentName.charAt(0).toUpperCase();
+    const el = document.createElement('div');
+    el.className = 'msg agent typing-indicator'; el.id = 'typing';
+    el.innerHTML = `<div class="msg-av">${initial}</div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>`;
+    document.getElementById('messages').appendChild(el);
+    document.getElementById('status-dot').classList.add('typing');
+    document.getElementById('agent-status-text').textContent = 'Digitando...';
+    scrollBottom();
+  }
+
+  function hideTyping() {
+    document.getElementById('typing')?.remove();
+    document.getElementById('status-dot').classList.remove('typing');
+    document.getElementById('agent-status-text').textContent = 'Online';
+  }
+
+  function scrollBottom() { const m = document.getElementById('messages'); m.scrollTop = m.scrollHeight; }
+  function fmt(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+  function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ── Enviar ─────────────────────────────────────────────
+  async function send() {
+    const txt = document.getElementById('input').value.trim();
+    if (!txt || isTyping) return;
+    document.getElementById('input').value = '';
+    document.getElementById('input').style.height = 'auto';
+    document.getElementById('char-count').textContent = '0/1000';
+    isTyping = true;
+    document.getElementById('send-btn').disabled = true;
+
+    history.push({ role:'user', content:txt });
+    addUserMsg(txt);
+    showTyping();
+
+    try {
+      const res = await fetch('/api/chat', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ messages:history, agentName, companyName, sector })
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      hideTyping();
+      history.push({ role:'assistant', content:data.message });
+      addAgentMsg(data.message);
+
+      if (data.scoreData) {
+        renderScore(data.scoreData);
+        // MELHORIA 6: toast ao gerar score
+        const label = data.scoreData.routing === 'lead_quente'
+          ? '🔥 Lead quente identificado!'
+          : data.scoreData.routing === 'potencial'
+          ? '⚡ Lead potencial qualificado'
+          : '📋 Qualificação concluída';
+        showToast(label);
+      }
+
+    } catch (err) {
+      hideTyping();
+      addAgentMsg('Tive um problema de conexão. Pode tentar novamente?');
+      console.error(err);
+    }
+
+    isTyping = false;
+    document.getElementById('send-btn').disabled = false;
+    document.getElementById('input').focus();
+  }
+
+  // ── Renderizar score ───────────────────────────────────
+  function renderScore(data) {
+    const { score, dimensions, routing, briefing } = data;
+
+    // Anel com counter animado
+    const offset = 326.7 - (score / 100) * 326.7;
+    document.getElementById('ring-fill').style.strokeDashoffset = offset;
+
+    // Conta o score animado
+    const scoreEl = document.getElementById('ring-score');
+    let cur = 0;
+    const step = Math.max(1, Math.floor(score / 25));
+    const iv = setInterval(() => {
+      cur = Math.min(cur + step, score);
+      scoreEl.textContent = cur;
+      if (cur >= score) {
+        clearInterval(iv);
+        scoreEl.classList.add('pop');
+        setTimeout(() => scoreEl.classList.remove('pop'), 400);
+      }
+    }, 40);
+
+    // Badge
+    const badge = document.getElementById('routing-badge');
+    badge.className = 'routing-badge';
+    if (routing === 'lead_quente') {
+      badge.classList.add('r-hot'); badge.textContent = 'Lead quente 🔥';
+    } else if (routing === 'potencial') {
+      badge.classList.add('r-potencial'); badge.textContent = 'Potencial — nutrir';
+    } else {
+      badge.classList.add('r-nao-pronto'); badge.textContent = 'Não está pronto';
+    }
+
+    // Barras
+    const dims = [
+      { key:'clareza_problema',      id:'prob', max:15 },
+      { key:'capacidade_financeira', id:'fin',  max:20 },
+      { key:'urgencia',              id:'urg',  max:20 },
+      { key:'autoridade',            id:'aut',  max:20 },
+      { key:'prontidao_investimento',id:'inv',  max:25 }
+    ];
+
+    dims.forEach(({ key, id, max }) => {
+      const val = dimensions[key] ?? 0;
+      document.getElementById(`d-${id}`).textContent = `${val}/${max}`;
+      document.getElementById(`b-${id}`).style.width  = `${(val/max)*100}%`;
+    });
+
+    // CTA
+    const ctaEl = document.getElementById('cta-block');
+    ctaEl.classList.add('visible');
+
+    if (routing === 'lead_quente') {
+      ctaEl.innerHTML = `
+        <div class="cta-card cta-hot">
+          <div class="cta-title">Lead pronto para avançar</div>
+          <div class="cta-desc">Score alto. Agende uma reunião com nosso especialista agora.</div>
+          <a href="https://calendly.com/dacosta-ia" target="_blank" class="cta-btn">Agendar reunião →</a>
+        </div>`;
+    } else if (routing === 'potencial') {
+      ctaEl.innerHTML = `
+        <div class="cta-card cta-potencial">
+          <div class="cta-title">Potencial de fit</div>
+          <div class="cta-desc">Bom sinal — nossa equipe vai entrar em contato para uma conversa rápida.</div>
+          <a href="https://calendly.com/dacosta-ia" target="_blank" class="cta-btn">Conversa de 15 min →</a>
+        </div>`;
+    } else {
+      ctaEl.innerHTML = `
+        <div class="cta-card cta-nao-pronto">
+          <div class="cta-title">Ainda não é o momento</div>
+          <div class="cta-desc">Temos conteúdo gratuito para te preparar para o próximo passo.</div>
+          <a href="https://dacosta.ia" target="_blank" class="cta-btn">Ver conteúdo gratuito →</a>
+        </div>`;
+    }
+
+    // Briefing
+    document.getElementById('brief-content').innerHTML = `
+      <div class="brief-card">
+        <div>
+          <div class="brief-field-label">Avaliação</div>
+          <div class="brief-field-value">${esc(briefing.titulo)}</div>
+        </div>
+        <div>
+          <div class="brief-field-label">Sinais positivos</div>
+          <div class="brief-field-value">${esc(briefing.sinais_positivos)}</div>
+        </div>
+        <div>
+          <div class="brief-field-label">Contexto do negócio</div>
+          <div class="brief-field-value">${esc(briefing.contexto_do_negocio)}</div>
+        </div>
+        <div>
+          <div class="brief-field-label">Atenção</div>
+          <div class="brief-field-value">${esc(briefing.riscos)}</div>
+        </div>
+        <div class="brief-opener">
+          <div class="brief-field-label">Pergunta de abertura sugerida</div>
+          <div class="brief-field-value">"${esc(briefing.pergunta_de_abertura)}"</div>
+        </div>
+      </div>`;
+  }
+
+  // ── Eventos ────────────────────────────────────────────
+  document.getElementById('input').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    // MELHORIA 7: contador de chars
+    const len = this.value.length;
+    const cc  = document.getElementById('char-count');
+    cc.textContent = `${len}/1000`;
+    cc.classList.toggle('warn', len > 850);
+  });
+
+  document.getElementById('input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+
+  document.getElementById('send-btn').addEventListener('click', send);
+</script>
+</body>
+</html>
