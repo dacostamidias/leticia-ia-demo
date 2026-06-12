@@ -227,14 +227,14 @@
       <div class="before-sub">Sem qualificação, seu time comercial desperdiça tempo com quem nunca ia comprar. Veja como a Letíc[IA] resolve isso antes de qualquer contato humano.</div>
     </div>
     <div class="stats-row">
-      <div class="stat-box"><div class="stat-val" data-target="38" data-suffix="%">0%</div><div class="stat-lbl">dos leads chegam sem budget real</div></div>
+      <div class="stat-box"><div class="stat-val" data-target="57" data-suffix="%">0%</div><div class="stat-lbl">dos leads chegam sem budget real</div></div>
       <div class="stat-box"><div class="stat-val" data-prefix="R$" data-target="13" data-suffix="K">R$0K</div><div class="stat-lbl">desperdiçados por mês em closer não qualificado</div></div>
       <div class="stat-box"><div class="stat-val" data-target="3" data-suffix="×">0×</div><div class="stat-lbl">mais conversão com qualificação prévia</div></div>
     </div>
     <div class="before-config">
       <div class="config-title">Configure a demonstração</div>
       <div class="config-grid">
-        <div class="config-field"><label>Nome do atendente</label><input type="text" id="cfg-name" placeholder="Letícia" maxlength="30"/></div>
+        <div class="config-field"><label>Nome do atendente</label><input type="text" id="cfg-name" placeholder="Letíc[IA]" maxlength="30"/></div>
         <div class="config-field"><label>Setor da empresa</label>
           <select id="cfg-sector">
             <option value="geral">Empresas em geral</option>
@@ -363,7 +363,7 @@
 </div>
 
 <script>
-let agentName='Letícia',companyName='daCosta[IA]',sector='geral';
+let agentName='Letíc[IA]',companyName='daCosta[IA]',sector='geral';
 let history=[],isTyping=false,msgCount=0,qualProgress=0;
 let currentScoreData=null,currentBriefingText='';
 let presentationMode=false,historyOpen=false;
@@ -512,7 +512,7 @@ Gerado por Letíc[IA] · daCosta[IA]`;
 function startDemo(){
   const btn=document.getElementById('start-btn'),label=document.getElementById('btn-label'),spinner=document.getElementById('btn-spinner');
   btn.disabled=true;label.textContent='Iniciando...';spinner.style.display='block';
-  agentName=document.getElementById('cfg-name').value.trim()||'Letícia';
+  agentName=document.getElementById('cfg-name').value.trim()||'Letíc[IA]';
   companyName=document.getElementById('cfg-company').value.trim()||'daCosta[IA]';
   sector=document.getElementById('cfg-sector').value;
   const initial=agentName.charAt(0).toUpperCase();
