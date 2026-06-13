@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -170,7 +171,9 @@
     /* HISTÓRICO */
     .history-panel{display:none;flex-direction:column;background:var(--surface);border-left:.5px solid var(--border);overflow-y:auto;width:260px}
     .history-panel.open{display:flex}
-    .history-header{padding:18px 20px 14px;border-bottom:.5px solid var(--border)}
+    .history-header{padding:18px 20px 14px;border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .history-close{display:none;font-size:16px;color:var(--text-3);cursor:pointer;padding:4px 8px;line-height:1}
+    .history-close:hover{color:var(--text-1)}
     .history-title{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
     .history-list{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1;overflow-y:auto}
     .history-item{background:var(--surface2);border:.5px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:border-color .15s}
@@ -210,8 +213,86 @@
     .watermark span{background:linear-gradient(90deg,var(--gold-1),var(--gold-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
     @media(max-width:768px){
-      #app{grid-template-columns:1fr;grid-template-rows:64px 1fr auto}
-      .score-panel{border-top:.5px solid var(--border);border-right:none;max-height:300px}
+      html,body{font-size:14px}
+
+      /* Tela de entrada */
+      #before-screen{padding:0;align-items:stretch}
+      .before-card{max-width:none;width:100%;height:100%;border:none;border-radius:0;overflow-y:auto;display:flex;flex-direction:column}
+      .before-top{padding:24px 20px 18px}
+      .before-eyebrow{margin-bottom:14px;font-size:10px}
+      .before-headline{font-size:21px}
+      .before-sub{font-size:13px}
+      .stats-row{grid-template-columns:repeat(3,1fr)}
+      .stat-box{padding:14px 8px}
+      .stat-val{font-size:20px}
+      .stat-lbl{font-size:9.5px;line-height:1.35}
+      .before-config{padding:18px 20px 24px;flex:1;display:flex;flex-direction:column}
+      .config-grid{grid-template-columns:1fr;gap:10px}
+      .config-field input,.config-field select{padding:11px 12px;font-size:14px}
+      .start-btn{padding:14px;font-size:15px;margin-top:auto}
+
+      /* App layout */
+      #app{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;height:100vh;height:100dvh}
+      #app.visible{display:flex;flex-direction:column}
+
+      /* Header — compacto e tudo cabe */
+      .header{flex-wrap:nowrap;padding:0 10px;height:52px;flex-shrink:0;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+      .header::-webkit-scrollbar{display:none}
+      .logo{font-size:15px;flex-shrink:0}
+      .header-right{gap:4px;flex-shrink:0}
+      .header-badge{display:none}
+      .msg-counter{display:none}
+      .header-btn{font-size:0;padding:7px;gap:0;border-radius:8px}
+      .header-btn svg{width:16px;height:16px}
+      .header-btn.active{background:var(--amber-dim)}
+
+      /* Chat panel ocupa o resto */
+      .chat-panel{flex:1;border-right:none;min-height:0;order:1}
+      .chat-header{padding:10px 14px;flex-shrink:0}
+      .agent-avatar{width:34px;height:34px;font-size:14px}
+      .agent-name-el{font-size:13px}
+      .agent-status{font-size:10px}
+
+      .progress-bar-wrap{padding:0 14px 8px;flex-shrink:0}
+      .progress-label{font-size:9px}
+
+      .messages{padding:14px;gap:14px;-webkit-overflow-scrolling:touch}
+      .msg{max-width:92%}
+      .msg-bubble{font-size:13.5px;padding:10px 13px}
+      .msg-av{width:26px;height:26px;font-size:9px}
+
+      .input-area{padding:10px 12px 12px;flex-shrink:0;padding-bottom:max(12px, env(safe-area-inset-bottom))}
+      .input-field{font-size:14px;padding:10px 14px}
+      .send-btn{width:42px;height:42px}
+      .input-footer{margin-top:5px}
+      .input-hint{font-size:10px}
+      .char-count{font-size:10px}
+
+      /* Score panel — colapsável abaixo do chat */
+      .score-panel{order:2;border-top:.5px solid var(--border);border-right:none;max-height:55vh;flex-shrink:0}
+      .sp-header{padding:12px 16px 10px}
+      .sp-body{padding:14px 16px;gap:16px}
+      .ring-el{width:96px;height:96px}
+      .ring-el svg{width:96px;height:96px}
+      .ring-score{font-size:22px}
+
+      /* History panel — overlay em tela cheia no mobile */
+      .history-panel{position:fixed;inset:0;width:100%;z-index:150;border-left:none}
+      .history-panel.open{display:flex}
+      .history-header{padding:14px 16px}
+      .history-close{display:block}
+
+      #app.presentation-mode .score-panel{display:none}
+      #app.presentation-mode .chat-panel{flex:1}
+
+      #toast{font-size:12px;padding:9px 16px;max-width:90%;white-space:normal;text-align:center}
+    }
+
+    @media(max-width:380px){
+      .before-headline{font-size:19px}
+      .stat-val{font-size:17px}
+      .stat-lbl{font-size:9px}
+      .header-btn{padding:6px}
     }
   </style>
 </head>
@@ -227,14 +308,14 @@
       <div class="before-sub">Sem qualificação, seu time comercial desperdiça tempo com quem nunca ia comprar. Veja como a Letíc[IA] resolve isso antes de qualquer contato humano.</div>
     </div>
     <div class="stats-row">
-      <div class="stat-box"><div class="stat-val" data-target="57" data-suffix="%">0%</div><div class="stat-lbl">dos leads chegam sem budget real</div></div>
-      <div class="stat-box"><div class="stat-val" data-prefix="R$" data-target="13" data-suffix="K">R$0K</div><div class="stat-lbl">desperdiçados por mês em closer não qualificado</div></div>
+      <div class="stat-box"><div class="stat-val" data-target="38" data-suffix="%">0%</div><div class="stat-lbl">dos leads chegam sem orçamento real</div></div>
+      <div class="stat-box"><div class="stat-val" data-prefix="R$" data-target="4" data-suffix="K">R$0K</div><div class="stat-lbl">desperdiçados por mês em closer não qualificado</div></div>
       <div class="stat-box"><div class="stat-val" data-target="3" data-suffix="×">0×</div><div class="stat-lbl">mais conversão com qualificação prévia</div></div>
     </div>
     <div class="before-config">
       <div class="config-title">Configure a demonstração</div>
       <div class="config-grid">
-        <div class="config-field"><label>Nome do atendente</label><input type="text" id="cfg-name" placeholder="Letíc[IA]" maxlength="30"/></div>
+        <div class="config-field"><label>Nome do atendente</label><input type="text" id="cfg-name" placeholder="Letícia" maxlength="30"/></div>
         <div class="config-field"><label>Setor da empresa</label>
           <select id="cfg-sector">
             <option value="geral">Empresas em geral</option>
@@ -357,13 +438,16 @@
 
   <!-- PAINEL HISTÓRICO -->
   <div class="history-panel" id="history-panel">
-    <div class="history-header"><div class="history-title">Qualificações anteriores</div></div>
+    <div class="history-header">
+      <div class="history-title">Qualificações anteriores</div>
+      <div class="history-close" onclick="toggleHistory()">✕</div>
+    </div>
     <div class="history-list" id="history-list"></div>
   </div>
 </div>
 
 <script>
-let agentName='Letíc[IA]',companyName='daCosta[IA]',sector='geral';
+let agentName='Letícia',companyName='daCosta[IA]',sector='geral';
 let history=[],isTyping=false,msgCount=0,qualProgress=0;
 let currentScoreData=null,currentBriefingText='';
 let presentationMode=false,historyOpen=false;
@@ -461,58 +545,146 @@ function completeProgress(){
 // EXPORT PDF
 function exportPDF(){
   if(!currentScoreData)return;
-  const b=currentScoreData.briefing;
-  const routing=currentScoreData.routing==='lead_quente'?'Lead Quente 🔥':currentScoreData.routing==='potencial'?'Potencial':'Não Pronto';
-  const content=`BRIEFING DE QUALIFICAÇÃO — ${agentName.toUpperCase()}
-Empresa: ${companyName} · Setor: ${sectorLabels[sector]||sector}
-Data: ${new Date().toLocaleString('pt-BR')}
-${'─'.repeat(50)}
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const b = currentScoreData.briefing;
+  const GOLD = [201,149,42];
+  const DARK = [26,26,26];
+  const GRAY = [120,116,112];
+  const TEAL = [29,158,117];
+  const W = 210, M = 18;
+  let y = 22;
 
-SCORE: ${currentScoreData.score}/100
-RESULTADO: ${routing}
+  // ── Cabeçalho ──
+  doc.setFont('times','normal'); doc.setFontSize(22); doc.setTextColor(...DARK);
+  doc.text('daCosta', M, y);
+  const w1 = doc.getTextWidth('daCosta');
+  doc.setFont('times','bold'); doc.setTextColor(...GOLD);
+  doc.text('[IA]', M + w1, y);
 
-${'─'.repeat(50)}
-AVALIAÇÃO
-${b.titulo||'—'}
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...GRAY);
+  doc.text(new Date().toLocaleString('pt-BR'), W - M, y, { align: 'right' });
 
-SINAIS POSITIVOS
-${b.sinais_positivos||'—'}
+  y += 4;
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.6);
+  doc.line(M, y, W - M, y);
 
-CONTEXTO DO NEGÓCIO
-${b.contexto_do_negocio||'—'}
+  // ── Título ──
+  y += 12;
+  doc.setFont('times','bold'); doc.setFontSize(18); doc.setTextColor(...DARK);
+  doc.text('Briefing de Qualificação', M, y);
 
-ATENÇÃO / RISCOS
-${b.riscos||'—'}
+  y += 7;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(...GRAY);
+  doc.text(`Atendente: ${agentName}  ·  Empresa: ${companyName}  ·  Setor: ${sectorLabels[sector]||sector}`, M, y);
 
-PERGUNTA DE ABERTURA SUGERIDA
-"${b.pergunta_de_abertura||'—'}"
+  // ── Score circle + routing ──
+  y += 14;
+  const routing = currentScoreData.routing;
+  const routingLabel = routing==='lead_quente' ? 'LEAD QUENTE' : routing==='potencial' ? 'POTENCIAL — NUTRIR' : 'NÃO ESTÁ PRONTO';
+  const routingColor = routing==='lead_quente' ? TEAL : routing==='potencial' ? GOLD : [200,90,70];
 
-${'─'.repeat(50)}
-DIMENSÕES
-Clareza do problema:      ${currentScoreData.dimensions.clareza_problema||0}/15
-Capacidade financeira:    ${currentScoreData.dimensions.capacidade_financeira||0}/20
-Urgência:                 ${currentScoreData.dimensions.urgencia||0}/20
-Autoridade de decisão:    ${currentScoreData.dimensions.autoridade||0}/20
-Prontidão para investir:  ${currentScoreData.dimensions.prontidao_investimento||0}/25
+  // score box
+  doc.setFillColor(245,243,238);
+  doc.roundedRect(M, y, 50, 28, 2, 2, 'F');
+  doc.setFont('times','bold'); doc.setFontSize(26); doc.setTextColor(...DARK);
+  doc.text(`${currentScoreData.score}`, M + 25, y + 16, { align: 'center' });
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...GRAY);
+  doc.text('PONTOS DE 100', M + 25, y + 23, { align: 'center' });
 
-${'─'.repeat(50)}
-Gerado por Letíc[IA] · daCosta[IA]`;
+  // routing badge
+  doc.setFillColor(routingColor[0], routingColor[1], routingColor[2], );
+  doc.setFillColor(routingColor[0]*0.15 + 255*0.85, routingColor[1]*0.15 + 255*0.85, routingColor[2]*0.15 + 255*0.85);
+  doc.roundedRect(M + 56, y, W - M*2 - 56, 28, 2, 2, 'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(...routingColor);
+  doc.text(routingLabel, M + 56 + (W - M*2 - 56)/2, y + 12, { align: 'center' });
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...GRAY);
+  doc.text(esc_(b.titulo||''), M + 56 + (W - M*2 - 56)/2, y + 21, { align: 'center', maxWidth: W - M*2 - 64 });
 
-  const blob=new Blob([content],{type:'text/plain;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download=`briefing-${agentName.toLowerCase()}-${Date.now()}.txt`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Briefing exportado com sucesso');
+  // ── Dimensões ──
+  y += 38;
+  doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(...DARK);
+  doc.text('DIMENSÕES DE QUALIFICAÇÃO', M, y);
+  y += 6;
+
+  const dims = [
+    ['Clareza do problema', currentScoreData.dimensions.clareza_problema||0, 15],
+    ['Capacidade financeira', currentScoreData.dimensions.capacidade_financeira||0, 20],
+    ['Urgência', currentScoreData.dimensions.urgencia||0, 20],
+    ['Autoridade de decisão', currentScoreData.dimensions.autoridade||0, 20],
+    ['Prontidão para investir', currentScoreData.dimensions.prontidao_investimento||0, 25],
+  ];
+
+  dims.forEach(([name,val,max])=>{
+    doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(...DARK);
+    doc.text(name, M, y);
+    doc.setTextColor(...GRAY);
+    doc.text(`${val}/${max}`, W - M, y, { align: 'right' });
+    y += 2.5;
+    // bar bg
+    doc.setFillColor(235,233,228);
+    doc.roundedRect(M, y, W - M*2, 2, 1, 1, 'F');
+    // bar fill
+    const pct = Math.max(val/max, 0.02);
+    doc.setFillColor(...GOLD);
+    doc.roundedRect(M, y, (W - M*2) * pct, 2, 1, 1, 'F');
+    y += 8;
+  });
+
+  // ── Seções de texto ──
+  y += 4;
+  const section = (label, text, opts={}) => {
+    if (y > 255) { doc.addPage(); y = 22; }
+    doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(...(opts.color||GOLD));
+    doc.text(label.toUpperCase(), M, y);
+    y += 5;
+    doc.setFont(opts.italic?'times':'helvetica', opts.italic?'italic':'normal');
+    doc.setFontSize(10.5); doc.setTextColor(...DARK);
+    const lines = doc.splitTextToSize(esc_(text||'—'), W - M*2);
+    doc.text(lines, M, y);
+    y += lines.length * 5 + 7;
+  };
+
+  section('Sinais positivos', b.sinais_positivos);
+  section('Contexto do negócio', b.contexto_do_negocio);
+  section('Pontos de atenção', b.riscos);
+
+  // opener box
+  if (y > 240) { doc.addPage(); y = 22; }
+  doc.setFillColor(252,247,238);
+  const openerLines = doc.splitTextToSize(`"${esc_(b.pergunta_de_abertura||'—')}"`, W - M*2 - 10);
+  const boxH = openerLines.length * 5 + 14;
+  doc.roundedRect(M, y, W - M*2, boxH, 2, 2, 'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(...GOLD);
+  doc.text('PERGUNTA DE ABERTURA SUGERIDA', M + 5, y + 7);
+  doc.setFont('times','italic'); doc.setFontSize(10.5); doc.setTextColor(...DARK);
+  doc.text(openerLines, M + 5, y + 13);
+
+  // ── Footer ──
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4);
+    doc.line(M, 285, W - M, 285);
+    doc.setFont('times','normal'); doc.setFontSize(8); doc.setTextColor(...GRAY);
+    doc.text('daCosta[IA] · Automação com inteligência · Gerado por Letíc[IA]', M, 291);
+    doc.text(`${i}/${pageCount}`, W - M, 291, { align: 'right' });
+  }
+
+  doc.save(`briefing-${agentName.toLowerCase()}-${Date.now()}.pdf`);
+  showToast('Briefing em PDF exportado com sucesso');
+}
+
+function esc_(s){
+  // remove caracteres que o jsPDF (helvetica/times) não renderiza bem
+  return (s||'').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim();
 }
 
 // START
 function startDemo(){
   const btn=document.getElementById('start-btn'),label=document.getElementById('btn-label'),spinner=document.getElementById('btn-spinner');
   btn.disabled=true;label.textContent='Iniciando...';spinner.style.display='block';
-  agentName=document.getElementById('cfg-name').value.trim()||'Letíc[IA]';
+  agentName=document.getElementById('cfg-name').value.trim()||'Letícia';
   companyName=document.getElementById('cfg-company').value.trim()||'daCosta[IA]';
   sector=document.getElementById('cfg-sector').value;
   const initial=agentName.charAt(0).toUpperCase();
