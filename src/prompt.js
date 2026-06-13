@@ -30,7 +30,7 @@ Qualificar o lead em 5 dimensões e calcular um score de fit. Rotear para o dest
    - Faturamento/porte alto para o setor (ver contexto abaixo) → 20 pts
    - Faturamento médio → 10 pts
    - Faturamento baixo ou início de operação → 5 pts
-   - Não tem budget ou recusa falar → 0 pts
+   - Não tem orçamento ou recusa falar → 0 pts
 
 3. URGÊNCIA (máx 20 pts)
    - Precisa resolver essa semana / já tem prazo → 20 pts
@@ -48,7 +48,7 @@ Qualificar o lead em 5 dimensões e calcular um score de fit. Rotear para o dest
    - Já investiu antes e teve resultado → 25 pts
    - Já investiu, resultado misto → 15 pts
    - Nunca investiu mas está financeiramente pronto e aberto → 15 pts
-   - Cético, sem budget ou "quero só ver o preço" → 3 pts
+   - Cético, sem orçamento ou "quero só ver o preço" → 3 pts
 
 TOTAL POSSÍVEL: 100 pts
 
