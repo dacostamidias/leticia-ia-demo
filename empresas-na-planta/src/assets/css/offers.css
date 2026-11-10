@@ -161,3 +161,10 @@
 .on-dark .offer .link-arrow { color: var(--blue-600); }
 .on-dark .offer .badge--gold { color: var(--gold-800); border-color: rgb(210 163 92 / 0.4); }
 .on-dark .offer :focus-visible { box-shadow: var(--ring); }
+
+/* Escolas Jesus Para As Crianças: fundo bordô igual ao do site educacaojpc.com.br (#560c1e / #6a2235) */
+.offer-hero__logo--bordo { background: radial-gradient(circle at 50% 35%, #6a2235, #560c1e 72%); border-color: rgb(207 167 63 / 0.45); }
+/* Topo da oferta das escolas no bordô do site educacaojpc.com.br */
+.offer-hero--bordo { background: #3a101c; }
+.offer-hero--bordo::before { background: linear-gradient(90deg, rgb(58 16 28 / 0.97) 0%, rgb(86 12 30 / 0.88) 55%, rgb(106 34 53 / 0.55) 100%); }
+.offer-hero--bordo .tag--blue { background: rgb(255 255 255 / 0.12); color: #fff; }

@@ -13,7 +13,8 @@
       "categoria": "Tecnologia",
       "tipo": "Participação societária",
       "logo": "/assets/img/logo-champions.webp",
-      "logoW": 500, "logoH": 432,
+      "logoW": 500,
+      "logoH": 432,
       "logoFundo": "#06101b",
       "capa": "/assets/img/estadio.webp",
       "emissora": "Champions Sports",
@@ -30,7 +31,15 @@
       "captado": null,
       "investidores": null,
       "encerramento": null,
-      "whatsapp": { "e164": "5541998755323", "display": "(41) 99875-5323", "texto": "Gostaria de mais informações sobre a oferta da Champions Sports." }
+      "whatsapp": {
+        "e164": "5541998755323",
+        "display": "(41) 99875-5323",
+        "texto": "Gostaria de mais informações sobre a oferta da Champions Sports."
+      },
+      "tags": [
+        "Esporte",
+        "Inteligência Artificial"
+      ]
     },
     {
       "slug": "escolas-jesus-para-as-criancas",
@@ -43,8 +52,9 @@
       "categoria": "Educação",
       "tipo": "Participação societária",
       "logo": "/assets/img/ofertas/jpc-logo.webp",
-      "logoW": 367, "logoH": 263,
-      "logoFundo": "#0a1b3d",
+      "logoW": 367,
+      "logoH": 263,
+      "logoFundo": "radial-gradient(circle at 50% 35%, #6a2235, #560c1e 72%)",
       "capa": "/assets/img/ofertas/jpc-criancas.webp",
       "emissora": "Sistema de Educação Jesus Para As Crianças",
       "cnpj": null,
@@ -60,7 +70,14 @@
       "captado": null,
       "investidores": null,
       "encerramento": null,
-      "whatsapp": { "e164": "5541998497977", "display": "(41) 99849-7977", "texto": "Gostaria de mais informações sobre como comprar um pedacinho de uma escola com R$50/mês" }
+      "whatsapp": {
+        "e164": "5541998497977",
+        "display": "(41) 99849-7977",
+        "texto": "Gostaria de mais informações sobre como comprar um pedacinho de uma escola com R$50/mês"
+      },
+      "tags": [
+        "Educação"
+      ]
     }
   ]
 }

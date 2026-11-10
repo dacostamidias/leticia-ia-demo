@@ -46,7 +46,7 @@ export function card(o) {
   </header>
   <ul class="offer__tags" role="list">
     <li><span class="tag tag--blue"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg>${esc(o.tipo)}</span></li>
-    <li><span class="tag">${esc(o.setor)}</span></li>
+    ${(o.tags && o.tags.length ? o.tags : [o.setor]).map((t) => `<li><span class="tag">${esc(t)}</span></li>`).join('\n    ')}
   </ul>
   <p class="offer__pitch">${esc(o.chamada)}.</p>
   <dl class="offer__kpis">
