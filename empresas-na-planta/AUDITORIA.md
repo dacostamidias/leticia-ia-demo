@@ -33,6 +33,7 @@
 19. [Redesign proposto e implementado](#19-redesign-proposto-e-implementado)
 20. [Plano mestre de execução](#20-plano-mestre-de-execução)
 21. [Respostas finais](#21-respostas-finais)
+22. [Levantamento de capital: Champions Sports e Escolas](#22-levantamento-de-capital-champions-sports-e-rede-de-escolas-jesus-para-as-crianças)
 
 ---
 
@@ -563,6 +564,49 @@ A metáfora do apartamento na planta; a comparação Tesla/Amazon e a virada "ma
 
 ---
 
+## 22. Levantamento de capital: Champions Sports e Rede de Escolas Jesus Para As Crianças
+
+*Adendo de 10/11/2026, a pedido do cliente: páginas de captação no modelo da **Kria** (kria.vc) e da **EqSeed** (eqseed.com).*
+
+### 22.1 O que as referências fazem bem e o que foi adaptado
+| Padrão | Kria | EqSeed | Aplicação na Empresas na Planta |
+|---|---|---|---|
+| Card de oferta com KPIs | Captando, rentabilidade, mínimo, % captado e barra | Valor objetivo, participação, mínimo | Card com situação, tipo e setor, **meta de captação**, **retorno**, mínimo, barra de progresso, "Investir" e "Ver oferta" |
+| Navegação entre ofertas | Carrossel com setas | Grade | Carrossel com setas (desabilitadas nas pontas) na home; grade com filtro por situação em `/oportunidades/` |
+| Página de oferta | — (só no app) | Painel fixo (investido, mínimo, investidores, investir, falar com a plataforma, compartilhar) e seções (negócio, mercado, metas, equipe, riscos, documentos, fórum) | Painel fixo idêntico em função; seções: resumo, produto, como gera receita, termos, documentos, riscos e dúvidas |
+| Voz da empresa × voz da plataforma | Misturadas | "Carta da CEO" separada | Bloco **"Nas palavras da empresa"**: as alegações comerciais de cada projeto ficam atribuídas a ele, e a plataforma mantém um tom neutro |
+| Fatores de risco | — | Resumo + link para o documento completo | Resumo de 5 riscos por oferta + link para o Aviso de Risco |
+
+**Erros das referências que foram evitados (observados nas capturas enviadas pelo cliente):** "**R$R$** 2.000,00" e "9,28**%%** captados" (Kria). No novo componente, a moeda e o percentual são formatados em um único ponto (`src/components/ofertas.mjs`), e o teste `e2e-ofertas.cjs` verifica que essas duplicações não ocorrem.
+
+### 22.2 Fontes dos dados (nada inventado)
+| Dado | Fonte |
+|---|---|
+| Champions Sports: proposta, 6 funcionalidades da IA, 5 fontes de receita, frase de abertura, CNPJ **51.603.305/0001-29** | championssports.com.br (coletado em 10/11/2026) |
+| Champions Sports: preço por ação, mínimo, parcelamento, bonificação, dividendos | FAQ da empresasnaplanta.com.br (regras gerais da plataforma) |
+| Escolas: chamada, 5 pilares, "Por que investir em escolas", "Como você lucra", R$ 50,00/mês, versículo, WhatsApp (41) 99849-7977 | educacaojpc.com.br (coletado em 10/11/2026) |
+| **Meta de captação, valor captado, investidores, prazo** | **Não publicados por nenhuma das fontes.** Aparecem como "A divulgar", com a barra de progresso em estado neutro |
+
+### 22.3 Como os números passam a ser exibidos
+`src/data/ofertas.json` → o build gera cards e painéis → o site lê `/dados/ofertas.json` a cada visita e atualiza meta, captado, investidores, percentual e barra **sem novo build**. Recomenda-se que o portal (que conhece os pagamentos confirmados) escreva esse arquivo. Assim o "captado" vem sempre de pagamentos compensados, nunca de reservas ou promessas (o mesmo princípio de integridade da área do acionista, §19.6).
+
+### 22.4 Novos achados (para decisão do cliente e do jurídico)
+| # | Achado | Evidência | Recomendação |
+|---|---|---|---|
+| C1 | **Escolas: "Comece com apenas R$ 50,00/mês"** × plataforma: "mínimo de 100 ações (R$ 5.000) na primeira compra" | educacaojpc.com.br × FAQ | Definir se o plano mensal é outro produto, com outras regras. Por enquanto, a página das escolas mostra só o que foi publicado ("A partir de R$ 50,00/mês") e não aplica o simulador da plataforma |
+| C2 | **Escolas: emissora e CNPJ não identificados** | educacaojpc.com.br (só endereço e "Copyright © 2024") | Publicar razão social e CNPJ da empresa que emite as ações (complementa J5) |
+| C3 | **Champions Sports é pessoa jurídica própria** (CNPJ 51.603.305/0001-29, mesmo endereço) | championssports.com.br | Resolve parte de J5: as ações são da Champions Sports. Confirmar no contrato |
+| C4 | Alegações sensíveis nos sites das empresas: "lucros em Euro e Dólar", "renda vitalícia", "uma das formas mais seguras e lucrativas", "aposentadoria tranquila e segura" | Sites das duas empresas | Mesma análise de J1/J2. Foram mantidas apenas como fala atribuída à empresa ("nas palavras da empresa"), acompanhadas da seção de riscos |
+| C5 | Três canais de WhatsApp diferentes (plataforma, Champions com número +1 786 dos EUA, escolas) | Sites | Na plataforma, a oferta da Champions usa o canal de especialistas (41) 99875-5323; a das escolas, o (41) 99849-7977 publicado pelo projeto. Confirmar |
+| C6 | Site da Champions carrega Tailwind via CDN de desenvolvimento (`cdn.tailwindcss.com`) e imagens do Wix | HTML | Fora do escopo; o CDN do Tailwind não é recomendado para produção |
+
+### 22.5 Verificação
+- `scripts/e2e-ofertas.cjs`: **15/15**. Inclui o cálculo do percentual com dados de teste injetados **apenas no navegador** (9,3% de R$ 1.000.000), a atualização ao vivo, a ausência de "R$R$" e "%%", a barra acessível (`aria-valuenow`), o estado "A divulgar", os filtros, o card inteiro clicável e o carrossel.
+- QA: **15 páginas × 7 larguras = 105 verificações**, sem nenhum problema; axe-core sem violações.
+- Lighthouse mobile: `/oportunidades/` 99/100/100/100; Champions Sports 98/100/100/100; Escolas 98/100/100/100.
+
+---
+
 ### Anexo A — Evidências visuais
 | Antes | Depois |
 |---|---|
@@ -570,6 +614,8 @@ A metáfora do apartamento na planta; a comparação Tesla/Amazon e a virada "ma
 | ![Home atual, mobile](docs/img/antes-home-mobile.jpg) | ![Home nova, mobile](docs/img/depois-home-mobile.jpg) |
 | ![Cadastro atual, 390 px](docs/img/antes-cadastro-mobile.jpg) | ![Área do acionista, protótipo](docs/img/depois-area-do-acionista.jpg) |
 | ![Login atual](docs/img/antes-login-desktop.jpg) | ![Como funciona](docs/img/depois-como-funciona.jpg) |
+| ![Cards de oferta](docs/img/depois-ofertas-cards.jpg) | ![Oferta Champions Sports](docs/img/depois-oferta-champions.jpg) |
+| | ![Oferta Escolas, mobile](docs/img/depois-oferta-escolas-mobile.jpg) |
 
 ![Texto cortado em 1366 px no site atual](docs/img/antes-bug-texto-cortado.jpg)
 

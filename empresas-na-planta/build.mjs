@@ -10,12 +10,13 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { site } from './site.config.mjs';
+import * as ofertasUI from './src/components/ofertas.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
 
-const CSS_ORDER = ['tokens.css', 'base.css', 'components.css', 'sections.css', 'pages.css'];
+const CSS_ORDER = ['tokens.css', 'base.css', 'components.css', 'sections.css', 'offers.css', 'pages.css'];
 
 async function walk(dir) {
   const out = [];
@@ -111,6 +112,31 @@ async function main() {
     bonificacaoPct: `${Math.round(o.bonificacaoMensal * 100)}%`,
   };
 
+  // Ofertas: dados → partials dinâmicos (cards, carrossel, painéis) + JSON público para atualização ao vivo
+  const ofertasData = JSON.parse(await readFile(path.join(SRC, 'data', 'ofertas.json'), 'utf8'));
+  const ofertas = ofertasData.ofertas;
+  for (const o of ofertas) {
+    for (const k of ['slug', 'nome', 'chamada', 'status', 'logo', 'entradaRotulo', 'entradaValor', 'retorno', 'whatsapp']) {
+      if (o[k] == null) throw new Error(`Oferta ${o.slug || '?'} sem o campo obrigatório "${k}"`);
+    }
+    if (o.captado != null && o.meta == null) throw new Error(`Oferta ${o.slug}: "captado" exige "meta"`);
+    partialCache.set(`oferta-card-${o.slug}`, ofertasUI.card(o));
+    partialCache.set(`oferta-painel-${o.slug}`, ofertasUI.painel(o, site));
+  }
+  const ordenadas = [...ofertas].sort((a, b) => (b.destaque === true) - (a.destaque === true));
+  partialCache.set('ofertas-grid', ofertasUI.grid(ordenadas));
+  partialCache.set('ofertas-carousel', ofertasUI.carousel(ordenadas.filter((o) => o.status !== 'encerrada')));
+  await mkdir(path.join(DIST, 'dados'), { recursive: true });
+  await writeFile(
+    path.join(DIST, 'dados', 'ofertas.json'),
+    JSON.stringify({ atualizadoEm: ofertasData.atualizadoEm, ofertas: ofertas.map(({ slug, status, meta, captado, investidores, encerramento }) => ({ slug, status, meta, captado, investidores, encerramento })) }, null, 2),
+  );
+  const ofertasCtx = {
+    total: ofertas.length,
+    abertas: ofertas.filter((o) => o.status === 'aberta').length,
+    encerradas: ofertas.filter((o) => o.status === 'encerrada').length,
+  };
+
   const layout = await readFile(path.join(SRC, 'partials', 'layout.html'), 'utf8');
   const pages = (await walk(path.join(SRC, 'pages'))).filter((f) => f.endsWith('.html'));
   const sitemap = [];
@@ -155,6 +181,7 @@ async function main() {
       },
       asset: { css: `/assets/css/${cssName}`, js: `/assets/js/${jsName}` },
       d: derived,
+      ofertas: ofertasCtx,
     };
     const body = await render(raw.slice(m[0].length), ctx);
     if (page.faqSchema) {

@@ -124,6 +124,85 @@
     update();
   });
 
+  /* ---- Ofertas: dados ao vivo de /dados/ofertas.json -------------------
+     O HTML já vem com os valores do build. Se o arquivo público tiver números mais
+     recentes (atualizados pelo portal), cards e painéis são atualizados sem novo build. */
+  const offerEls = $$('[data-oferta]');
+  if (offerEls.length && 'fetch' in window) {
+    const pctFmt = (p) => `${p.toLocaleString('pt-BR', { maximumFractionDigits: p < 10 ? 1 : 0 })}%`;
+    fetch('/dados/ofertas.json', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data || !Array.isArray(data.ofertas)) return;
+        data.ofertas.forEach((o) => {
+          $$(`[data-oferta="${o.slug}"]`).forEach((el) => {
+            const set = (k, v) => $$(`[data-live="${k}"]`, el).forEach((n) => { n.textContent = v; });
+            if (o.meta != null) set('meta', brl(o.meta).replace(/,00$/, ''));
+            if (o.investidores != null) set('investidores', o.investidores.toLocaleString('pt-BR'));
+            if (o.captado != null) {
+          set('captado', brl(o.captado));
+          set('captado-big', brl(o.captado).replace(/,00$/, ''));
+          document.querySelectorAll('[data-oferta="' + o.slug + '"] [data-live="captado-big"]').forEach((n) => n.classList.remove('offer-panel__big--empty'));
+        }
+            if (o.meta && o.captado != null) {
+              const p = Math.min(100, (o.captado / o.meta) * 100);
+              $$('[data-live="progress"]', el).forEach((pr) => {
+                pr.removeAttribute('data-empty');
+                const track = $('.progress__track', pr);
+                track.setAttribute('aria-valuenow', p.toFixed(1));
+                track.removeAttribute('aria-valuetext');
+                $('.progress__bar', pr).style.setProperty('--p', `${p.toFixed(2)}%`);
+              });
+              set('pct', `${pctFmt(p)} captado`);
+            }
+          });
+        });
+      })
+      .catch(() => { /* sem rede: mantém os valores do build */ });
+  }
+
+  /* ---- Carrossel de ofertas ---------------------------------------------- */
+  $$('[data-carousel]').forEach((c) => {
+    const track = $('[data-carousel-track]', c);
+    const prev = $('[data-carousel-prev]', c);
+    const next = $('[data-carousel-next]', c);
+    const step = () => (track.firstElementChild ? track.firstElementChild.getBoundingClientRect().width + 16 : track.clientWidth);
+    const sync = () => {
+      const max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max;
+      c.dataset.scrollable = String(max > 0);
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  });
+
+  /* ---- Filtro de ofertas por situação ------------------------------------ */
+  $$('[data-offer-filter]').forEach((group) => {
+    const buttons = $$('button[data-filter]', group);
+    const cards = $$('[data-offers] [data-oferta]');
+    const empty = $('[data-offers-empty]');
+    buttons.forEach((b) => b.addEventListener('click', () => {
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const f = b.dataset.filter;
+      let n = 0;
+      cards.forEach((card) => { const show = f === 'todas' || card.dataset.status === f; card.hidden = !show; if (show) n++; });
+      if (empty) empty.hidden = n > 0;
+    }));
+  });
+
+  /* ---- Compartilhar oferta ------------------------------------------------ */
+  $$('[data-share]').forEach((b) => b.addEventListener('click', async () => {
+    const data = { title: b.dataset.shareTitle || document.title, url: location.href.split('#')[0] };
+    try {
+      if (navigator.share) await navigator.share(data);
+      else { await navigator.clipboard.writeText(data.url); toast('Link da oferta copiado'); }
+    } catch (e) { if (e && e.name !== 'AbortError') toast('Não foi possível compartilhar'); }
+  }));
+
   /* ---- FAQ: abre a pergunta indicada na URL e filtra por texto --------- */
   function openFromHash() {
     const id = decodeURIComponent(location.hash.slice(1));
@@ -270,17 +349,24 @@
   }));
 
   /* ---- Navegação lateral com destaque da seção atual (páginas legais) -- */
-  const toc = $('[data-toc]');
-  if (toc && 'IntersectionObserver' in window) {
-    const links = $$('a[href^="#"]', toc);
-    const map = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (!en.isIntersecting) return;
-        links.forEach((a) => a.removeAttribute('aria-current'));
-        map.get(en.target.id)?.setAttribute('aria-current', 'true');
+  // Seção atual = a última cujo topo já passou de 30% da janela (determinístico, sem saltos).
+  const toc = document.querySelector('[data-toc]');
+  if (toc) {
+    const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+    const targets = links.map((a) => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      if (!targets.length) return;
+      const line = window.innerHeight * 0.3;
+      let current = targets[0];
+      targets.forEach((t) => { if (t.getBoundingClientRect().top <= line) current = t; });
+      links.forEach((a) => {
+        if (a.getAttribute('href') === '#' + current.id) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
       });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-    map.forEach((_, id) => { const s = document.getElementById(id); if (s) io.observe(s); });
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
   }
 })();

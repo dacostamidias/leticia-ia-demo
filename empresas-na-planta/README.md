@@ -2,10 +2,10 @@
 
 Redesign completo do site público da Empresas na Planta S.A., feito a partir da auditoria em **[AUDITORIA.md](./AUDITORIA.md)** (diagnóstico, notas, matriz P0–P3 e plano de execução).
 
-- **14 páginas** estáticas, prontas para o servidor LiteSpeed atual.
+- **15 páginas** estáticas, prontas para o servidor LiteSpeed atual, incluindo **páginas de levantamento de capital** no estilo das plataformas de investimento (Kria, EqSeed).
 - **Zero dependências** de runtime. O build usa apenas Node.js ≥ 18.
 - Lighthouse: **99** (mobile) e **100** (desktop) em desempenho; **100** em acessibilidade, boas práticas e SEO.
-- **0 violações** do axe-core (WCAG 2.2 AA) e **98/98** verificações de layout (14 rotas × 7 larguras).
+- **0 violações** do axe-core (WCAG 2.2 AA) e **105/105** verificações de layout (15 rotas × 7 larguras).
 - Textos estratégicos **preservados**: apartamento na planta, participação nos resultados e a comparação Tesla/Amazon.
 
 ## Rodando localmente
@@ -23,8 +23,9 @@ O servidor local aplica os mesmos cabeçalhos de segurança da produção. Ele t
 |---|---|
 | `/` | Home: proposta de valor, condições, Tesla/Amazon, simulador, empresa em destaque, FAQ |
 | `/como-funciona/` | Passo a passo, linha do tempo do acionista, condições, simulador |
-| `/oportunidades/` | Empresas abertas a acionistas |
-| `/oportunidades/champions-sports/` | Página da empresa em destaque |
+| `/oportunidades/` | Ofertas abertas: cards com meta, captado, progresso e mínimo, além de filtro por situação |
+| `/oportunidades/champions-sports/` | Oferta da Champions Sports: painel de investimento, produto, receitas, termos, documentos, riscos e dúvidas |
+| `/oportunidades/escolas-jesus-para-as-criancas/` | Oferta da Rede de Escolas Jesus Para As Crianças (mesmo modelo) |
 | `/nossa-historia/` | Convicção e linha do tempo de 1997 a 2025 |
 | `/nossos-projetos/` | Instituto Incratec e projetos sociais |
 | `/faq/` | 12 perguntas em 3 categorias, com busca e links diretos (`/faq/#token`) |
@@ -38,6 +39,8 @@ O servidor local aplica os mesmos cabeçalhos de segurança da produção. Ele t
 
 ```
 site.config.mjs        ← fonte única: CNPJ, endereço, telefones, URLs do portal, condições da oferta
+src/data/ofertas.json  ← fonte única das ofertas (meta, captado, investidores, status…)
+src/components/ofertas.mjs ← card, carrossel e painel de oferta gerados no build
 build.mjs              ← build estático (partials, hash de assets, sitemap, robots, JSON-LD, checagem de links)
 server.mjs             ← pré-visualização local com cabeçalhos de produção
 src/
@@ -49,16 +52,30 @@ src/
   static/              ← .htaccess, favicon, manifest
 scripts/qa.mjs         ← QA de layout + axe-core em 7 larguras
 scripts/e2e.cjs        ← testes funcionais (22 verificações)
+scripts/e2e-ofertas.cjs← testes das ofertas (15 verificações, com dados de teste injetados só no navegador)
 dist/                  ← saída do build (versionada, pronta para upload)
 ```
 
 **Para mudar o preço da ação, o lote mínimo, os telefones ou o CNPJ**, edite só o `site.config.mjs` e rode `npm run build`. Home, ficha de condições, simulador, páginas de condições e da empresa se atualizam juntos.
+
+## Ofertas (levantamento de capital)
+
+As ofertas ficam em **`src/data/ofertas.json`**. Cada uma gera automaticamente:
+- o **card** (listagem e carrossel da home): nome, situação, tipo, setor, meta de captação, retorno, investimento mínimo, barra de progresso e botões "Investir" e "Ver oferta";
+- o **painel de investimento** da página da oferta: total captado, progresso, investidores, condições, "Investir", "Falar com especialista" e "Compartilhar".
+
+**Atualizar a captação sem novo build:** o site lê `/dados/ofertas.json` a cada visita. Basta o portal (ou alguém da equipe) atualizar `meta`, `captado` e `investidores` nesse arquivo publicado, e cards e painéis se atualizam: percentual, barra e valores.
+
+**Regra:** campo `null` aparece como "A divulgar", e a barra fica em estado neutro (tracejada). **Nunca** preencha com estimativas. O build também recusa `captado` sem `meta`.
+
+Para criar uma nova oferta: adicione um objeto em `ofertas.json` e crie `src/pages/oportunidades/<slug>.html` usando uma das duas páginas existentes como modelo. Os partials `{{> oferta-painel-<slug>}}` e `{{> oferta-card-<slug>}}` passam a existir automaticamente.
 
 ## Qualidade
 
 ```bash
 npm start                                   # em um terminal
 node scripts/e2e.cjs                        # testes funcionais
+node scripts/e2e-ofertas.cjs                # testes das ofertas
 AXE_PATH=/caminho/axe.min.js node scripts/qa.mjs   # layout + acessibilidade
 ```
 
@@ -80,3 +97,5 @@ O portal `ia.empresasnaplanta.com.br` **não foi alterado**. Os botões "Entrar"
 | 2 | Manter "Baixíssimo risco e altíssima rentabilidade." (preservado, como pedido) ou adotar a alternativa sugerida, após parecer jurídico | AUDITORIA §10.3 J2 |
 | 3 | Confirmar os papéis dos dois WhatsApps: atendimento (41) 99823-0937 e especialistas (41) 99875-5323 | `site.config.mjs` |
 | 4 | Fonte e data-base dos valores Tesla/Amazon | AUDITORIA §10.3 J4 |
+| 5 | **Meta de captação, valor captado, nº de investidores e prazo** de cada oferta (hoje "A divulgar") | `src/data/ofertas.json` |
+| 6 | Escolas: como o plano de **R$ 50,00/mês** se relaciona com o mínimo de R$ 5.000 da plataforma, e qual é a empresa emissora e o CNPJ | AUDITORIA §22 |

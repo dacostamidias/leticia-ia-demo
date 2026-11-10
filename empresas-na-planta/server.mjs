@@ -41,10 +41,17 @@ async function contatoMock(req, res) {
 }
 
 createServer(async (req, res) => {
-  const url = new URL(req.url, 'http://localhost');
+  let url;
+  let file;
+  try {
+    // Barras repetidas ("//") e escapes inválidos não podem derrubar o servidor.
+    url = new URL(req.url.replace(/^\/+/, '/'), 'http://localhost');
+    file = path.join(DIST, decodeURIComponent(url.pathname));
+  } catch {
+    res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8', ...SECURITY });
+    return res.end('Requisição inválida');
+  }
   if (url.pathname === '/api/contato.php') return contatoMock(req, res);
-
-  let file = path.join(DIST, decodeURIComponent(url.pathname));
   if (!file.startsWith(DIST)) { res.writeHead(400); return res.end(); }
   try {
     const s = await stat(file);
