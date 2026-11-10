@@ -1,0 +1,46 @@
+<header class="site-header on-dark">
+  <div class="container site-header__in">
+    <a class="brand" href="/" aria-label="Empresas na Planta S.A. — página inicial">
+      <img src="/assets/img/logo.webp" alt="Empresas na Planta S.A." width="378" height="109">
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="/como-funciona/" {{active:como-funciona}}>Como funciona</a></li>
+        <li><a class="nav__link" href="/oportunidades/" {{active:oportunidades}}>Oportunidades</a></li>
+        <li><a class="nav__link" href="/nossa-historia/" {{active:historia}}>Nossa história</a></li>
+        <li><a class="nav__link" href="/nossos-projetos/" {{active:projetos}}>Nossos projetos</a></li>
+        <li><a class="nav__link" href="/faq/" {{active:faq}}>Dúvidas</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--outline btn--sm btn--login" href="{{site.portal.login}}">Entrar</a>
+      <a class="btn btn--primary btn--sm" href="{{site.portal.cadastro}}">Quero ser acionista</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-open>
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="menu-mobile" role="dialog" aria-modal="true" aria-label="Menu" data-open="false" data-menu inert>
+  <div class="container mobile-menu__top">
+    <a class="brand" href="/" aria-label="Empresas na Planta S.A. — página inicial"><img src="/assets/img/logo.webp" alt="" width="378" height="109" style="width:9.5rem"></a>
+    <button class="menu-toggle" type="button" data-menu-close>
+      <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+      <span class="sr-only">Fechar menu</span>
+    </button>
+  </div>
+  <nav class="container mobile-menu__nav" aria-label="Principal (móvel)">
+    <a href="/" {{active:home}}>Início <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a href="/como-funciona/" {{active:como-funciona}}>Como funciona <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a href="/oportunidades/" {{active:oportunidades}}>Oportunidades <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a href="/nossa-historia/" {{active:historia}}>Nossa história <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a href="/nossos-projetos/" {{active:projetos}}>Nossos projetos <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a href="/faq/" {{active:faq}}>Dúvidas frequentes <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a href="/contato/" {{active:contato}}>Contato <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  </nav>
+  <div class="container mobile-menu__foot on-dark" style="background:transparent">
+    <a class="btn btn--primary btn--lg btn--block" href="{{site.portal.cadastro}}">Quero ser acionista</a>
+    <a class="btn btn--outline btn--lg btn--block" href="{{site.portal.login}}">Entrar na área do acionista</a>
+  </div>
+</div>

@@ -1,0 +1,110 @@
+<!--meta {
+  "title": "Design System | Empresas na Planta S.A.",
+  "description": "Tokens e componentes do Design System da Empresas na Planta: cores, tipografia, espaçamento, botões, formulários, cards e estados.",
+  "noindex": true,
+  "h1": "Design System"
+} -->
+<header class="page-hero on-dark page-hero--compact">
+  <div class="container page-hero__in">
+    <p class="eyebrow">Design System · v1.0</p>
+    <h1>Fundamentos e componentes</h1>
+    <p class="lead">Referência viva. Tudo nesta página é renderizado com o mesmo CSS do site — se mudar aqui, muda em todo o produto. Fonte: <code>src/assets/css/tokens.css</code>.</p>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="container ds">
+    <h2 class="t-2xl">1. Cor</h2>
+    <p class="muted">Azul institucional e ouro são preservados da marca. O ouro é acento: nunca texto pequeno sobre fundo claro (use <code>--gold-800</code>).</p>
+    <div class="swatches">
+      <div class="swatch" style="--c:var(--ink-950)"><span></span><b>ink-950</b><code>#050f24</code><small>Rodapé, menu</small></div>
+      <div class="swatch" style="--c:var(--ink-900)"><span></span><b>ink-900</b><code>#0a1b3d</code><small>Superfície escura</small></div>
+      <div class="swatch" style="--c:var(--ink-800)"><span></span><b>ink-800</b><code>#102a5c</code><small>Card escuro</small></div>
+      <div class="swatch" style="--c:var(--blue-600)"><span></span><b>blue-600</b><code>#1456b8</code><small>Marca · links · 6.6:1</small></div>
+      <div class="swatch" style="--c:var(--blue-50)"><span></span><b>blue-50</b><code>#f2f6fc</code><small>Fundo informativo</small></div>
+      <div class="swatch" style="--c:var(--gold-500)"><span></span><b>gold-500</b><code>#e9bf7e</code><small>CTA primário</small></div>
+      <div class="swatch" style="--c:var(--gold-800)"><span></span><b>gold-800</b><code>#7a5418</code><small>Ouro em texto</small></div>
+      <div class="swatch" style="--c:var(--paper)"><span></span><b>paper</b><code>#fbfaf7</code><small>Fundo da página</small></div>
+      <div class="swatch" style="--c:var(--text)"><span></span><b>text</b><code>#12203d</code><small>Texto · 15.5:1</small></div>
+      <div class="swatch" style="--c:var(--text-2)"><span></span><b>text-2</b><code>#3f4a60</code><small>Secundário · 8.5:1</small></div>
+      <div class="swatch" style="--c:var(--success)"><span></span><b>success</b><code>#13764b</code><small>Confirmado</small></div>
+      <div class="swatch" style="--c:var(--warning)"><span></span><b>warning</b><code>#8f5a00</code><small>Atenção</small></div>
+      <div class="swatch" style="--c:var(--danger)"><span></span><b>danger</b><code>#b42318</code><small>Erro</small></div>
+    </div>
+
+    <h2 class="t-2xl">2. Tipografia</h2>
+    <p class="muted">Playfair Display (títulos, herança editorial da marca) + Inter (interface e leitura, números tabulares). Duas famílias, auto-hospedadas, com fallback métrico para evitar saltos de layout.</p>
+    <div class="type-scale card">
+      <p class="t-5xl display">Display 5xl</p>
+      <p class="t-4xl display">Título 4xl</p>
+      <p class="t-3xl display">Título 3xl</p>
+      <p class="t-2xl display">Título 2xl</p>
+      <p class="t-sans-title">Título de componente · Inter 650</p>
+      <p class="lead">Lead · 19px · para introduções de seção.</p>
+      <p>Corpo · 16px/1.6 · Inter 400. Texto de leitura com medida máxima de 68 caracteres.</p>
+      <p class="small muted">Pequeno · 14px · metadados e apoio.</p>
+      <p class="eyebrow">Eyebrow · 12px caixa-alta</p>
+      <p class="stat__value">R$ 5.000,00</p>
+    </div>
+
+    <h2 class="t-2xl">3. Espaço, raio e elevação</h2>
+    <div class="cluster" style="--cluster:var(--s-4);align-items:flex-end">
+      <div class="space" style="--sz:var(--s-2)"><span></span>s-2 · 8</div>
+      <div class="space" style="--sz:var(--s-4)"><span></span>s-4 · 16</div>
+      <div class="space" style="--sz:var(--s-6)"><span></span>s-6 · 24</div>
+      <div class="space" style="--sz:var(--s-8)"><span></span>s-8 · 32</div>
+      <div class="space" style="--sz:var(--s-12)"><span></span>s-12 · 48</div>
+      <div class="space" style="--sz:var(--s-16)"><span></span>s-16 · 64</div>
+    </div>
+    <div class="grid grid-3" style="margin-top:var(--s-6)">
+      <div class="card" style="box-shadow:var(--sh-1)"><b>sh-1</b><p class="small muted">Repouso: cards e listas.</p></div>
+      <div class="card" style="box-shadow:var(--sh-2)"><b>sh-2</b><p class="small muted">Hover e elementos destacados.</p></div>
+      <div class="card" style="box-shadow:var(--sh-3)"><b>sh-3</b><p class="small muted">Sobreposições: cartão de investimento, toasts.</p></div>
+    </div>
+
+    <h2 class="t-2xl">4. Botões</h2>
+    <p class="muted">Um único primário (ouro) por bloco. Altura mínima de 40px (sm), 48px (md) e 56px (lg) — acima do alvo de 24px da WCAG 2.2.</p>
+    <div class="card stack">
+      <div class="cluster"><button type="button" class="btn btn--primary btn--lg">Primário lg</button><button type="button" class="btn btn--primary">Primário</button><button type="button" class="btn btn--primary btn--sm">Primário sm</button><button class="btn btn--primary" type="button" disabled>Desabilitado</button></div>
+      <div class="cluster"><button type="button" class="btn btn--secondary">Secundário</button><button type="button" class="btn btn--outline">Contorno</button><button type="button" class="btn btn--whats"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</button><button type="button" class="link-arrow" style="background:none;border:0;padding:0">Link com seta <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+    </div>
+    <div class="card card--dark stack on-dark" style="margin-top:var(--s-4)">
+      <div class="cluster"><button type="button" class="btn btn--primary">Primário sobre escuro</button><button type="button" class="btn btn--outline">Contorno sobre escuro</button><button type="button" class="link-arrow" style="background:none;border:0;padding:0">Link <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+    </div>
+
+    <h2 class="t-2xl">5. Formulários</h2>
+    <div class="grid grid-2">
+      <div class="card stack">
+        <div class="field"><label for="ds1">Campo padrão</label><input class="input" id="ds1" placeholder="nome@exemplo.com"><p class="hint">Texto de ajuda.</p></div>
+        <div class="field" data-invalid="true"><label for="ds2">Campo com erro</label><input class="input" id="ds2" value="nome@" aria-invalid="true" aria-describedby="ds2e"><p class="error" id="ds2e"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span>Informe um e-mail válido.</span></p></div>
+        <div class="field"><label for="ds3">Seleção</label><select class="select" id="ds3"><option>Brasileiro</option><option>Estrangeiro</option></select></div>
+      </div>
+      <div class="card stack">
+        <fieldset class="field" style="border:0;padding:0;margin:0"><legend class="label">Controle segmentado</legend><div class="segmented"><input type="radio" name="dsseg" id="dss1" checked><label for="dss1">À vista</label><input type="radio" name="dsseg" id="dss2"><label for="dss2">2×</label><input type="radio" name="dsseg" id="dss3"><label for="dss3">3×</label></div></fieldset>
+        <div class="field"><label for="ds4">Área de texto</label><textarea class="textarea" id="ds4" rows="3"></textarea></div>
+      </div>
+    </div>
+
+    <h2 class="t-2xl">6. Feedback e estados</h2>
+    <div class="cluster"><span class="badge">Neutro</span><span class="badge badge--blue">Informativo</span><span class="badge badge--gold"><span class="dot"></span>Destaque</span><span class="badge badge--success">Confirmado</span><span class="badge badge--warning">Pendente</span></div>
+    <div class="stack" style="margin-top:var(--s-4)">
+      <div class="notice" role="note"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><p><strong>Informação.</strong> Use para contexto que ajuda a decidir.</p></div>
+      <div class="notice notice--warning" role="note"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><p><strong>Atenção.</strong> Use para prazos, riscos e consequências.</p></div>
+    </div>
+
+    <h2 class="t-2xl">7. Dados</h2>
+    <div class="grid grid-2">
+      <div class="card"><dl class="facts"><div><dt>Lista de fatos</dt><dd>R$ 50,00</dd></div><div><dt>Rótulo à esquerda</dt><dd>valor à direita</dd></div><div><dt>Números</dt><dd>tabulares</dd></div></dl></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th scope="col">Tabela</th><th scope="col" class="num">Valor</th></tr></thead><tbody><tr><td>Linha</td><td class="num">—</td></tr><tr><td>Estado vazio</td><td class="num">—</td></tr></tbody></table></div>
+    </div>
+
+    <h2 class="t-2xl">8. Regras</h2>
+    <ul class="checklist">
+      <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Componentes usam apenas tokens. Nenhuma cor, raio ou sombra literal.</span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Contraste mínimo de 4.5:1 para texto e 3:1 para componentes e foco.</span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todo número financeiro em fonte tabular, com origem e significado visíveis.</span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Animação apenas para explicar mudança de estado; desligada com <code>prefers-reduced-motion</code>.</span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Dados institucionais (CNPJ, contatos, condições) vêm de <code>site.config.mjs</code>, nunca digitados em páginas.</span></li>
+    </ul>
+  </div>
+</section>

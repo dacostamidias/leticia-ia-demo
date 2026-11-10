@@ -1,0 +1,75 @@
+<!--meta {
+  "title": "Champions Sports | Oportunidades | Empresas na Planta S.A.",
+  "description": "Seja dono(a) de um pedacinho do App da Champions Sports. Ações a R$ 50,00, investimento mínimo de R$ 5.000, parcelado em até 5 vezes.",
+  "nav": "oportunidades",
+  "h1": "Champions Sports",
+  "breadcrumb": [{"name":"Oportunidades","path":"/oportunidades/"}],
+  "priority": 0.8
+} -->
+<header class="company-hero on-dark">
+  <img class="company-hero__bg" src="/assets/img/estadio.webp" alt="" width="900" height="645" fetchpriority="high">
+  <div class="container company-hero__grid">
+    <div class="page-hero__in">
+      <nav class="breadcrumb" aria-label="Você está em"><ol><li><a href="/">Início</a></li><li><a href="/oportunidades/">Oportunidades</a></li><li><span aria-current="page">Champions Sports</span></li></ol></nav>
+      <span class="badge badge--gold"><span class="dot"></span>Empresa em destaque!</span>
+      <h1>Seja dono(a) de um pedacinho do App da Champions Sports.</h1>
+      <p class="lead">A IA está revolucionando a medicina, a educação, indústrias inteiras, e agora o futebol. Vamos gerar lucros globais para os acionistas.</p>
+      <div class="cluster">
+        <a class="btn btn--primary btn--lg" href="{{site.portal.cadastro}}">Quero ser acionista <svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--outline btn--lg" href="https://championssports.com.br" rel="noopener" target="_blank">Site oficial <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg><span class="sr-only">(abre em nova aba)</span></a>
+      </div>
+    </div>
+    <img class="company-hero__logo" src="/assets/img/logo-champions.webp" alt="Champions Sports" width="500" height="432">
+  </div>
+</header>
+
+<section class="section" aria-labelledby="ofer-title">
+  <div class="container company-layout">
+    <div style="display:grid;gap:var(--s-12)">
+      <div class="stack" style="--stack:var(--s-4)">
+        <p class="eyebrow">A empresa</p>
+        <h2 id="ofer-title" class="t-3xl">Um app de esporte, com inteligência artificial no centro.</h2>
+        <p class="lead">A Champions Sports é a empresa em destaque da Empresas na Planta S.A. Como acionista, você passa a ser dono(a) de uma parte do aplicativo e participa dos resultados da empresa, conforme as regras do contrato.</p>
+      </div>
+
+      <div class="stack" style="--stack:var(--s-5)">
+        <h3 class="t-2xl">O que você recebe como acionista</h3>
+        <ul class="grid grid-2" role="list" style="--grid-gap:var(--s-4)">
+          <li class="card stack"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg></span><h4>Certificado de aquisição de ações</h4><p class="muted small">Emitido após o pagamento, pronto para imprimir.</p></li>
+          <li class="card stack"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span><h4>Bonificação antes da operação</h4><p class="muted small">{{d.bonificacaoPct}} ao mês em ações, sobre o valor investido, por até {{site.oferta.mesesPreOperacao}} meses.</p></li>
+          <li class="card stack"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-cash"/></svg></span><h4>Direito aos lucros</h4><p class="muted small">A partir da operação. Primeiro saque com {{site.oferta.primeiroSaqueMeses}} meses; depois, trimestral.</p></li>
+          <li class="card stack"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span><h4>Relatório contábil online</h4><p class="muted small">Atualizado diariamente, com acesso para auditoria.</p></li>
+        </ul>
+      </div>
+
+      <div class="stack" style="--stack:var(--s-5)">
+        <h3 class="t-2xl">Documentos para ler antes de investir</h3>
+        <ul class="doclist" role="list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><div><a href="/aviso-de-risco/">Aviso de Risco</a><p class="small muted">Natureza dos serviços, riscos, liquidez e limitação de responsabilidade.</p></div></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><div><a href="/termos-de-servico/">Termos de Serviço</a><p class="small muted">Objeto, responsabilidades e proteção de dados.</p></div></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><div><a href="/politica-de-privacidade/">Política de Privacidade</a><p class="small muted">Como seus dados são tratados, conforme a LGPD.</p></div></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><span class="doclist__title">Contrato de aquisição de ações</span><p class="small muted">Gerado na sua área do acionista ao clicar em <span class="kbd">Gerar contrato</span>, com as condições da sua compra.</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="company-aside" role="group" aria-labelledby="aside-title">
+      <div class="card company-aside__card">
+        <p id="aside-title" class="t-sans-title">Condições de participação</p>
+        <dl class="facts">
+          <div><dt>Preço por ação</dt><dd>{{d.precoAcao}}</dd></div>
+          <div><dt>Primeira compra</dt><dd>{{site.oferta.loteMinimo}} ações</dd></div>
+          <div><dt>Investimento mínimo</dt><dd>{{d.investimentoMinimo}}</dd></div>
+          <div><dt>Parcelamento</dt><dd>até {{site.oferta.parcelasMax}}× de {{d.parcelaMinima}}</dd></div>
+          <div><dt>Pagamento</dt><dd>PIX, transferência, cartão ou boleto</dd></div>
+        </dl>
+        <a class="btn btn--primary btn--block" href="{{site.portal.cadastro}}">Começar agora <svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--whats btn--block" href="https://wa.me/{{site.whatsEspecialistas.e164}}?text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Champions%20Sports." rel="noopener" target="_blank"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Falar com especialista</a>
+        <p class="tiny muted">Toda participação envolve riscos. Leia o <a href="/aviso-de-risco/">Aviso de Risco</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{> simulador}}
+{{> cta-final}}

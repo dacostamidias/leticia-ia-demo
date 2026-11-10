@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /prototipo/
+Disallow: /design-system/
+
+Sitemap: https://empresasnaplanta.com.br/sitemap.xml

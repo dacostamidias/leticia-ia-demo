@@ -1,0 +1,76 @@
+<!--meta {
+  "title": "Perguntas frequentes | Empresas na Planta S.A.",
+  "description": "Como comprar ações, opções e formas de pagamento, bonificação, dividendos, prazos, transparência e token de segurança. Todas as respostas em um só lugar.",
+  "nav": "faq",
+  "h1": "Perguntas frequentes",
+  "faqSchema": true,
+  "priority": 0.8
+} -->
+<header class="page-hero on-dark">
+  <div class="container page-hero__in">
+    <nav class="breadcrumb" aria-label="Você está em"><ol><li><a href="/">Início</a></li><li><span aria-current="page">Perguntas frequentes</span></li></ol></nav>
+    <p class="eyebrow">Dúvidas</p>
+    <h1>Perguntas frequentes</h1>
+    <p class="lead">Respostas sobre como comprar ações, formas de pagamento, dividendos e prazos. Se preferir, fale com a nossa equipe pelo WhatsApp <a href="https://wa.me/{{site.whatsAtendimento.e164}}" rel="noopener" target="_blank" style="color:#fff">{{site.whatsAtendimento.display}}</a>.</p>
+    <div class="faq-search">
+      <label class="sr-only" for="faq-q">Buscar nas perguntas frequentes</label>
+      <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="faq-q" class="input" type="search" placeholder="Buscar: dividendos, parcelas, token…" autocomplete="off" data-faq-search>
+      <p class="small faq-search__count" aria-live="polite" data-faq-count></p>
+    </div>
+  </div>
+</header>
+
+<section class="section" aria-label="Respostas">
+  <div class="container faq-layout">
+    <nav class="faq-nav" aria-label="Categorias">
+      <p class="tiny muted" style="text-transform:uppercase;letter-spacing:.1em;font-weight:600">Categorias</p>
+      <ul role="list">
+        <li><a href="#compra">Compra e pagamento</a></li>
+        <li><a href="#rendimentos">Rendimentos e dividendos</a></li>
+        <li><a href="#conta">Conta, transparência e segurança</a></li>
+      </ul>
+      <div class="faq-nav__help card">
+        <p class="t-sans-title">Ainda com dúvida?</p>
+        <p class="small muted">Fale com a nossa equipe.</p>
+        <a class="btn btn--whats btn--sm btn--block" href="https://wa.me/{{site.whatsAtendimento.e164}}" rel="noopener" target="_blank"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a>
+        <a class="btn btn--outline btn--sm btn--block" href="/contato/">Enviar mensagem</a>
+      </div>
+    </nav>
+    <div class="stack" style="--stack:var(--s-12)">
+      <div class="faq-group" id="compra" data-faq-group>
+        <h2 class="t-2xl">Compra e pagamento</h2>
+        <div class="accordion">
+          {{> faq-como-comprar}}
+          {{> faq-opcoes-compra}}
+          {{> faq-formas-pagamento}}
+          {{> faq-parcelas-dividendos}}
+          {{> faq-atraso}}
+          {{> faq-pagamentos-creditados}}
+        </div>
+      </div>
+      <div class="faq-group" id="rendimentos" data-faq-group>
+        <h2 class="t-2xl">Rendimentos e dividendos</h2>
+        <div class="accordion">
+          {{> faq-quanto-rende}}
+          {{> faq-primeiro-saque}}
+          {{> faq-recebimento-dividendos}}
+          {{> faq-reinvestir}}
+        </div>
+      </div>
+      <div class="faq-group" id="conta" data-faq-group>
+        <h2 class="t-2xl">Conta, transparência e segurança</h2>
+        <div class="accordion">
+          {{> faq-transparencia}}
+          {{> faq-token}}
+        </div>
+      </div>
+      <div class="notice" hidden data-faq-empty>
+        <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+        <p><strong>Nenhuma resposta encontrada.</strong> Tente outra palavra ou fale com a nossa equipe pelo <a href="https://wa.me/{{site.whatsAtendimento.e164}}" rel="noopener" target="_blank">WhatsApp</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{> cta-final}}

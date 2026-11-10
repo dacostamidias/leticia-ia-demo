@@ -1,0 +1,49 @@
+<footer class="site-footer on-dark" style="background:var(--ink-950)">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand stack" style="--stack:var(--s-5)">
+        <a class="brand" href="/" aria-label="Empresas na Planta S.A. — página inicial"><img src="/assets/img/logo.webp" alt="Empresas na Planta S.A." width="378" height="109" loading="lazy"></a>
+        <p style="max-width:30ch">Da mesma forma que você compra um apartamento na planta, aqui você compra um pedaço de uma empresa na planta.</p>
+        <div class="social">
+          <a href="{{site.instagram}}" rel="noopener" target="_blank" aria-label="Instagram (abre em nova aba)"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a>
+          <a href="{{site.facebook}}" rel="noopener" target="_blank" aria-label="Facebook (abre em nova aba)"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h2>Plataforma</h2>
+        <ul>
+          <li><a href="/como-funciona/">Como funciona</a></li>
+          <li><a href="/oportunidades/">Oportunidades</a></li>
+          <li><a href="{{site.portal.cadastro}}">Criar conta</a></li>
+          <li><a href="{{site.portal.login}}">Área do acionista</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Empresa</h2>
+        <ul>
+          <li><a href="/nossa-historia/">Nossa história</a></li>
+          <li><a href="/nossos-projetos/">Nossos projetos</a></li>
+          <li><a href="/faq/">Dúvidas frequentes</a></li>
+          <li><a href="/contato/">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Atendimento</h2>
+        <ul>
+          <li><a href="https://wa.me/{{site.whatsAtendimento.e164}}" rel="noopener" target="_blank"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>{{site.whatsAtendimento.display}}</a></li>
+          <li><a href="mailto:{{site.email}}"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>{{site.email}}</a></li>
+          <li><span style="display:inline-flex;gap:var(--s-2)"><svg class="icon" aria-hidden="true" style="margin-top:.2em"><use href="#i-pin"/></svg><span>{{site.address.street}} – {{site.address.district}}<br>{{site.address.city}}/{{site.address.state}} · CEP {{site.address.zip}}</span></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <nav aria-label="Documentos legais" class="cluster" style="--cluster:var(--s-5)">
+        <a href="/aviso-de-risco/">Aviso de risco</a>
+        <a href="/termos-de-servico/">Termos de serviço</a>
+        <a href="/politica-de-privacidade/">Política de privacidade</a>
+      </nav>
+      <p>Toda participação societária envolve riscos, inclusive de perda do capital investido. Rentabilidade passada não é garantia de rentabilidade futura. Leia o <a href="/aviso-de-risco/" style="text-decoration:underline">Aviso de Risco</a> antes de investir.</p>
+      <p>© {{site.foundedProject}}–{{site.year}} {{site.name}} · CNPJ {{site.cnpj}} · {{site.legalType}} · Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>

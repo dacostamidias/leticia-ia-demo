@@ -1,0 +1,66 @@
+<!--meta {
+  "title": "Contato | Empresas na Planta S.A.",
+  "description": "Fale com a Empresas na Planta S.A.: WhatsApp, e-mail ou formulário. Sede administrativa em Curitiba (PR).",
+  "nav": "contato",
+  "h1": "Contato",
+  "priority": 0.6
+} -->
+<header class="page-hero on-dark">
+  <div class="container page-hero__in">
+    <nav class="breadcrumb" aria-label="Você está em"><ol><li><a href="/">Início</a></li><li><span aria-current="page">Contato</span></li></ol></nav>
+    <p class="eyebrow">Contato</p>
+    <h1>Quer falar conosco?</h1>
+    <p class="lead">Envie-nos uma mensagem e entraremos em contato em breve. Para respostas mais rápidas, use o WhatsApp.</p>
+  </div>
+</header>
+
+<section class="section" aria-label="Canais de atendimento e formulário">
+  <div class="container contact">
+    <div class="contact__channels">
+      <a class="channel card card--interactive" href="https://wa.me/{{site.whatsAtendimento.e164}}" rel="noopener" target="_blank">
+        <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
+        <span><span class="channel__label">Atendimento ao acionista</span><span class="channel__value">{{site.whatsAtendimento.display}}</span><span class="small muted">Dúvidas, pagamentos e token de segurança</span></span>
+      </a>
+      <a class="channel card card--interactive" href="https://wa.me/{{site.whatsEspecialistas.e164}}?text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20para%20ser%20um%20acionista%20com%20valores%20maiores." rel="noopener" target="_blank">
+        <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+        <span><span class="channel__label">Especialistas</span><span class="channel__value">{{site.whatsEspecialistas.display}}</span><span class="small muted">Participações acima de R$ 5.000,00</span></span>
+      </a>
+      <div class="channel card">
+        <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+        <span><span class="channel__label">E-mail</span><a class="channel__value" href="mailto:{{site.email}}">{{site.email}}</a>
+        <button class="copy-btn" type="button" data-copy="{{site.email}}">Copiar e-mail</button></span>
+      </div>
+      <div class="channel card">
+        <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span>
+        <span><span class="channel__label">Sede administrativa</span><span class="channel__value" style="font-size:var(--fs-base)">{{site.address.street}} – {{site.address.district}}</span><span class="small muted">{{site.address.city}}/{{site.address.state}} · CEP {{site.address.zip}}</span>
+        <a class="link-arrow small" href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Deputado%20Leoberto%20Leal%2C%20623%2C%20Curitiba%20PR" rel="noopener" target="_blank">Ver no mapa <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg><span class="sr-only">(abre em nova aba)</span></a></span>
+      </div>
+    </div>
+
+    <form class="card contact__form" action="/api/contato.php" method="post" novalidate data-contact aria-labelledby="form-title">
+      <h2 id="form-title" class="t-2xl">Envie sua mensagem</h2>
+      <div class="field">
+        <label for="c-email">E-mail</label>
+        <input class="input" id="c-email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="c-email-err">
+        <p class="error" id="c-email-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p>
+      </div>
+      <div class="field">
+        <label for="c-assunto">Assunto</label>
+        <input class="input" id="c-assunto" name="assunto" type="text" required minlength="3" maxlength="140" aria-describedby="c-assunto-err">
+        <p class="error" id="c-assunto-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p>
+      </div>
+      <div class="field">
+        <label for="c-msg">Mensagem</label>
+        <textarea class="textarea" id="c-msg" name="mensagem" rows="6" required minlength="5" maxlength="4000" aria-describedby="c-msg-err c-msg-count"></textarea>
+        <div class="cluster" style="justify-content:space-between">
+          <p class="error" id="c-msg-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p>
+          <p class="hint num" id="c-msg-count" data-count-for="c-msg" style="margin-left:auto"></p>
+        </div>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="c-site">Não preencha</label><input id="c-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
+      <p class="small muted">Ao enviar, você concorda com a <a href="/politica-de-privacidade/">Política de Privacidade</a>.</p>
+      <button class="btn btn--secondary btn--lg btn--block" type="submit">Enviar mensagem</button>
+      <p class="form-status" role="status" tabindex="-1" data-contact-status></p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+{
+  "name": "empresas-na-planta-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site institucional e comercial da Empresas na Planta S.A. — redesign 2026",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node server.mjs",
+    "dev": "node build.mjs && node server.mjs",
+    "check": "node build.mjs && node scripts/qa.mjs"
+  }
+}

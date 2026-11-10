@@ -1,0 +1,174 @@
+<!--meta {
+  "title": "Protótipo · Área do acionista | Empresas na Planta S.A.",
+  "description": "Protótipo de interface da área do acionista: estrutura de informação proposta, sem dados reais.",
+  "noindex": true,
+  "h1": "Área do acionista (protótipo)",
+  "bodyClass": "is-app"
+} -->
+<div class="proto-banner" role="note">
+  <div class="container cluster" style="justify-content:space-between">
+    <p><strong>Protótipo de interface.</strong> Nenhum dado real ou fictício é exibido: cada indicador mostra o que significa e de onde virá na plataforma.</p>
+    <a class="link-arrow small" href="{{site.portal.login}}">Ir para a área do acionista atual <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+  </div>
+</div>
+
+<h1 class="sr-only">Área do acionista — protótipo de interface</h1>
+<div class="app container" data-tabs data-tabs-hash>
+  <div class="app__side">
+    <div class="app__user">
+      <span class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-user"/></svg></span>
+      <div><p class="small" style="font-weight:600">Nome do acionista</p><p class="tiny muted">Status da identidade e do token</p></div>
+    </div>
+    <div role="tablist" aria-label="Seções da área do acionista" aria-orientation="vertical" class="app__nav">
+      <button role="tab" id="tab-visao-geral" aria-controls="p-visao" aria-selected="true"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Visão geral</button>
+      <button role="tab" id="tab-participacoes" aria-controls="p-part" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>Minhas ações</button>
+      <button role="tab" id="tab-pagamentos" aria-controls="p-pag" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-cash"/></svg>Meus pagamentos</button>
+      <button role="tab" id="tab-dividendos" aria-controls="p-div" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg>Dividendos</button>
+      <button role="tab" id="tab-documentos" aria-controls="p-doc" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Documentos</button>
+      <button role="tab" id="tab-transparencia" aria-controls="p-tra" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Relatório contábil</button>
+      <button role="tab" id="tab-seguranca" aria-controls="p-seg" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Perfil e segurança</button>
+      <button role="tab" id="tab-suporte" aria-controls="p-sup" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-support"/></svg>Suporte</button>
+    </div>
+  </div>
+
+  <div class="app__main">
+    <!-- VISÃO GERAL -->
+    <section role="tabpanel" id="p-visao" aria-labelledby="tab-visao-geral" tabindex="0">
+      <header class="app__head">
+        <div><h2 class="t-2xl">Visão geral</h2><p class="small muted">Resumo das suas participações. Valores atualizados a partir dos registros da plataforma.</p></div>
+        <a class="btn btn--primary btn--sm" href="#participacoes" data-goto="tab-participacoes"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Investir em uma empresa</a>
+      </header>
+
+      <ul class="kpi-grid" role="list">
+        <li class="kpi card">
+          <p class="kpi__label">Ações integralizadas</p>
+          <p class="kpi__value num">—</p>
+          <p class="kpi__def">Ações com pagamento confirmado. <span class="kpi__src">Origem: contratos assinados + pagamentos compensados.</span></p>
+        </li>
+        <li class="kpi card">
+          <p class="kpi__label">Ações a integralizar</p>
+          <p class="kpi__value num">—</p>
+          <p class="kpi__def">Ações de compras parceladas ainda não pagas. Passam a contar à medida que são pagas. <span class="kpi__src">Origem: parcelas em aberto.</span></p>
+        </li>
+        <li class="kpi card">
+          <p class="kpi__label">Bonificação recebida em ações</p>
+          <p class="kpi__value num">—</p>
+          <p class="kpi__def">{{d.bonificacaoPct}} ao mês sobre o valor investido, apenas na fase pré-operacional (máx. {{site.oferta.mesesPreOperacao}} meses). <span class="kpi__src">Origem: lançamentos de bonificação.</span></p>
+        </li>
+        <li class="kpi card">
+          <p class="kpi__label">Dividendos disponíveis para resgate</p>
+          <p class="kpi__value num">—</p>
+          <p class="kpi__def">Somente valores já creditados e liberados. Primeiro saque com {{site.oferta.primeiroSaqueMeses}} meses. <span class="kpi__src">Origem: lançamentos de dividendos.</span></p>
+        </li>
+      </ul>
+
+      <div class="notice" role="note">
+        <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+        <p><strong>Princípio de integridade:</strong> o painel nunca soma valores estimados, projetados ou a receber ao que é seu de fato. “Disponível” significa creditado e liberado para resgate.</p>
+      </div>
+
+      <div class="app__cols">
+        <section class="card" aria-labelledby="prox-title">
+          <h2 id="prox-title" class="card__title">Próximos marcos</h2>
+          <div class="empty">
+            <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+            <p class="small">Sem marcos ainda.</p>
+            <p class="tiny muted">Aparecem aqui: vencimento de parcelas, início da operação de cada empresa, data do primeiro saque e próximos pagamentos trimestrais.</p>
+          </div>
+        </section>
+        <section class="card" aria-labelledby="upd-title">
+          <h2 id="upd-title" class="card__title">Atualizações das empresas</h2>
+          <div class="empty">
+            <svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>
+            <p class="small">Nenhuma atualização publicada.</p>
+            <p class="tiny muted">Comunicados oficiais de cada empresa em que você é acionista: operação, resultados, assembleias.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- PARTICIPAÇÕES -->
+    <section role="tabpanel" id="p-part" aria-labelledby="tab-participacoes" tabindex="0" hidden>
+      <header class="app__head">
+        <div><h2 class="t-2xl">Minhas ações</h2><p class="small muted">Suas participações por empresa.</p></div>
+        <a class="btn btn--primary btn--sm" href="/oportunidades/"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Investir em uma empresa</a>
+      </header>
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Participações por empresa</caption>
+          <thead><tr><th scope="col">Empresa</th><th scope="col">Fase</th><th scope="col" class="num">Ações</th><th scope="col" class="num">A integralizar</th><th scope="col" class="num">Valor pago</th><th scope="col">Certificado</th></tr></thead>
+          <tbody><tr><td colspan="6"><div class="empty empty--row"><p class="small">Você ainda não tem participações.</p><a class="link-arrow small" href="/oportunidades/">Ver oportunidades <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></td></tr></tbody>
+        </table>
+      </div>
+      <p class="tiny muted">Fase: <span class="badge badge--warning">Pré-operacional</span> <span class="badge badge--success">Em operação</span> — definida pela data de início de operação de cada empresa.</p>
+    </section>
+
+    <!-- PAGAMENTOS -->
+    <section role="tabpanel" id="p-pag" aria-labelledby="tab-pagamentos" tabindex="0" hidden>
+      <header class="app__head"><div><h2 class="t-2xl">Meus pagamentos</h2><p class="small muted">Cada pagamento, parcela e status de compensação.</p></div></header>
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Histórico de pagamentos</caption>
+          <thead><tr><th scope="col">Data</th><th scope="col">Empresa</th><th scope="col">Contrato</th><th scope="col">Parcela</th><th scope="col">Forma</th><th scope="col" class="num">Valor</th><th scope="col">Status</th></tr></thead>
+          <tbody><tr><td colspan="7"><div class="empty empty--row"><p class="small">Nenhum pagamento registrado.</p></div></td></tr></tbody>
+        </table>
+      </div>
+      <div class="notice notice--warning" role="note"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><p>Atraso superior a 60 dias cancela automaticamente a compra parcelada. O painel deve avisar com antecedência (e-mail + notificação) a partir do 1º dia de atraso.</p></div>
+    </section>
+
+    <!-- DIVIDENDOS -->
+    <section role="tabpanel" id="p-div" aria-labelledby="tab-dividendos" tabindex="0" hidden>
+      <header class="app__head">
+        <div><h2 class="t-2xl">Dividendos</h2><p class="small muted">Lançamentos, resgates e reinvestimentos.</p></div>
+        <div class="cluster" style="--cluster:var(--s-2)"><button class="btn btn--outline btn--sm" type="button" disabled>Reinvestir</button><button class="btn btn--secondary btn--sm" type="button" disabled>Solicitar resgate</button></div>
+      </header>
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Lançamentos de dividendos</caption>
+          <thead><tr><th scope="col">Competência</th><th scope="col">Empresa</th><th scope="col">Tipo</th><th scope="col" class="num">Valor</th><th scope="col">Situação</th></tr></thead>
+          <tbody><tr><td colspan="5"><div class="empty empty--row"><p class="small">Nenhum lançamento ainda.</p><p class="tiny muted">Os botões ficam ativos quando houver saldo creditado e liberado.</p></div></td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- DOCUMENTOS -->
+    <section role="tabpanel" id="p-doc" aria-labelledby="tab-documentos" tabindex="0" hidden>
+      <header class="app__head"><div><h2 class="t-2xl">Documentos</h2><p class="small muted">Contratos, certificados e comprovantes, sempre disponíveis para download.</p></div></header>
+      <ul class="doclist" role="list">
+        <li><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><span class="doclist__title">Contratos de aquisição</span><p class="small muted">Um por compra, com hash e data da assinatura por token.</p></div><span class="badge">0</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg><div><span class="doclist__title">Certificados de aquisição de ações</span><p class="small muted">Liberados após a confirmação do pagamento.</p></div><span class="badge">0</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><div><span class="doclist__title">Informe de rendimentos</span><p class="small muted">Anual, para a declaração de imposto de renda.</p></div><span class="badge">0</span></li>
+      </ul>
+    </section>
+
+    <!-- TRANSPARÊNCIA -->
+    <section role="tabpanel" id="p-tra" aria-labelledby="tab-transparencia" tabindex="0" hidden>
+      <header class="app__head"><div><h2 class="t-2xl">Relatório contábil</h2><p class="small muted">Atualizado diariamente. Acesso de auditoria para todo acionista.</p></div></header>
+      <div class="empty card">
+        <svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>
+        <p class="small">Disponível para empresas em que você é acionista.</p>
+        <p class="tiny muted">Estrutura proposta: receitas, despesas, resultado do período e caixa, por empresa, com data da última atualização e exportação em PDF/CSV.</p>
+      </div>
+    </section>
+
+    <!-- SEGURANÇA -->
+    <section role="tabpanel" id="p-seg" aria-labelledby="tab-seguranca" tabindex="0" hidden>
+      <header class="app__head"><div><h2 class="t-2xl">Perfil e segurança</h2><p class="small muted">Seus dados, token e acessos.</p></div></header>
+      <div class="app__cols">
+        <div class="card stack"><h2 class="card__title">Token de segurança</h2><p class="small muted">Usado para assinar contratos. Perdeu? O suporte confirma sua identidade e libera um novo token.</p><p class="tiny muted">Estados possíveis: <span class="badge badge--success">Ativo</span> <span class="badge badge--warning">Pendente</span> <span class="badge">Bloqueado</span></p></div>
+        <div class="card stack"><h2 class="card__title">Acessos recentes</h2><p class="small muted">Data, dispositivo e local aproximado dos últimos acessos, com opção de encerrar sessões.</p></div>
+        <div class="card stack"><h2 class="card__title">Dados pessoais</h2><p class="small muted">Nome, CPF, e-mail e celular. Alterações sensíveis exigem confirmação por e-mail.</p></div>
+        <div class="card stack"><h2 class="card__title">Privacidade (LGPD)</h2><p class="small muted">Baixar meus dados, revogar consentimentos de marketing e falar com o encarregado de dados.</p></div>
+      </div>
+    </section>
+
+    <!-- SUPORTE -->
+    <section role="tabpanel" id="p-sup" aria-labelledby="tab-suporte" tabindex="0" hidden>
+      <header class="app__head"><div><h2 class="t-2xl">Suporte</h2><p class="small muted">Fale com quem cuida das suas participações.</p></div></header>
+      <div class="app__cols">
+        <a class="channel card card--interactive" href="https://wa.me/{{site.whatsAtendimento.e164}}" rel="noopener" target="_blank"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></span><span><span class="channel__label">WhatsApp</span><span class="channel__value">{{site.whatsAtendimento.display}}</span></span></a>
+        <a class="channel card card--interactive" href="mailto:{{site.email}}"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="channel__label">E-mail</span><span class="channel__value" style="font-size:var(--fs-base)">{{site.email}}</span></span></a>
+      </div>
+    </section>
+  </div>
+</div>
