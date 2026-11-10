@@ -516,6 +516,9 @@ Redesenhadas conforme o §3, com 100% do texto original preservado.
 Referência viva de tokens e componentes.
 
 ### 19.6 Área do acionista (protótipo)
+
+> **Atualizado:** a área do acionista foi expandida conforme o documento "Análise de melhorias". Inclui painel com 9 seções, login com 2FA, cadastro em etapas e recuperação de senha. Especificação completa em **[AREA-DO-ACIONISTA.md](./AREA-DO-ACIONISTA.md)**. O texto abaixo descreve a primeira versão.
+
 `/prototipo/area-do-acionista/` (`noindex`). **Não exibe nenhum dado, nem real nem fictício**, por exigência do briefing. Cada indicador mostra **o que significa e de onde virá**:
 - **Visão geral:** ações integralizadas · ações a integralizar · bonificação recebida em ações · dividendos **disponíveis** (só o creditado e liberado). Princípio explícito: *nunca somar valores estimados, projetados ou a receber ao que é do acionista*.
 - Minhas ações (por empresa e fase), Meus pagamentos (com aviso de inadimplência proativo), Dividendos (resgatar/reinvestir só com saldo liberado), Documentos (contratos com *hash* da assinatura, certificados, informe de rendimentos), Relatório contábil, Perfil e segurança (token, sessões, LGPD) e Suporte.

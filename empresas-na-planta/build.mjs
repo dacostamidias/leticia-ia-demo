@@ -98,11 +98,25 @@ async function main() {
   const cssName = `site.${hash(css)}.css`;
   await mkdir(path.join(DIST, 'assets', 'css'), { recursive: true });
   await writeFile(path.join(DIST, 'assets', 'css', cssName), css);
+  // CSS exclusivo das telas de aplicativo (área do acionista, login, cadastro): não pesa nas páginas públicas.
+  const appCss = minifyCss(await readFile(path.join(SRC, 'assets', 'css', 'app.css'), 'utf8'));
+  const appCssName = `app.${hash(appCss)}.css`;
+  await writeFile(path.join(DIST, 'assets', 'css', appCssName), appCss);
 
   const js = await readFile(path.join(SRC, 'assets', 'js', 'site.js'), 'utf8');
   const jsName = `site.${hash(js)}.js`;
   await mkdir(path.join(DIST, 'assets', 'js'), { recursive: true });
   await writeFile(path.join(DIST, 'assets', 'js', jsName), js);
+  // Scripts por página (ex.: área do acionista): src/assets/js/<nome>.js → /assets/js/<nome>.<hash>.js
+  const pageScripts = {};
+  for (const f of await readdir(path.join(SRC, 'assets', 'js'))) {
+    if (f === 'site.js' || !f.endsWith('.js')) continue;
+    const code = await readFile(path.join(SRC, 'assets', 'js', f), 'utf8');
+    const name = f.replace(/\.js$/, '');
+    const out = `${name}.${hash(code)}.js`;
+    await writeFile(path.join(DIST, 'assets', 'js', out), code);
+    pageScripts[name] = `/assets/js/${out}`;
+  }
 
   const o = site.oferta;
   const derived = {
@@ -137,7 +151,10 @@ async function main() {
     encerradas: ofertas.filter((o) => o.status === 'encerrada').length,
   };
 
-  const layout = await readFile(path.join(SRC, 'partials', 'layout.html'), 'utf8');
+  const layouts = {
+    site: await readFile(path.join(SRC, 'partials', 'layout.html'), 'utf8'),
+    app: await readFile(path.join(SRC, 'partials', 'layout-app.html'), 'utf8'),
+  };
   const pages = (await walk(path.join(SRC, 'pages'))).filter((f) => f.endsWith('.html'));
   const sitemap = [];
 
@@ -178,8 +195,12 @@ async function main() {
         ...page,
         robots: page.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large',
         jsonld: jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join('\n'),
+        scripts: (page.scripts || []).map((n) => {
+          if (!pageScripts[n]) throw new Error(`Script de página inexistente: ${n} (${route})`);
+          return `<script defer src="${pageScripts[n]}"></script>`;
+        }).join('\n'),
       },
-      asset: { css: `/assets/css/${cssName}`, js: `/assets/js/${jsName}` },
+      asset: { css: `/assets/css/${cssName}`, appCss: `/assets/css/${appCssName}`, js: `/assets/js/${jsName}` },
       d: derived,
       ofertas: ofertasCtx,
     };
@@ -194,6 +215,8 @@ async function main() {
         mainEntity: qa.map(([, q, a]) => ({ '@type': 'Question', name: strip(q), acceptedAnswer: { '@type': 'Answer', text: strip(a) } })),
       })}</script>`;
     }
+    const layout = layouts[page.shell || 'site'];
+    if (!layout) throw new Error(`Layout desconhecido: ${page.shell} (${route})`);
     const shell = await render(layout, { ...ctx, content: '<!--@@CONTENT@@-->' });
     const html = shell.replace('<!--@@CONTENT@@-->', () => body);
     const out = outFor(route);

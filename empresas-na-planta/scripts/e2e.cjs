@@ -52,12 +52,12 @@ const ok=(c,m)=>{ if(!c) falhas++; console.log((c?'✔':'✖')+' '+m); };
  await p.fill('#c-email','nome@exemplo.com'); await p.fill('#c-assunto','Dúvida'); await p.fill('#c-msg','teste #erro do servidor');
  await p.click('[data-contact] button[type=submit]'); await p.waitForSelector('.form-status--error');
  ok(true,'falha do servidor mostra erro com alternativa (WhatsApp)');
- // tabs
- await p.goto(B+'/prototipo/area-do-acionista/');
+ // tabs (área do acionista; testes completos em e2e-acionista.cjs)
+ await p.goto(B+'/prototipo/area-do-acionista/'); await p.waitForSelector('.kpi');
  await p.focus('#tab-visao-geral'); await p.keyboard.press('ArrowRight');
- ok(await p.evaluate(()=>!document.getElementById('p-part').hidden && document.activeElement.id==='tab-participacoes'),'abas: seta → muda de painel');
- await p.goto(B+'/prototipo/area-do-acionista/#dividendos');
- ok(await p.evaluate(()=>!document.getElementById('p-div').hidden),'abas: hash #dividendos abre o painel');
+ ok(await p.evaluate(()=>location.hash==='#participacoes' && document.activeElement.id==='tab-participacoes'),'abas: seta → muda de painel');
+ await p.goto(B+'/prototipo/area-do-acionista/#resultados'); await p.waitForSelector('#h-bon');
+ ok(await p.evaluate(()=>document.getElementById('tab-resultados').getAttribute('aria-selected')==='true'),'abas: hash #resultados abre o painel');
  ok(errs.length===0,'nenhum erro de JS '+errs.join('|'));
  await b.close();
  console.log(falhas ? `\n✖ ${falhas} teste(s) falharam` : '\n✔ Todos os testes funcionais passaram');

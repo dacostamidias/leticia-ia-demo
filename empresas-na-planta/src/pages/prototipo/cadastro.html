@@ -1,0 +1,109 @@
+<!--meta {
+  "title": "Criar conta (protótipo) | Empresas na Planta S.A.",
+  "description": "Protótipo do cadastro em etapas da área do acionista.",
+  "noindex": true,
+  "shell": "app",
+  "scripts": ["acesso"],
+  "h1": "Criar conta"
+} -->
+<div class="container auth auth--wide" data-cadastro>
+  <div class="auth__card card">
+    <h1 class="t-2xl">Criar sua conta</h1>
+    <p class="small muted" data-progresso aria-live="polite">Etapa 1 de 5</p>
+    <ol class="progress-steps" data-stepper role="list" aria-label="Etapas do cadastro">
+      <li>Acesso</li><li>Confirmação</li><li>Dados pessoais</li><li>Endereço</li><li>Revisão</li>
+    </ol>
+
+    <!-- 1. ACESSO -->
+    <form data-passo="acesso" novalidate class="auth__form" aria-labelledby="p1">
+      <h2 id="p1" class="t-xl" tabindex="-1">Seus dados de acesso</h2>
+      <div class="field"><label for="nome">Nome completo</label><input class="input" id="nome" autocomplete="name" data-v="nome" aria-describedby="nome-err"><p class="error" id="nome-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      <div class="grid grid-2" style="--grid-gap:var(--s-4)">
+        <div class="field"><label for="email">E-mail</label><input class="input" id="email" type="email" inputmode="email" autocomplete="email" data-v="email" aria-describedby="email-err"><p class="error" id="email-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+        <div class="field"><label for="celular">Celular com DDD</label><input class="input" id="celular" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(41) 91234-5678" data-mask="celular" data-v="celular" aria-describedby="celular-err"><p class="error" id="celular-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      </div>
+      <div class="field">
+        <label for="senha">Crie uma senha</label>
+        <div class="input-group"><input class="input" id="senha" type="password" autocomplete="new-password" data-v="senha" aria-describedby="senha-err senha-req"><button class="input-group__btn" type="button" data-mostrar="senha" aria-pressed="false" aria-label="Mostrar senha">Mostrar</button></div>
+        <div class="strength" data-forca="senha"><span class="strength__bar" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="tiny" data-forca-label aria-live="polite"></span></div>
+        <ul class="reqs tiny" id="senha-req" role="list"><li data-req="tamanho">Pelo menos 10 caracteres</li><li data-req="letras">Letras</li><li data-req="numero">Pelo menos um número</li><li data-req="comum">Não é uma senha comum</li></ul>
+        <p class="error" id="senha-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p>
+      </div>
+      <button class="btn btn--secondary btn--lg btn--block" type="submit">Continuar</button>
+      <p class="small center muted">Já tem conta? <a href="/prototipo/entrar/">Entrar</a></p>
+    </form>
+
+    <!-- 2. CONFIRMAÇÃO -->
+    <form data-passo="confirmacao" novalidate hidden class="auth__form" aria-labelledby="p2">
+      <h2 id="p2" class="t-xl" tabindex="-1">Confirme seu e-mail e seu celular</h2>
+      <p class="small muted">Enviamos um código para <strong data-contato-email></strong> e outro por SMS para <strong data-contato-cel></strong>. No protótipo, os dois são <code>123456</code>.</p>
+      <div class="grid grid-2" style="--grid-gap:var(--s-4)">
+        <div class="field"><label for="cod-email">Código do e-mail</label><input class="input otp" id="cod-email" inputmode="numeric" autocomplete="one-time-code" maxlength="6" data-mask="codigo" data-v="codigo" aria-describedby="cod-email-err"><p class="error" id="cod-email-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p><button class="link-btn small" type="button" data-reenviar="Reenviar código do e-mail">Reenviar código do e-mail</button></div>
+        <div class="field"><label for="cod-sms">Código do SMS</label><input class="input otp" id="cod-sms" inputmode="numeric" autocomplete="one-time-code" maxlength="6" data-mask="codigo" data-v="codigo" aria-describedby="cod-sms-err"><p class="error" id="cod-sms-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p><button class="link-btn small" type="button" data-reenviar="Reenviar SMS">Reenviar SMS</button></div>
+      </div>
+      <p class="form-status" role="status" tabindex="-1" data-status></p>
+      <div class="auth__nav"><button class="btn btn--outline" type="button" data-anterior>Voltar</button><button class="btn btn--secondary" type="submit">Confirmar</button></div>
+    </form>
+
+    <!-- 3. DADOS PESSOAIS -->
+    <form data-passo="dados" novalidate hidden class="auth__form" aria-labelledby="p3">
+      <h2 id="p3" class="t-xl" tabindex="-1">Dados pessoais</h2>
+      <p class="small muted">Usados para emitir seus contratos e certificados e para cumprir obrigações legais de identificação.</p>
+      <div class="field"><label for="nacionalidade">Nacionalidade</label><select class="select" id="nacionalidade" autocomplete="country-name"><option value="brasileira">Brasileira</option><option value="estrangeira">Estrangeira</option></select></div>
+      <div class="field" data-bloco="cpf"><label for="cpf">CPF</label><input class="input" id="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" data-mask="cpf" data-v="cpf" aria-describedby="cpf-err"><p class="error" id="cpf-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      <div class="field" data-bloco="doc-estrangeiro" hidden><label for="doc-estrangeiro">Documento de identificação estrangeiro</label><input class="input" id="doc-estrangeiro" data-v="obrigatorio" aria-describedby="doc-estrangeiro-err"><p class="hint">Passaporte ou documento nacional de identidade.</p><p class="error" id="doc-estrangeiro-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      <div class="field"><label for="nascimento">Data de nascimento</label><input class="input" id="nascimento" type="date" autocomplete="bday" data-v="nascimento" aria-describedby="nascimento-err"><p class="error" id="nascimento-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      <div class="auth__nav"><button class="btn btn--outline" type="button" data-anterior>Voltar</button><button class="btn btn--secondary" type="submit">Continuar</button></div>
+    </form>
+
+    <!-- 4. ENDEREÇO -->
+    <form data-passo="endereco" novalidate hidden class="auth__form" aria-labelledby="p4">
+      <h2 id="p4" class="t-xl" tabindex="-1">Endereço</h2>
+      <div class="grid grid-2" style="--grid-gap:var(--s-4)">
+        <div class="field"><label for="cep">CEP</label><input class="input" id="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" data-mask="cep" data-v="cep" aria-describedby="cep-err"><p class="error" id="cep-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+        <div class="field"><label for="uf">Estado</label><select class="select" id="uf" autocomplete="address-level1" data-v="uf" aria-describedby="uf-err"><option value="">Escolha</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select><p class="error" id="uf-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      </div>
+      <div class="field"><label for="logradouro">Rua / avenida</label><input class="input" id="logradouro" autocomplete="address-line1" data-v="obrigatorio" aria-describedby="logradouro-err"><p class="error" id="logradouro-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      <div class="grid grid-2" style="--grid-gap:var(--s-4)">
+        <div class="field"><label for="numero">Número</label><input class="input" id="numero" inputmode="numeric" data-v="obrigatorio" aria-describedby="numero-err"><p class="error" id="numero-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+        <div class="field"><label for="complemento">Complemento <span class="muted">(opcional)</span></label><input class="input" id="complemento" autocomplete="address-line2"></div>
+      </div>
+      <div class="grid grid-2" style="--grid-gap:var(--s-4)">
+        <div class="field"><label for="bairro">Bairro</label><input class="input" id="bairro" data-v="obrigatorio" aria-describedby="bairro-err"><p class="error" id="bairro-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+        <div class="field"><label for="cidade">Cidade</label><input class="input" id="cidade" autocomplete="address-level2" data-v="obrigatorio" aria-describedby="cidade-err"><p class="error" id="cidade-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+      </div>
+      <div class="auth__nav"><button class="btn btn--outline" type="button" data-anterior>Voltar</button><button class="btn btn--secondary" type="submit">Continuar</button></div>
+    </form>
+
+    <!-- 5. REVISÃO E CONSENTIMENTOS -->
+    <form data-passo="revisao" novalidate hidden class="auth__form" aria-labelledby="p5">
+      <h2 id="p5" class="t-xl" tabindex="-1">Revise e aceite</h2>
+      <dl class="facts review" data-revisao></dl>
+      <fieldset class="consents">
+        <legend class="label">Para criar a conta</legend>
+        <div class="field"><label class="check"><input type="checkbox" id="ac-termos" data-v="check" data-msg="É preciso aceitar os Termos de Serviço." aria-describedby="ac-termos-err"> <span>Li e aceito os <a href="/termos-de-servico/" target="_blank" rel="noopener">Termos de Serviço</a>.</span></label><p class="error" id="ac-termos-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+        <div class="field"><label class="check"><input type="checkbox" id="ac-priv" data-v="check" data-msg="É preciso confirmar a leitura da Política de Privacidade." aria-describedby="ac-priv-err"> <span>Li a <a href="/politica-de-privacidade/" target="_blank" rel="noopener">Política de Privacidade</a> e entendi como meus dados são tratados.</span></label><p class="error" id="ac-priv-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+        <div class="field"><label class="check"><input type="checkbox" id="ac-risco" data-v="check" data-msg="É preciso confirmar a leitura do Aviso de Risco." aria-describedby="ac-risco-err"> <span>Li o <a href="/aviso-de-risco/" target="_blank" rel="noopener">Aviso de Risco</a> e entendo que todo investimento envolve riscos, inclusive de perda do valor investido.</span></label><p class="error" id="ac-risco-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p></div>
+        <label class="check"><input type="checkbox" id="ac-mkt"> <span><strong>Opcional:</strong> quero receber novidades e ofertas por e-mail e WhatsApp. Posso cancelar quando quiser.</span></label>
+      </fieldset>
+      <div class="auth__nav"><button class="btn btn--outline" type="button" data-anterior>Voltar</button><button class="btn btn--primary" type="submit">Criar conta</button></div>
+    </form>
+
+    <div data-concluido hidden class="auth__form">
+      <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg></span>
+      <h2 class="t-2xl" tabindex="-1">Conta criada!</h2>
+      <p class="muted">Último passo antes de investir: confirmar sua identidade e gerar seu token de segurança, que é a sua assinatura digital nos contratos.</p>
+      <a class="btn btn--primary btn--lg btn--block" href="/prototipo/area-do-acionista/">Ir para a área do acionista</a>
+    </div>
+  </div>
+
+  <aside class="auth__side" aria-label="Sobre o cadastro">
+    <ul class="checklist small" role="list">
+      <li><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg><span>Pedimos só o necessário em cada etapa.</span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Se você sair, o que já foi preenchido continua aqui enquanto a aba estiver aberta. A senha e o CPF nunca ficam salvos no navegador.</span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span>E-mail e celular são confirmados com código antes de seguir.</span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><span>Os aceites são registrados separadamente, com data e versão de cada documento.</span></li>
+    </ul>
+    <p class="tiny muted">Dúvidas? WhatsApp <a href="https://wa.me/{{site.whatsAtendimento.e164}}" rel="noopener" target="_blank">{{site.whatsAtendimento.display}}</a>.</p>
+  </aside>
+</div>

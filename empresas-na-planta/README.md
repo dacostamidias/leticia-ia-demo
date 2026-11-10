@@ -2,10 +2,11 @@
 
 Redesign completo do site público da Empresas na Planta S.A., feito a partir da auditoria em **[AUDITORIA.md](./AUDITORIA.md)** (diagnóstico, notas, matriz P0–P3 e plano de execução).
 
-- **15 páginas** estáticas, prontas para o servidor LiteSpeed atual, incluindo **páginas de levantamento de capital** no estilo das plataformas de investimento (Kria, EqSeed).
+- **18 páginas** estáticas, prontas para o servidor LiteSpeed atual, incluindo **páginas de levantamento de capital** no estilo das plataformas de investimento (Kria, EqSeed).
 - **Zero dependências** de runtime. O build usa apenas Node.js ≥ 18.
 - Lighthouse: **99** (mobile) e **100** (desktop) em desempenho; **100** em acessibilidade, boas práticas e SEO.
-- **0 violações** do axe-core (WCAG 2.2 AA) e **105/105** verificações de layout (15 rotas × 7 larguras).
+- **0 violações** do axe-core (WCAG 2.2 AA) e **126/126** verificações de layout (18 rotas × 7 larguras).
+- **Área do acionista:** especificação completa em **[AREA-DO-ACIONISTA.md](./AREA-DO-ACIONISTA.md)** (regras de cálculo, API, 18 requisitos de segurança com critério de aceite, LGPD, prioridades).
 - Textos estratégicos **preservados**: apartamento na planta, participação nos resultados e a comparação Tesla/Amazon.
 
 ## Rodando localmente
@@ -32,7 +33,10 @@ O servidor local aplica os mesmos cabeçalhos de segurança da produção. Ele t
 | `/contato/` | Canais e formulário (mesmo endpoint e mesmo JSON do site atual) |
 | `/aviso-de-risco/`, `/politica-de-privacidade/`, `/termos-de-servico/` | Textos originais com índice lateral |
 | `/404.html` | Página de erro com a marca |
-| `/prototipo/area-do-acionista/` | Protótipo da área do acionista, sem dados (`noindex`) |
+| `/prototipo/area-do-acionista/` | **Área do acionista** (protótipo navegável): visão geral, participações, pagamentos, resultados, documentos, relatórios, comunicados, suporte, perfil e segurança. Modos "Exemplo ilustrativo" e "Conta nova" |
+| `/prototipo/entrar/` | Login com verificação em duas etapas e bloqueio após tentativas repetidas |
+| `/prototipo/cadastro/` | Cadastro em 5 etapas, com confirmação de e-mail e SMS, validação de CPF e aceites separados |
+| `/prototipo/recuperar-senha/` | Recuperação de senha com resposta neutra e senha forte |
 | `/design-system/` | Referência viva de tokens e componentes (`noindex`) |
 
 ## Estrutura
@@ -53,6 +57,11 @@ src/
 scripts/qa.mjs         ← QA de layout + axe-core em 7 larguras
 scripts/e2e.cjs        ← testes funcionais (22 verificações)
 scripts/e2e-ofertas.cjs← testes das ofertas (15 verificações, com dados de teste injetados só no navegador)
+scripts/e2e-acionista.cjs ← testes da área do acionista, login, cadastro e recuperação (43 verificações)
+scripts/axe-acionista.cjs ← axe-core em todas as seções do painel e etapas do cadastro
+src/assets/js/acionista.js ← painel: contrato de dados → cálculos puros → telas
+src/assets/js/acesso.js   ← login (2 etapas), recuperação e cadastro em etapas
+src/static/prototipo/dados/ ← contrato de dados do painel (exemplo fictício e conta nova)
 dist/                  ← saída do build (versionada, pronta para upload)
 ```
 
@@ -76,6 +85,8 @@ Para criar uma nova oferta: adicione um objeto em `ofertas.json` e crie `src/pag
 npm start                                   # em um terminal
 node scripts/e2e.cjs                        # testes funcionais
 node scripts/e2e-ofertas.cjs                # testes das ofertas
+node scripts/e2e-acionista.cjs              # área do acionista
+node scripts/axe-acionista.cjs /caminho/axe.min.js  # acessibilidade de todas as seções
 AXE_PATH=/caminho/axe.min.js node scripts/qa.mjs   # layout + acessibilidade
 ```
 

@@ -1,0 +1,343 @@
+{
+  "_aviso": "DADOS FICTÍCIOS DE DEMONSTRAÇÃO. Pessoa, valores, datas e documentos são inventados para mostrar o funcionamento da interface. Nenhum número representa resultado real de qualquer empresa.",
+  "modo": "exemplo",
+  "referencia": "2026-11-10",
+  "acionista": {
+    "nome": "Ana Exemplo",
+    "email": "an***@exemplo.com",
+    "celular": "(41) 9****-0000",
+    "cpf": "***.***.***-00",
+    "identidadeVerificada": true,
+    "token": "ativo",
+    "doisFatores": false,
+    "consentimentos": {
+      "termos": "2026-07-15",
+      "privacidade": "2026-07-15",
+      "marketing": false
+    }
+  },
+  "empresas": {
+    "champions-sports": {
+      "nome": "Champions Sports",
+      "fase": "pre-operacional",
+      "cor": "#1456b8",
+      "precoAcao": 50,
+      "emissora": "Champions Sports · CNPJ 51.603.305/0001-29",
+      "natureza": null,
+      "saida": null
+    },
+    "escolas-jesus-para-as-criancas": {
+      "nome": "Rede de Escolas Jesus Para As Crianças",
+      "fase": "pre-operacional",
+      "cor": "#c9913f",
+      "precoAcao": null,
+      "emissora": null,
+      "natureza": null,
+      "saida": null
+    }
+  },
+  "compras": [
+    {
+      "id": "CS-2026-0715",
+      "empresa": "champions-sports",
+      "data": "2026-07-15",
+      "acoes": 100,
+      "valor": 5000,
+      "forma": "Boleto",
+      "tipo": "parcelada",
+      "parcelas": [
+        {
+          "n": 1,
+          "vencimento": "2026-07-15",
+          "valor": 1000,
+          "status": "paga",
+          "pagaEm": "2026-07-15"
+        },
+        {
+          "n": 2,
+          "vencimento": "2026-08-15",
+          "valor": 1000,
+          "status": "paga",
+          "pagaEm": "2026-08-14"
+        },
+        {
+          "n": 3,
+          "vencimento": "2026-09-15",
+          "valor": 1000,
+          "status": "paga",
+          "pagaEm": "2026-09-15"
+        },
+        {
+          "n": 4,
+          "vencimento": "2026-10-15",
+          "valor": 1000,
+          "status": "aberta",
+          "pagaEm": null
+        },
+        {
+          "n": 5,
+          "vencimento": "2026-11-15",
+          "valor": 1000,
+          "status": "aberta",
+          "pagaEm": null
+        }
+      ]
+    },
+    {
+      "id": "CS-2026-0902",
+      "empresa": "champions-sports",
+      "data": "2026-09-02",
+      "acoes": 50,
+      "valor": 2500,
+      "forma": "PIX",
+      "tipo": "a-vista",
+      "parcelas": [
+        {
+          "n": 1,
+          "vencimento": "2026-09-02",
+          "valor": 2500,
+          "status": "paga",
+          "pagaEm": "2026-09-02"
+        }
+      ]
+    },
+    {
+      "id": "EJ-2026-0510",
+      "empresa": "escolas-jesus-para-as-criancas",
+      "data": "2026-05-10",
+      "acoes": null,
+      "valor": null,
+      "forma": "Débito mensal",
+      "tipo": "mensal",
+      "parcelas": [
+        {
+          "n": 1,
+          "vencimento": "2026-05-10",
+          "valor": 50,
+          "status": "paga",
+          "pagaEm": "2026-05-10"
+        },
+        {
+          "n": 2,
+          "vencimento": "2026-06-10",
+          "valor": 50,
+          "status": "paga",
+          "pagaEm": "2026-06-10"
+        },
+        {
+          "n": 3,
+          "vencimento": "2026-07-10",
+          "valor": 50,
+          "status": "paga",
+          "pagaEm": "2026-07-10"
+        },
+        {
+          "n": 4,
+          "vencimento": "2026-08-10",
+          "valor": 50,
+          "status": "paga",
+          "pagaEm": "2026-08-10"
+        },
+        {
+          "n": 5,
+          "vencimento": "2026-09-10",
+          "valor": 50,
+          "status": "paga",
+          "pagaEm": "2026-09-10"
+        },
+        {
+          "n": 6,
+          "vencimento": "2026-10-10",
+          "valor": 50,
+          "status": "paga",
+          "pagaEm": "2026-10-09"
+        },
+        {
+          "n": 7,
+          "vencimento": "2026-11-10",
+          "valor": 50,
+          "status": "aberta",
+          "pagaEm": null
+        }
+      ]
+    }
+  ],
+  "bonificacoes": [
+    {
+      "data": "2026-08-15",
+      "empresa": "champions-sports",
+      "base": 1000,
+      "acoes": 0.4
+    },
+    {
+      "data": "2026-09-15",
+      "empresa": "champions-sports",
+      "base": 4500,
+      "acoes": 1.8
+    },
+    {
+      "data": "2026-10-15",
+      "empresa": "champions-sports",
+      "base": 5500,
+      "acoes": 2.2
+    }
+  ],
+  "distribuicoes": [],
+  "documentos": [
+    {
+      "id": "doc-1",
+      "tipo": "contrato",
+      "empresa": "champions-sports",
+      "titulo": "Contrato de aquisição de ações · CS-2026-0715",
+      "data": "2026-07-15",
+      "status": "disponivel",
+      "assinatura": "Token · 15/07/2026 10:42 · SHA-256 3f9a…c21e"
+    },
+    {
+      "id": "doc-2",
+      "tipo": "certificado",
+      "empresa": "champions-sports",
+      "titulo": "Certificado de aquisição · CS-2026-0715",
+      "data": null,
+      "status": "pendente",
+      "motivo": "Liberado após o pagamento de todas as parcelas"
+    },
+    {
+      "id": "doc-3",
+      "tipo": "contrato",
+      "empresa": "champions-sports",
+      "titulo": "Contrato de aquisição de ações · CS-2026-0902",
+      "data": "2026-09-02",
+      "status": "disponivel",
+      "assinatura": "Token · 02/09/2026 16:05 · SHA-256 b71d…08aa"
+    },
+    {
+      "id": "doc-4",
+      "tipo": "certificado",
+      "empresa": "champions-sports",
+      "titulo": "Certificado de aquisição · CS-2026-0902",
+      "data": "2026-09-02",
+      "status": "disponivel"
+    },
+    {
+      "id": "doc-5",
+      "tipo": "contrato",
+      "empresa": "escolas-jesus-para-as-criancas",
+      "titulo": "Contrato do plano mensal · EJ-2026-0510",
+      "data": "2026-05-10",
+      "status": "disponivel",
+      "assinatura": "Token · 10/05/2026 09:12 · SHA-256 5c02…e9f4"
+    },
+    {
+      "id": "doc-6",
+      "tipo": "informe",
+      "empresa": null,
+      "titulo": "Informe de rendimentos · ano-base 2026",
+      "data": null,
+      "status": "pendente",
+      "motivo": "Disponível até o fim de fevereiro de 2027"
+    }
+  ],
+  "relatorios": [
+    {
+      "empresa": "champions-sports",
+      "titulo": "Relatório contábil",
+      "periodo": "Outubro/2026",
+      "publicadoEm": "2026-11-05"
+    },
+    {
+      "empresa": "escolas-jesus-para-as-criancas",
+      "titulo": "Relatório contábil",
+      "periodo": "Outubro/2026",
+      "publicadoEm": "2026-11-05"
+    }
+  ],
+  "atualizacoes": [
+    {
+      "empresa": "champions-sports",
+      "data": "2026-11-03",
+      "titulo": "Exemplo de atualização: andamento do desenvolvimento do aplicativo",
+      "texto": "Aqui a empresa publica o que foi feito no período, próximos passos e eventuais mudanças de cronograma."
+    },
+    {
+      "empresa": "escolas-jesus-para-as-criancas",
+      "data": "2026-10-20",
+      "titulo": "Exemplo de atualização: etapas de implantação da primeira unidade",
+      "texto": "Aqui a empresa informa imóvel, autorizações, equipe e previsão de abertura, sempre com a data da informação."
+    }
+  ],
+  "comunicados": [
+    {
+      "id": "c1",
+      "data": "2026-11-01",
+      "prioridade": "alta",
+      "lido": false,
+      "titulo": "Parcela 4 da compra CS-2026-0715 em aberto",
+      "texto": "O vencimento foi em 15/10/2026. Atrasos superiores a 60 dias cancelam automaticamente a compra. Regularize em Pagamentos."
+    },
+    {
+      "id": "c2",
+      "data": "2026-10-28",
+      "prioridade": "normal",
+      "lido": false,
+      "titulo": "Ative a verificação em duas etapas",
+      "texto": "Ela protege sua conta mesmo que alguém descubra sua senha."
+    },
+    {
+      "id": "c3",
+      "data": "2026-09-02",
+      "prioridade": "normal",
+      "lido": true,
+      "titulo": "Certificado disponível · CS-2026-0902",
+      "texto": "Seu certificado de aquisição de ações já pode ser baixado em Documentos."
+    }
+  ],
+  "chamados": [
+    {
+      "id": "#1042",
+      "assunto": "Dúvida sobre a bonificação em ações",
+      "status": "Respondido",
+      "atualizadoEm": "2026-10-16"
+    }
+  ],
+  "sessoes": [
+    {
+      "dispositivo": "Chrome · Windows",
+      "local": "Curitiba, PR (aproximado)",
+      "inicio": "2026-11-10 13:55",
+      "atual": true
+    },
+    {
+      "dispositivo": "Safari · iPhone",
+      "local": "Curitiba, PR (aproximado)",
+      "inicio": "2026-11-08 19:20",
+      "atual": false
+    }
+  ],
+  "acessos": [
+    {
+      "data": "2026-11-10 13:55",
+      "evento": "Login bem-sucedido",
+      "dispositivo": "Chrome · Windows",
+      "alerta": false
+    },
+    {
+      "data": "2026-11-08 19:20",
+      "evento": "Login bem-sucedido",
+      "dispositivo": "Safari · iPhone",
+      "alerta": false
+    },
+    {
+      "data": "2026-11-02 03:14",
+      "evento": "5 tentativas com senha incorreta · acesso bloqueado por 15 min",
+      "dispositivo": "Desconhecido · Linux",
+      "alerta": true
+    },
+    {
+      "data": "2026-10-16 08:40",
+      "evento": "Senha alterada",
+      "dispositivo": "Chrome · Windows",
+      "alerta": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "_aviso": "Estado de uma conta recém-criada: sem compras, documentos ou lançamentos.",
+  "modo": "conta-nova",
+  "referencia": "2026-11-10",
+  "acionista": {
+    "nome": "Nova conta",
+    "email": "no***@exemplo.com",
+    "celular": "(41) 9****-0000",
+    "cpf": "***.***.***-00",
+    "identidadeVerificada": false,
+    "token": "pendente",
+    "doisFatores": false,
+    "consentimentos": { "termos": "2026-11-10", "privacidade": "2026-11-10", "marketing": false }
+  },
+  "empresas": {},
+  "compras": [],
+  "bonificacoes": [],
+  "distribuicoes": [],
+  "documentos": [],
+  "relatorios": [],
+  "atualizacoes": [],
+  "comunicados": [
+    { "id": "c1", "data": "2026-11-10", "prioridade": "normal", "lido": false, "titulo": "Bem-vindo(a)! Confirme sua identidade", "texto": "Para investir, confirme sua identidade e gere seu token de segurança em Perfil e segurança." }
+  ],
+  "chamados": [],
+  "sessoes": [ { "dispositivo": "Chrome · Windows", "local": "Curitiba, PR (aproximado)", "inicio": "2026-11-10 13:55", "atual": true } ],
+  "acessos": [ { "data": "2026-11-10 13:55", "evento": "Conta criada e e-mail confirmado", "dispositivo": "Chrome · Windows", "alerta": false } ]
+}

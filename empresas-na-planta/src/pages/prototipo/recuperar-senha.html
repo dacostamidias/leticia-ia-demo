@@ -1,0 +1,58 @@
+<!--meta {
+  "title": "Recuperar senha (protótipo) | Empresas na Planta S.A.",
+  "description": "Protótipo da recuperação de senha da área do acionista.",
+  "noindex": true,
+  "shell": "app",
+  "scripts": ["acesso"],
+  "h1": "Recuperar senha"
+} -->
+<div class="container auth" data-recuperar>
+  <div class="auth__card card">
+    <form data-etapa="pedir" novalidate class="auth__form" aria-labelledby="h-rec">
+      <h1 id="h-rec" class="t-2xl" tabindex="-1">Recuperar senha</h1>
+      <p class="muted small">Informe o e-mail da sua conta. Enviaremos um link para você criar uma nova senha.</p>
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input class="input" id="email" type="email" autocomplete="email" inputmode="email" required data-v="email" aria-describedby="email-err">
+        <p class="error" id="email-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p>
+      </div>
+      <button class="btn btn--secondary btn--lg btn--block" type="submit">Enviar link</button>
+      <p class="small center"><a href="/prototipo/entrar/">Voltar para o login</a></p>
+    </form>
+
+    <div data-etapa="enviado" hidden class="auth__form">
+      <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+      <h2 class="t-2xl" tabindex="-1">Confira seu e-mail</h2>
+      <p class="muted small">Se houver uma conta com esse e-mail, você vai receber um link para criar uma nova senha. O link vale por <strong>30 minutos</strong> e funciona uma única vez.</p>
+      <p class="muted small">Não chegou? Verifique a caixa de spam. Você pode pedir outro link em 60 segundos.</p>
+      <button class="btn btn--outline btn--block" type="button" data-simular-link>Simular: abrir o link recebido</button>
+    </div>
+
+    <form data-etapa="nova" novalidate hidden class="auth__form" aria-labelledby="h-nova">
+      <h2 id="h-nova" class="t-2xl" tabindex="-1">Crie uma nova senha</h2>
+      <div class="field">
+        <label for="nova-senha">Nova senha</label>
+        <div class="input-group"><input class="input" id="nova-senha" type="password" autocomplete="new-password" data-v="senha" aria-describedby="nova-senha-err nova-senha-req"><button class="input-group__btn" type="button" data-mostrar="nova-senha" aria-pressed="false" aria-label="Mostrar senha">Mostrar</button></div>
+        <div class="strength" data-forca="nova-senha"><span class="strength__bar" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="tiny" data-forca-label aria-live="polite"></span></div>
+        <ul class="reqs tiny" id="nova-senha-req" role="list">
+          <li data-req="tamanho">Pelo menos 10 caracteres</li><li data-req="letras">Letras</li><li data-req="numero">Pelo menos um número</li><li data-req="comum">Não é uma senha comum</li>
+        </ul>
+        <p class="error" id="nova-senha-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p>
+      </div>
+      <div class="field">
+        <label for="nova-senha-2">Repita a nova senha</label>
+        <input class="input" id="nova-senha-2" type="password" autocomplete="new-password" data-v="igual" data-igual="nova-senha" data-msg="As senhas não são iguais." aria-describedby="nova-senha-2-err">
+        <p class="error" id="nova-senha-2-err"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><span></span></p>
+      </div>
+      <button class="btn btn--secondary btn--lg btn--block" type="submit">Salvar nova senha</button>
+      <p class="tiny muted">Ao salvar, todas as outras sessões abertas da sua conta são encerradas.</p>
+    </form>
+
+    <div data-etapa="feito" hidden class="auth__form">
+      <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg></span>
+      <h2 class="t-2xl" tabindex="-1">Senha alterada</h2>
+      <p class="muted small">Enviamos um aviso para o seu e-mail. Se não foi você, fale com o suporte imediatamente.</p>
+      <a class="btn btn--secondary btn--lg btn--block" href="/prototipo/entrar/">Entrar com a nova senha</a>
+    </div>
+  </div>
+</div>

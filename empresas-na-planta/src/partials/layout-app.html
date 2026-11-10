@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{page.title}}</title>
+<meta name="description" content="{{page.description}}">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a1b3d">
+<meta name="format-detection" content="telephone=no">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{asset.css}}">
+<link rel="stylesheet" href="{{asset.appCss}}">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<script defer src="{{asset.js}}"></script>
+{{page.scripts}}
+</head>
+<body class="is-app {{page.bodyClass}}">
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+{{> icons}}
+<aside class="proto-banner" aria-label="Aviso de protótipo">
+  <div class="container cluster" style="justify-content:space-between">
+    <p><strong>Protótipo navegável.</strong> Nada aqui envia dados a servidores: as telas mostram o fluxo e as regras propostas para a área do acionista.</p>
+    <a class="link-arrow small" href="{{site.portal.login}}">Ir para a área do acionista atual <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+  </div>
+</aside>
+<header class="app-header on-dark">
+  <div class="container app-header__in">
+    <a class="brand" href="/" aria-label="Empresas na Planta S.A. — voltar ao site"><img src="/assets/img/logo.webp" alt="Empresas na Planta S.A." width="378" height="109"></a>
+    <span class="app-header__label">Área do acionista</span>
+    <nav class="app-header__nav" aria-label="Atalhos">
+      <a href="/faq/">Ajuda</a>
+      <a href="/">Voltar ao site</a>
+    </nav>
+  </div>
+</header>
+<main id="conteudo" tabindex="-1">
+{{content}}
+</main>
+<footer class="app-footer">
+  <div class="container cluster" style="justify-content:space-between">
+    <p>{{site.name}} · CNPJ {{site.cnpj}}</p>
+    <nav aria-label="Documentos legais" class="cluster" style="--cluster:var(--s-4)">
+      <a href="/aviso-de-risco/">Aviso de risco</a>
+      <a href="/termos-de-servico/">Termos</a>
+      <a href="/politica-de-privacidade/">Privacidade</a>
+    </nav>
+  </div>
+</footer>
+<div class="toast" role="status" aria-live="polite" data-toast></div>
+</body>
+</html>

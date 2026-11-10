@@ -247,7 +247,7 @@ body.menu-open { overflow: hidden; }
 .tabs [role='tab']:hover { color: var(--text); }
 
 /* ---- Tabelas ----------------------------------------------------------- */
-.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
 .table th, .table td { padding: var(--s-3) var(--s-4); text-align: left; border-bottom: 1px solid var(--line); font-size: var(--fs-sm); white-space: nowrap; }
 .table th { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); font-weight: 600; background: var(--sand-50); }
 .table tr:last-child td { border-bottom: 0; }

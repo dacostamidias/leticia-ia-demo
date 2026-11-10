@@ -3,33 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Protótipo · Área do acionista | Empresas na Planta S.A.</title>
-<meta name="description" content="Protótipo de interface da área do acionista: estrutura de informação proposta, sem dados reais.">
+<title>Área do acionista (protótipo) | Empresas na Planta S.A.</title>
+<meta name="description" content="Protótipo navegável da área do acionista: participações, pagamentos, resultados, documentos, relatórios, comunicados, suporte e segurança.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="https://empresasnaplanta.com.br/prototipo/area-do-acionista/">
 <meta name="theme-color" content="#0a1b3d">
 <meta name="format-detection" content="telephone=no">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/playfair-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/site.d088f7ba26.css">
+<link rel="stylesheet" href="/assets/css/site.35ae953a46.css">
+<link rel="stylesheet" href="/assets/css/app.8ca08df194.css">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/assets/img/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="Empresas na Planta S.A.">
-<meta property="og:title" content="Protótipo · Área do acionista | Empresas na Planta S.A.">
-<meta property="og:description" content="Protótipo de interface da área do acionista: estrutura de informação proposta, sem dados reais.">
-<meta property="og:url" content="https://empresasnaplanta.com.br/prototipo/area-do-acionista/">
-<meta property="og:image" content="https://empresasnaplanta.com.br/assets/img/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://empresasnaplanta.com.br/"},{"@type":"ListItem","position":2,"name":"Área do acionista (protótipo)","item":"https://empresasnaplanta.com.br/prototipo/area-do-acionista/"}]}</script>
 <script defer src="/assets/js/site.bf99e7d530.js"></script>
+<script defer src="/assets/js/acionista.aeb1915a5e.js"></script>
 </head>
-<body class="is-app">
+<body class="is-app ">
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
@@ -74,277 +62,78 @@
   <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M3.5 20.5 4.8 16.6A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2 2.9 2.6 5.6 5.6 6.1l1.3-1.4-1.9-1-1 .8c-1-.4-2.1-1.5-2.6-2.5l.8-1-1-1.9z"/></symbol>
 </svg>
 
-<header class="site-header on-dark">
-  <div class="container site-header__in">
-    <a class="brand" href="/" aria-label="Empresas na Planta S.A. — página inicial">
-      <img src="/assets/img/logo.webp" alt="Empresas na Planta S.A." width="378" height="109">
-    </a>
-    <nav class="nav" aria-label="Principal">
-      <ul class="nav__list">
-        <li><a class="nav__link" href="/como-funciona/" >Como funciona</a></li>
-        <li><a class="nav__link" href="/oportunidades/" >Oportunidades</a></li>
-        <li><a class="nav__link" href="/nossa-historia/" >Nossa história</a></li>
-        <li><a class="nav__link" href="/nossos-projetos/" >Nossos projetos</a></li>
-        <li><a class="nav__link" href="/faq/" >Dúvidas</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <a class="btn btn--outline btn--sm btn--login" href="https://ia.empresasnaplanta.com.br/login.php">Entrar</a>
-      <a class="btn btn--primary btn--sm" href="https://ia.empresasnaplanta.com.br/cadastro">Quero ser acionista</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-open>
-        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
-        <span class="sr-only">Abrir menu</span>
-      </button>
-    </div>
-  </div>
-</header>
-<div class="mobile-menu" id="menu-mobile" role="dialog" aria-modal="true" aria-label="Menu" data-open="false" data-menu inert>
-  <div class="container mobile-menu__top">
-    <a class="brand" href="/" aria-label="Empresas na Planta S.A. — página inicial"><img src="/assets/img/logo.webp" alt="" width="378" height="109" style="width:9.5rem"></a>
-    <button class="menu-toggle" type="button" data-menu-close>
-      <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
-      <span class="sr-only">Fechar menu</span>
-    </button>
-  </div>
-  <nav class="container mobile-menu__nav" aria-label="Principal (móvel)">
-    <a href="/" >Início <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    <a href="/como-funciona/" >Como funciona <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    <a href="/oportunidades/" >Oportunidades <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    <a href="/nossa-historia/" >Nossa história <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    <a href="/nossos-projetos/" >Nossos projetos <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    <a href="/faq/" >Dúvidas frequentes <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    <a href="/contato/" >Contato <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  </nav>
-  <div class="container mobile-menu__foot on-dark" style="background:transparent">
-    <a class="btn btn--primary btn--lg btn--block" href="https://ia.empresasnaplanta.com.br/cadastro">Quero ser acionista</a>
-    <a class="btn btn--outline btn--lg btn--block" href="https://ia.empresasnaplanta.com.br/login.php">Entrar na área do acionista</a>
-  </div>
-</div>
-
-<main id="conteudo" tabindex="-1">
-<div class="proto-banner" role="note">
+<aside class="proto-banner" aria-label="Aviso de protótipo">
   <div class="container cluster" style="justify-content:space-between">
-    <p><strong>Protótipo de interface.</strong> Nenhum dado real ou fictício é exibido: cada indicador mostra o que significa e de onde virá na plataforma.</p>
+    <p><strong>Protótipo navegável.</strong> Nada aqui envia dados a servidores: as telas mostram o fluxo e as regras propostas para a área do acionista.</p>
     <a class="link-arrow small" href="https://ia.empresasnaplanta.com.br/login.php">Ir para a área do acionista atual <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
   </div>
-</div>
-
-<h1 class="sr-only">Área do acionista — protótipo de interface</h1>
-<div class="app container" data-tabs data-tabs-hash>
+</aside>
+<header class="app-header on-dark">
+  <div class="container app-header__in">
+    <a class="brand" href="/" aria-label="Empresas na Planta S.A. — voltar ao site"><img src="/assets/img/logo.webp" alt="Empresas na Planta S.A." width="378" height="109"></a>
+    <span class="app-header__label">Área do acionista</span>
+    <nav class="app-header__nav" aria-label="Atalhos">
+      <a href="/faq/">Ajuda</a>
+      <a href="/">Voltar ao site</a>
+    </nav>
+  </div>
+</header>
+<main id="conteudo" tabindex="-1">
+<h1 class="sr-only">Área do acionista</h1>
+<div class="container app" data-acionista>
   <div class="app__side">
     <div class="app__user">
       <span class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-user"/></svg></span>
-      <div><p class="small" style="font-weight:600">Nome do acionista</p><p class="tiny muted">Status da identidade e do token</p></div>
+      <div><p class="small" style="font-weight:600" data-nome>Carregando…</p><p class="tiny muted">Protótipo</p></div>
+    </div>
+    <div class="mode-switch" role="group" aria-label="Dados exibidos no protótipo">
+      <button type="button" data-modo="exemplo" aria-pressed="true">Exemplo ilustrativo</button>
+      <button type="button" data-modo="conta-nova" aria-pressed="false">Conta nova</button>
     </div>
     <div role="tablist" aria-label="Seções da área do acionista" aria-orientation="vertical" class="app__nav">
-      <button role="tab" id="tab-visao-geral" aria-controls="p-visao" aria-selected="true"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Visão geral</button>
-      <button role="tab" id="tab-participacoes" aria-controls="p-part" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>Minhas ações</button>
-      <button role="tab" id="tab-pagamentos" aria-controls="p-pag" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-cash"/></svg>Meus pagamentos</button>
-      <button role="tab" id="tab-dividendos" aria-controls="p-div" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg>Dividendos</button>
-      <button role="tab" id="tab-documentos" aria-controls="p-doc" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Documentos</button>
-      <button role="tab" id="tab-transparencia" aria-controls="p-tra" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Relatório contábil</button>
-      <button role="tab" id="tab-seguranca" aria-controls="p-seg" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Perfil e segurança</button>
-      <button role="tab" id="tab-suporte" aria-controls="p-sup" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-support"/></svg>Suporte</button>
+      <button role="tab" id="tab-visao-geral" data-tela="visao-geral" aria-controls="painel" aria-selected="true"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Visão geral</button>
+      <button role="tab" id="tab-participacoes" data-tela="participacoes" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>Participações</button>
+      <button role="tab" id="tab-pagamentos" data-tela="pagamentos" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-cash"/></svg>Pagamentos</button>
+      <button role="tab" id="tab-resultados" data-tela="resultados" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg>Resultados</button>
+      <button role="tab" id="tab-documentos" data-tela="documentos" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Documentos</button>
+      <button role="tab" id="tab-relatorios" data-tela="relatorios" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>Relatórios</button>
+      <button role="tab" id="tab-comunicados" data-tela="comunicados" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>Comunicados <span class="count-badge" data-badge-comunicados hidden></span></button>
+      <button role="tab" id="tab-suporte" data-tela="suporte" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-support"/></svg>Suporte</button>
+      <button role="tab" id="tab-seguranca" data-tela="seguranca" aria-controls="painel" aria-selected="false" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Perfil e segurança</button>
     </div>
   </div>
 
   <div class="app__main">
-    <!-- VISÃO GERAL -->
-    <section role="tabpanel" id="p-visao" aria-labelledby="tab-visao-geral" tabindex="0">
-      <header class="app__head">
-        <div><h2 class="t-2xl">Visão geral</h2><p class="small muted">Resumo das suas participações. Valores atualizados a partir dos registros da plataforma.</p></div>
-        <a class="btn btn--primary btn--sm" href="#participacoes" data-goto="tab-participacoes"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Investir em uma empresa</a>
-      </header>
-
-      <ul class="kpi-grid" role="list">
-        <li class="kpi card">
-          <p class="kpi__label">Ações integralizadas</p>
-          <p class="kpi__value num">—</p>
-          <p class="kpi__def">Ações com pagamento confirmado. <span class="kpi__src">Origem: contratos assinados + pagamentos compensados.</span></p>
-        </li>
-        <li class="kpi card">
-          <p class="kpi__label">Ações a integralizar</p>
-          <p class="kpi__value num">—</p>
-          <p class="kpi__def">Ações de compras parceladas ainda não pagas. Passam a contar à medida que são pagas. <span class="kpi__src">Origem: parcelas em aberto.</span></p>
-        </li>
-        <li class="kpi card">
-          <p class="kpi__label">Bonificação recebida em ações</p>
-          <p class="kpi__value num">—</p>
-          <p class="kpi__def">2% ao mês sobre o valor investido, apenas na fase pré-operacional (máx. 6 meses). <span class="kpi__src">Origem: lançamentos de bonificação.</span></p>
-        </li>
-        <li class="kpi card">
-          <p class="kpi__label">Dividendos disponíveis para resgate</p>
-          <p class="kpi__value num">—</p>
-          <p class="kpi__def">Somente valores já creditados e liberados. Primeiro saque com 12 meses. <span class="kpi__src">Origem: lançamentos de dividendos.</span></p>
-        </li>
-      </ul>
-
-      <div class="notice" role="note">
-        <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
-        <p><strong>Princípio de integridade:</strong> o painel nunca soma valores estimados, projetados ou a receber ao que é seu de fato. “Disponível” significa creditado e liberado para resgate.</p>
-      </div>
-
-      <div class="app__cols">
-        <section class="card" aria-labelledby="prox-title">
-          <h2 id="prox-title" class="card__title">Próximos marcos</h2>
-          <div class="empty">
-            <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
-            <p class="small">Sem marcos ainda.</p>
-            <p class="tiny muted">Aparecem aqui: vencimento de parcelas, início da operação de cada empresa, data do primeiro saque e próximos pagamentos trimestrais.</p>
-          </div>
-        </section>
-        <section class="card" aria-labelledby="upd-title">
-          <h2 id="upd-title" class="card__title">Atualizações das empresas</h2>
-          <div class="empty">
-            <svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>
-            <p class="small">Nenhuma atualização publicada.</p>
-            <p class="tiny muted">Comunicados oficiais de cada empresa em que você é acionista: operação, resultados, assembleias.</p>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <!-- PARTICIPAÇÕES -->
-    <section role="tabpanel" id="p-part" aria-labelledby="tab-participacoes" tabindex="0" hidden>
-      <header class="app__head">
-        <div><h2 class="t-2xl">Minhas ações</h2><p class="small muted">Suas participações por empresa.</p></div>
-        <a class="btn btn--primary btn--sm" href="/oportunidades/"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Investir em uma empresa</a>
-      </header>
-      <div class="table-wrap">
-        <table class="table">
-          <caption class="sr-only">Participações por empresa</caption>
-          <thead><tr><th scope="col">Empresa</th><th scope="col">Fase</th><th scope="col" class="num">Ações</th><th scope="col" class="num">A integralizar</th><th scope="col" class="num">Valor pago</th><th scope="col">Certificado</th></tr></thead>
-          <tbody><tr><td colspan="6"><div class="empty empty--row"><p class="small">Você ainda não tem participações.</p><a class="link-arrow small" href="/oportunidades/">Ver oportunidades <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></td></tr></tbody>
-        </table>
-      </div>
-      <p class="tiny muted">Fase: <span class="badge badge--warning">Pré-operacional</span> <span class="badge badge--success">Em operação</span> — definida pela data de início de operação de cada empresa.</p>
-    </section>
-
-    <!-- PAGAMENTOS -->
-    <section role="tabpanel" id="p-pag" aria-labelledby="tab-pagamentos" tabindex="0" hidden>
-      <header class="app__head"><div><h2 class="t-2xl">Meus pagamentos</h2><p class="small muted">Cada pagamento, parcela e status de compensação.</p></div></header>
-      <div class="table-wrap">
-        <table class="table">
-          <caption class="sr-only">Histórico de pagamentos</caption>
-          <thead><tr><th scope="col">Data</th><th scope="col">Empresa</th><th scope="col">Contrato</th><th scope="col">Parcela</th><th scope="col">Forma</th><th scope="col" class="num">Valor</th><th scope="col">Status</th></tr></thead>
-          <tbody><tr><td colspan="7"><div class="empty empty--row"><p class="small">Nenhum pagamento registrado.</p></div></td></tr></tbody>
-        </table>
-      </div>
-      <div class="notice notice--warning" role="note"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><p>Atraso superior a 60 dias cancela automaticamente a compra parcelada. O painel deve avisar com antecedência (e-mail + notificação) a partir do 1º dia de atraso.</p></div>
-    </section>
-
-    <!-- DIVIDENDOS -->
-    <section role="tabpanel" id="p-div" aria-labelledby="tab-dividendos" tabindex="0" hidden>
-      <header class="app__head">
-        <div><h2 class="t-2xl">Dividendos</h2><p class="small muted">Lançamentos, resgates e reinvestimentos.</p></div>
-        <div class="cluster" style="--cluster:var(--s-2)"><button class="btn btn--outline btn--sm" type="button" disabled>Reinvestir</button><button class="btn btn--secondary btn--sm" type="button" disabled>Solicitar resgate</button></div>
-      </header>
-      <div class="table-wrap">
-        <table class="table">
-          <caption class="sr-only">Lançamentos de dividendos</caption>
-          <thead><tr><th scope="col">Competência</th><th scope="col">Empresa</th><th scope="col">Tipo</th><th scope="col" class="num">Valor</th><th scope="col">Situação</th></tr></thead>
-          <tbody><tr><td colspan="5"><div class="empty empty--row"><p class="small">Nenhum lançamento ainda.</p><p class="tiny muted">Os botões ficam ativos quando houver saldo creditado e liberado.</p></div></td></tr></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- DOCUMENTOS -->
-    <section role="tabpanel" id="p-doc" aria-labelledby="tab-documentos" tabindex="0" hidden>
-      <header class="app__head"><div><h2 class="t-2xl">Documentos</h2><p class="small muted">Contratos, certificados e comprovantes, sempre disponíveis para download.</p></div></header>
-      <ul class="doclist" role="list">
-        <li><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><div><span class="doclist__title">Contratos de aquisição</span><p class="small muted">Um por compra, com hash e data da assinatura por token.</p></div><span class="badge">0</span></li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg><div><span class="doclist__title">Certificados de aquisição de ações</span><p class="small muted">Liberados após a confirmação do pagamento.</p></div><span class="badge">0</span></li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><div><span class="doclist__title">Informe de rendimentos</span><p class="small muted">Anual, para a declaração de imposto de renda.</p></div><span class="badge">0</span></li>
-      </ul>
-    </section>
-
-    <!-- TRANSPARÊNCIA -->
-    <section role="tabpanel" id="p-tra" aria-labelledby="tab-transparencia" tabindex="0" hidden>
-      <header class="app__head"><div><h2 class="t-2xl">Relatório contábil</h2><p class="small muted">Atualizado diariamente. Acesso de auditoria para todo acionista.</p></div></header>
-      <div class="empty card">
-        <svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>
-        <p class="small">Disponível para empresas em que você é acionista.</p>
-        <p class="tiny muted">Estrutura proposta: receitas, despesas, resultado do período e caixa, por empresa, com data da última atualização e exportação em PDF/CSV.</p>
-      </div>
-    </section>
-
-    <!-- SEGURANÇA -->
-    <section role="tabpanel" id="p-seg" aria-labelledby="tab-seguranca" tabindex="0" hidden>
-      <header class="app__head"><div><h2 class="t-2xl">Perfil e segurança</h2><p class="small muted">Seus dados, token e acessos.</p></div></header>
-      <div class="app__cols">
-        <div class="card stack"><h2 class="card__title">Token de segurança</h2><p class="small muted">Usado para assinar contratos. Perdeu? O suporte confirma sua identidade e libera um novo token.</p><p class="tiny muted">Estados possíveis: <span class="badge badge--success">Ativo</span> <span class="badge badge--warning">Pendente</span> <span class="badge">Bloqueado</span></p></div>
-        <div class="card stack"><h2 class="card__title">Acessos recentes</h2><p class="small muted">Data, dispositivo e local aproximado dos últimos acessos, com opção de encerrar sessões.</p></div>
-        <div class="card stack"><h2 class="card__title">Dados pessoais</h2><p class="small muted">Nome, CPF, e-mail e celular. Alterações sensíveis exigem confirmação por e-mail.</p></div>
-        <div class="card stack"><h2 class="card__title">Privacidade (LGPD)</h2><p class="small muted">Baixar meus dados, revogar consentimentos de marketing e falar com o encarregado de dados.</p></div>
-      </div>
-    </section>
-
-    <!-- SUPORTE -->
-    <section role="tabpanel" id="p-sup" aria-labelledby="tab-suporte" tabindex="0" hidden>
-      <header class="app__head"><div><h2 class="t-2xl">Suporte</h2><p class="small muted">Fale com quem cuida das suas participações.</p></div></header>
-      <div class="app__cols">
-        <a class="channel card card--interactive" href="https://wa.me/5541998230937" rel="noopener" target="_blank"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></span><span><span class="channel__label">WhatsApp</span><span class="channel__value">(41) 99823-0937</span></span></a>
-        <a class="channel card card--interactive" href="mailto:contato@empresasnaplanta.com.br"><span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="channel__label">E-mail</span><span class="channel__value" style="font-size:var(--fs-base)">contato@empresasnaplanta.com.br</span></span></a>
-      </div>
+    <div class="notice notice--example" role="note" data-exemplo-aviso hidden>
+      <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+      <p><strong>Exemplo ilustrativo com dados fictícios.</strong> A pessoa, os valores e os documentos foram inventados para mostrar como a área funciona. Não representam resultados reais de nenhuma empresa.</p>
+    </div>
+    <section role="tabpanel" id="painel" class="app__panel" tabindex="-1" aria-labelledby="tab-visao-geral" data-painel-conteudo>
+      <div class="skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
+      <noscript><p>Esta área precisa de JavaScript ativado.</p></noscript>
     </section>
   </div>
 </div>
+
+<dialog class="dialog" data-dialog-detalhe aria-labelledby="dlg-titulo">
+  <div class="dialog__head">
+    <h2 id="dlg-titulo" class="t-xl" data-dialog-titulo>Participação</h2>
+    <button class="menu-toggle dialog__close" type="button" data-dialog-fechar><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg><span class="sr-only">Fechar</span></button>
+  </div>
+  <div class="dialog__body stack" data-dialog-corpo></div>
+</dialog>
 
 </main>
-<footer class="site-footer on-dark" style="background:var(--ink-950)">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand stack" style="--stack:var(--s-5)">
-        <a class="brand" href="/" aria-label="Empresas na Planta S.A. — página inicial"><img src="/assets/img/logo.webp" alt="Empresas na Planta S.A." width="378" height="109" loading="lazy"></a>
-        <p style="max-width:30ch">Da mesma forma que você compra um apartamento na planta, aqui você compra um pedaço de uma empresa na planta.</p>
-        <div class="social">
-          <a href="https://www.instagram.com/empresasnaplanta/" rel="noopener" target="_blank" aria-label="Instagram (abre em nova aba)"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a>
-          <a href="https://www.facebook.com/empresasnaplanta" rel="noopener" target="_blank" aria-label="Facebook (abre em nova aba)"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h2>Plataforma</h2>
-        <ul>
-          <li><a href="/como-funciona/">Como funciona</a></li>
-          <li><a href="/oportunidades/">Oportunidades</a></li>
-          <li><a href="https://ia.empresasnaplanta.com.br/cadastro">Criar conta</a></li>
-          <li><a href="https://ia.empresasnaplanta.com.br/login.php">Área do acionista</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Empresa</h2>
-        <ul>
-          <li><a href="/nossa-historia/">Nossa história</a></li>
-          <li><a href="/nossos-projetos/">Nossos projetos</a></li>
-          <li><a href="/faq/">Dúvidas frequentes</a></li>
-          <li><a href="/contato/">Contato</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Atendimento</h2>
-        <ul>
-          <li><a href="https://wa.me/5541998230937" rel="noopener" target="_blank"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>(41) 99823-0937</a></li>
-          <li><a href="mailto:contato@empresasnaplanta.com.br"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>contato@empresasnaplanta.com.br</a></li>
-          <li><span style="display:inline-flex;gap:var(--s-2)"><svg class="icon" aria-hidden="true" style="margin-top:.2em"><use href="#i-pin"/></svg><span>Rua Deputado Leoberto Leal, 623 – Guabirotuba<br>Curitiba/PR · CEP 81510-090</span></span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-legal">
-      <nav aria-label="Documentos legais" class="cluster" style="--cluster:var(--s-5)">
-        <a href="/aviso-de-risco/">Aviso de risco</a>
-        <a href="/termos-de-servico/">Termos de serviço</a>
-        <a href="/politica-de-privacidade/">Política de privacidade</a>
-      </nav>
-      <p>Toda participação societária envolve riscos, inclusive de perda do capital investido. Rentabilidade passada não é garantia de rentabilidade futura. Leia o <a href="/aviso-de-risco/" style="text-decoration:underline">Aviso de Risco</a> antes de investir.</p>
-      <p>© 2023–2026 Empresas na Planta S.A. · CNPJ 51.240.306/0001-56 · Sociedade anônima de capital fechado · Todos os direitos reservados.</p>
-    </div>
+<footer class="app-footer">
+  <div class="container cluster" style="justify-content:space-between">
+    <p>Empresas na Planta S.A. · CNPJ 51.240.306/0001-56</p>
+    <nav aria-label="Documentos legais" class="cluster" style="--cluster:var(--s-4)">
+      <a href="/aviso-de-risco/">Aviso de risco</a>
+      <a href="/termos-de-servico/">Termos</a>
+      <a href="/politica-de-privacidade/">Privacidade</a>
+    </nav>
   </div>
 </footer>
-
-<div class="mobile-cta" data-mobile-cta aria-hidden="true">
-  <a class="btn btn--outline btn--sm" href="https://ia.empresasnaplanta.com.br/login.php" tabindex="-1">Entrar</a>
-  <a class="btn btn--primary btn--sm" href="https://ia.empresasnaplanta.com.br/cadastro" tabindex="-1">Quero ser acionista</a>
-</div>
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 </body>
 </html>
