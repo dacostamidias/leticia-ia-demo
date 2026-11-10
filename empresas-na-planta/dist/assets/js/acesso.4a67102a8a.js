@@ -5,6 +5,12 @@
   'use strict';
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  // Caminhos: em producao a raiz e "/"; no link de teste (artefato) o build troca por caminhos relativos.
+  const meta = (n) => document.querySelector('meta[name="' + n + '"]')?.content;
+  const ROOT = meta('site-root') ?? '/';
+  const IDX = meta('site-index') ?? '';
+  const DEMO = meta('site-demo') === '1';
+  const url = (p) => ROOT + p.replace(/^\//, '') + (p.endsWith('/') ? IDX : '');
   const digitos = (v) => String(v || '').replace(/\D/g, '');
 
   /* ---------------- Validadores (espelham as regras do servidor) ---------------- */
@@ -150,7 +156,7 @@
         if ($('#codigo-2fa', etapa2).value !== '123456') { status(st2, 'error', 'Código incorreto ou expirado. Os códigos mudam a cada 30 segundos.'); $('#codigo-2fa', etapa2).select(); return; }
         status(st2, 'ok', 'Acesso confirmado. Abrindo sua área do acionista…');
         await esperar(700);
-        location.href = '/prototipo/area-do-acionista/';
+        location.href = url('/prototipo/area-do-acionista/');
       });
     });
     $('[data-voltar-1]', login)?.addEventListener('click', () => { etapa2.hidden = true; etapa1.hidden = false; $('#senha', etapa1).focus(); });

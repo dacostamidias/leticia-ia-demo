@@ -4,6 +4,12 @@
 (() => {
   'use strict';
   const root = document.documentElement;
+  // Caminhos: em producao a raiz e "/"; no link de teste (artefato) o build troca por caminhos relativos.
+  const meta = (n) => document.querySelector('meta[name="' + n + '"]')?.content;
+  const ROOT = meta('site-root') ?? '/';
+  const IDX = meta('site-index') ?? '';
+  const DEMO = meta('site-demo') === '1';
+  const url = (p) => ROOT + p.replace(/^\//, '') + (p.endsWith('/') ? IDX : '');
   root.classList.add('js');
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
@@ -130,7 +136,7 @@
   const offerEls = $$('[data-oferta]');
   if (offerEls.length && 'fetch' in window) {
     const pctFmt = (p) => `${p.toLocaleString('pt-BR', { maximumFractionDigits: p < 10 ? 1 : 0 })}%`;
-    fetch('/dados/ofertas.json', { cache: 'no-store' })
+    fetch(url('/dados/ofertas.json'), { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (!data || !Array.isArray(data.ofertas)) return;
@@ -281,6 +287,12 @@
       e.preventDefault();
       const invalid = fields.filter((el) => !validate(el));
       if (invalid.length) { invalid[0].focus(); status.className = 'form-status form-status--error'; status.textContent = 'Revise os campos destacados.'; return; }
+      if (DEMO) {
+        status.className = 'form-status form-status--ok';
+        status.textContent = 'Formulário válido. Neste link de teste nenhuma mensagem é enviada; no site publicado, ele usa o endpoint de contato atual.';
+        status.focus();
+        return;
+      }
       submit.disabled = true;
       submit.dataset.label = submit.dataset.label || submit.textContent.trim();
       submit.textContent = 'Enviando…';
@@ -341,7 +353,7 @@
     syncHash();
   });
 
-  $$('[data-print]').forEach((b) => { b.hidden = false; b.addEventListener('click', () => window.print()); });
+  if (!DEMO) $$('[data-print]').forEach((b) => { b.hidden = false; b.addEventListener('click', () => window.print()); });
 
   document.querySelectorAll('[data-goto]').forEach((a) => a.addEventListener('click', (e) => {
     const t = document.getElementById(a.dataset.goto);

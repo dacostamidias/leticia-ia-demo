@@ -11,6 +11,12 @@
   'use strict';
   const root = document.querySelector('[data-acionista]');
   if (!root) return;
+  // Caminhos: em producao a raiz e "/"; no link de teste (artefato) o build troca por caminhos relativos.
+  const meta = (n) => document.querySelector('meta[name="' + n + '"]')?.content;
+  const ROOT = meta('site-root') ?? '/';
+  const IDX = meta('site-index') ?? '';
+  const DEMO = meta('site-demo') === '1';
+  const url = (p) => ROOT + p.replace(/^\//, '') + (p.endsWith('/') ? IDX : '');
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
@@ -32,7 +38,7 @@
      1. DADOS
      ====================================================================== */
   async function carregar(modo) {
-    const res = await fetch(`/prototipo/dados/${modo}.json`, { cache: 'no-store' });
+    const res = await fetch(url(`/prototipo/dados/${modo}.json`), { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   }
@@ -126,7 +132,7 @@
 
   function tabelaParticipacoes(c) {
     if (!c.empresas.length) {
-      return vazio('building', 'Você ainda não tem participações.', 'Quando você investir, cada empresa aparece aqui com fase, ações e valor pago.', '<a class="btn btn--primary btn--sm" href="/oportunidades/">Ver oportunidades</a>');
+      return vazio('building', 'Você ainda não tem participações.', 'Quando você investir, cada empresa aparece aqui com fase, ações e valor pago.', `<a class="btn btn--primary btn--sm" href="${url('/oportunidades/')}">Ver oportunidades</a>`);
     }
     const linhas = c.empresas.map((e) => `
       <tr>
@@ -166,7 +172,7 @@
     'visao-geral': (d, c) => `
       <header class="app__head">
         <div><h2 class="t-2xl">Olá, ${esc(d.acionista.nome.split(' ')[0])}</h2><p class="small muted">Situação em ${data(c.ref)}. Valores calculados a partir dos lançamentos confirmados.</p></div>
-        <a class="btn btn--primary btn--sm" href="/oportunidades/">${icon('plus')}Investir em uma empresa</a>
+        <a class="btn btn--primary btn--sm" href="${url('/oportunidades/')}">${icon('plus')}Investir em uma empresa</a>
       </header>
       ${!d.acionista.identidadeVerificada ? `<div class="notice" role="note">${icon('shield')}<div><p><strong>Próximo passo: confirme sua identidade e gere seu token de segurança.</strong> Ele é a sua assinatura digital nos contratos.</p><p style="margin-top:var(--s-3)"><button class="btn btn--secondary btn--sm" type="button" data-ir="seguranca">Confirmar identidade</button></p></div></div>` : ''}
       ${alertaPendencias(c)}
@@ -195,7 +201,7 @@
       </section>`,
 
     participacoes: (d, c) => `
-      <header class="app__head"><div><h2 class="t-2xl">Participações</h2><p class="small muted">Por empresa: fase, ações, contratos e situação de cada compra.</p></div><a class="btn btn--primary btn--sm" href="/oportunidades/">${icon('plus')}Investir</a></header>
+      <header class="app__head"><div><h2 class="t-2xl">Participações</h2><p class="small muted">Por empresa: fase, ações, contratos e situação de cada compra.</p></div><a class="btn btn--primary btn--sm" href="${url('/oportunidades/')}">${icon('plus')}Investir</a></header>
       ${tabelaParticipacoes(c)}
       <dl class="legend-defs">
         <div><dt>Integralizadas</dt><dd>ações com pagamento confirmado.</dd></div>
@@ -356,7 +362,7 @@
         <section class="card stack" aria-labelledby="h-senha">
           <h3 id="h-senha" class="card__title">Senha</h3>
           <p class="small muted">Use pelo menos 10 caracteres. Senhas vazadas em incidentes públicos são recusadas.</p>
-          <a class="btn btn--outline btn--sm" href="/prototipo/recuperar-senha/">Alterar senha</a>
+          <a class="btn btn--outline btn--sm" href="${url('/prototipo/recuperar-senha/')}">Alterar senha</a>
         </section>
       </div>`,
   };
@@ -456,6 +462,7 @@
     // Exportação LGPD (portabilidade): baixa os dados exibidos em JSON
     const ex = $('[data-exportar]', panel);
     if (ex) ex.addEventListener('click', () => {
+      if (DEMO) { toast('Neste link de teste o navegador bloqueia downloads. No portal, o arquivo é baixado.'); return; }
       const blob = new Blob([JSON.stringify(D, null, 2)], { type: 'application/json' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'meus-dados-empresas-na-planta.json';
       document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
@@ -500,7 +507,7 @@
         <div><dt>Saída ou transferência</dt><dd>${e.saida ? esc(e.saida) : pendente}</dd></div>
       </dl>
       ${e.precoAcao == null ? '<p class="tiny muted">A regra de conversão do plano mensal em ações ainda será definida pela empresa (AUDITORIA §22, C1).</p>' : ''}
-      <p class="cluster"><a class="link-arrow small" href="/oportunidades/${esc(slug)}/">Página da oferta ${icon('arrow')}</a><button class="link-arrow small" type="button" style="background:none;border:0;padding:0" data-ir-dlg="documentos">Documentos ${icon('arrow')}</button></p>`;
+      <p class="cluster"><a class="link-arrow small" href="${url(`/oportunidades/${esc(slug)}/`)}">Página da oferta ${icon('arrow')}</a><button class="link-arrow small" type="button" style="background:none;border:0;padding:0" data-ir-dlg="documentos">Documentos ${icon('arrow')}</button></p>`;
     $('[data-ir-dlg]', dlg).addEventListener('click', () => { dlg.close(); ir('documentos'); });
     dlg.showModal();
     dlg.addEventListener('close', () => origem.focus(), { once: true });
