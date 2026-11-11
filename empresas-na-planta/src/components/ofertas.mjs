@@ -39,7 +39,7 @@ export function card(o) {
 <article class="offer card" data-oferta="${esc(o.slug)}" data-status="${esc(o.status)}" data-categoria="${esc(o.categoria)}">
   <header class="offer__head">
     <div class="offer__title">
-      <h3 class="offer__name"><a href="/oportunidades/${esc(o.slug)}/" class="stretched">${esc(o.nome)}</a></h3>
+      <h3 class="offer__name"><a href="/oportunidades/${esc(o.slug)}/#oferta" class="stretched">${esc(o.nome)}</a></h3>
       <p class="offer__status"><span class="badge ${st.cls}"><span class="dot"></span>${st.label}</span>${o.destaque ? ' <span class="badge badge--gold">Em destaque</span>' : ''}</p>
     </div>
     <span class="offer__logo" style="--logo-bg:${esc(o.logoFundo)}"><img src="${esc(o.logo)}" alt="" width="${o.logoW}" height="${o.logoH}" loading="lazy" decoding="async"></span>

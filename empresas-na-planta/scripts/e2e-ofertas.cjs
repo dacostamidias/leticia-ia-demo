@@ -29,7 +29,9 @@ let falhas=0; const ok=(c,m)=>{ if(!c) falhas++; console.log((c?'✔':'✖')+' '
  ok(href.includes('/cadastro'),'botão Investir → cadastro');
  const pitch=await p2.$('[data-oferta="escolas-jesus-para-as-criancas"] .offer__pitch'); await pitch.scrollIntoViewIfNeeded(); const bb=await pitch.boundingBox();
  await Promise.all([p2.waitForNavigation(), p2.mouse.click(bb.x+bb.width/2, bb.y+bb.height/2)]);
- ok(p2.url().endsWith('/oportunidades/escolas-jesus-para-as-criancas/'),'card inteiro clicável → página da oferta');
+ ok(p2.url().endsWith('/oportunidades/escolas-jesus-para-as-criancas/#oferta'),'card inteiro clicável → início da página da oferta (#oferta)');
+ await p2.waitForTimeout(500);
+ ok((await p2.evaluate(()=>scrollY))===0,'página da oferta abre no topo, com o cabeçalho visível');
  // carrossel na home (mobile)
  await p.goto(B+'/'); await p.waitForTimeout(300);
  ok(await p.isDisabled('[data-carousel-prev]'),'carrossel: "anterior" desabilitado no início');

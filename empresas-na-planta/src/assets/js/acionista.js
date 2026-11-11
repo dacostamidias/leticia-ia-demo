@@ -507,7 +507,7 @@
         <div><dt>Saída ou transferência</dt><dd>${e.saida ? esc(e.saida) : pendente}</dd></div>
       </dl>
       ${e.precoAcao == null ? '<p class="tiny muted">A regra de conversão do plano mensal em ações ainda será definida pela empresa (AUDITORIA §22, C1).</p>' : ''}
-      <p class="cluster"><a class="link-arrow small" href="${url(`/oportunidades/${esc(slug)}/`)}">Página da oferta ${icon('arrow')}</a><button class="link-arrow small" type="button" style="background:none;border:0;padding:0" data-ir-dlg="documentos">Documentos ${icon('arrow')}</button></p>`;
+      <p class="cluster"><a class="link-arrow small" href="${url(`/oportunidades/${esc(slug)}/`)}#oferta">Página da oferta ${icon('arrow')}</a><button class="link-arrow small" type="button" style="background:none;border:0;padding:0" data-ir-dlg="documentos">Documentos ${icon('arrow')}</button></p>`;
     $('[data-ir-dlg]', dlg).addEventListener('click', () => { dlg.close(); ir('documentos'); });
     dlg.showModal();
     dlg.addEventListener('close', () => origem.focus(), { once: true });

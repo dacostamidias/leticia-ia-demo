@@ -17,6 +17,22 @@
   const brl = (n) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const fmt = (n, d = 0) => n.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
 
+  /* ---- Posição inicial da página ---------------------------------------
+     Ao chegar por um link (não ao voltar ou recarregar), a página abre no topo ou
+     na âncora indicada. Isso também corrige visualizadores embutidos (como o link
+     de teste) que preservam a rolagem da página anterior. */
+  const navTipo = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]?.type) || 'navigate';
+  if (navTipo === 'navigate') {
+    const posicionar = () => {
+      let alvo = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      if (alvo && alvo.hasAttribute('data-topo')) alvo = null; // âncora da 1ª seção = topo da página, com o cabeçalho visível
+      if (alvo && alvo.tagName !== 'DETAILS') alvo.scrollIntoView({ block: 'start' });
+      else if (!alvo) { window.scrollTo(0, 0); document.body.scrollIntoView({ block: 'start' }); }
+    };
+    posicionar();
+    window.addEventListener('load', posicionar, { once: true });
+  }
+
   /* ---- Toast ----------------------------------------------------------- */
   const toastEl = $('[data-toast]');
   let toastTimer;
