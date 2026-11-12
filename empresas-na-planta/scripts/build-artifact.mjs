@@ -24,12 +24,15 @@ async function walk(dir) {
   return out;
 }
 
-function relativo(valor, prefixo) {
+function relativo(valor, prefixo, pagina = false) {
   if (!valor.startsWith('/') || valor.startsWith('//')) return valor;
   const [caminho, frag = ''] = valor.split('#');
   let p = caminho.replace(/^\//, '');
-  if (p === '' || p.endsWith('/')) p += 'index.html';
-  return prefixo + p + (frag ? `#${frag}` : '');
+  const ehPagina = p === '' || p.endsWith('/');
+  if (ehPagina) p += 'index.html';
+  // Links para páginas abrem pela âncora #topo: o visualizador do artefato só respeita rolagem por âncora.
+  const ancora = frag || (pagina && ehPagina ? 'topo' : '');
+  return prefixo + p + (ancora ? `#${ancora}` : '');
 }
 
 await rm(OUT, { recursive: true, force: true });
@@ -44,7 +47,7 @@ for (const f of await walk(DIST)) {
     const prof = rel.split('/').length - 1;
     const prefixo = '../'.repeat(prof);
     let html = await readFile(f, 'utf8');
-    html = html.replace(/\b(href|src|action)="([^"]*)"/g, (_, a, v) => `${a}="${relativo(v, prefixo)}"`);
+    html = html.replace(/\b(href|src|action)="([^"]*)"/g, (_, a, v) => `${a}="${relativo(v, prefixo, a === 'href')}"`);
     html = html.replace(/\bsrcset="([^"]*)"/g, (_, v) => `srcset="${v.split(',').map((x) => { const [u, d] = x.trim().split(/\s+/); return `${relativo(u, prefixo)}${d ? ` ${d}` : ''}`; }).join(', ')}"`);
     html = html
       .replace('<meta name="site-root" content="/">', `<meta name="site-root" content="${prefixo}">`)

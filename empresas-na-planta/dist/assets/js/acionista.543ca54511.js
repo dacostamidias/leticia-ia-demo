@@ -16,7 +16,13 @@
   const ROOT = meta('site-root') ?? '/';
   const IDX = meta('site-index') ?? '';
   const DEMO = meta('site-demo') === '1';
-  const url = (p) => ROOT + p.replace(/^\//, '') + (p.endsWith('/') ? IDX : '');
+  const url = (p) => {
+    const [caminho, ancora] = p.split('#');
+    const base = ROOT + caminho.replace(/^\//, '') + (caminho.endsWith('/') ? IDX : '');
+    // No link de teste, páginas abrem pela âncora #topo: o visualizador só respeita rolagem por âncora.
+    const frag = ancora ?? (DEMO && caminho.endsWith('/') ? 'topo' : '');
+    return frag ? `${base}#${frag}` : base;
+  };
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
@@ -507,7 +513,7 @@
         <div><dt>Saída ou transferência</dt><dd>${e.saida ? esc(e.saida) : pendente}</dd></div>
       </dl>
       ${e.precoAcao == null ? '<p class="tiny muted">A regra de conversão do plano mensal em ações ainda será definida pela empresa (AUDITORIA §22, C1).</p>' : ''}
-      <p class="cluster"><a class="link-arrow small" href="${url(`/oportunidades/${esc(slug)}/`)}#oferta">Página da oferta ${icon('arrow')}</a><button class="link-arrow small" type="button" style="background:none;border:0;padding:0" data-ir-dlg="documentos">Documentos ${icon('arrow')}</button></p>`;
+      <p class="cluster"><a class="link-arrow small" href="${url(`/oportunidades/${esc(slug)}/#oferta`)}">Página da oferta ${icon('arrow')}</a><button class="link-arrow small" type="button" style="background:none;border:0;padding:0" data-ir-dlg="documentos">Documentos ${icon('arrow')}</button></p>`;
     $('[data-ir-dlg]', dlg).addEventListener('click', () => { dlg.close(); ir('documentos'); });
     dlg.showModal();
     dlg.addEventListener('close', () => origem.focus(), { once: true });

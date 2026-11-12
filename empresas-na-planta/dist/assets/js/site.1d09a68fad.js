@@ -9,7 +9,13 @@
   const ROOT = meta('site-root') ?? '/';
   const IDX = meta('site-index') ?? '';
   const DEMO = meta('site-demo') === '1';
-  const url = (p) => ROOT + p.replace(/^\//, '') + (p.endsWith('/') ? IDX : '');
+  const url = (p) => {
+    const [caminho, ancora] = p.split('#');
+    const base = ROOT + caminho.replace(/^\//, '') + (caminho.endsWith('/') ? IDX : '');
+    // No link de teste, páginas abrem pela âncora #topo: o visualizador só respeita rolagem por âncora.
+    const frag = ancora ?? (DEMO && caminho.endsWith('/') ? 'topo' : '');
+    return frag ? `${base}#${frag}` : base;
+  };
   root.classList.add('js');
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
