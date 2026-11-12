@@ -289,63 +289,7 @@
   </div>
 </section>
 
-<!-- 7 · SIMULADOR ======================================================== -->
-<section class="section simulator" id="simulador" aria-labelledby="sim-title">
-  <div class="container simulator__grid">
-    <div class="simulator__copy">
-      <p class="eyebrow">Simulador</p>
-      <h2 id="sim-title" class="t-3xl">Monte sua participação</h2>
-      <p class="lead">Escolha quantas ações deseja e a forma de pagamento. Os valores seguem as condições publicadas na nossa FAQ.</p>
-      <ul class="checklist small" role="list">
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Cada ação custa <strong>R$ 50,00</strong>. Na primeira compra, o mínimo é um pacote de <strong>100 ações</strong>.</span></li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Só o pacote inicial pode ser parcelado, em até 5 vezes.</span></li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Enquanto a empresa não entra em operação (até 6 meses), você recebe bonificação mensal de 2% em ações.</span></li>
-      </ul>
-    </div>
-
-    <form class="sim card" data-sim data-preco="50" data-lote="100" data-bonus="0.02" data-meses="6" aria-describedby="sim-note" novalidate>
-      <div class="field">
-        <label for="sim-qtd">Quantidade de ações</label>
-        <div class="stepper">
-          <button type="button" data-step="-10" aria-label="Diminuir 10 ações"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
-          <input id="sim-qtd" name="qtd" type="number" inputmode="numeric" min="100" max="20000" step="1" value="100" aria-describedby="sim-qtd-hint">
-          <button type="button" data-step="10" aria-label="Aumentar 10 ações"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
-        </div>
-        <input class="range" type="range" min="100" max="2000" step="10" value="100" aria-label="Quantidade de ações (controle deslizante)" data-sim-range>
-        <p class="hint" id="sim-qtd-hint">Mínimo de 100 ações na primeira compra.</p>
-      </div>
-
-      <fieldset class="field" style="border:0;padding:0;margin:0">
-        <legend class="label" style="margin-bottom:var(--s-2)">Pacote inicial em</legend>
-        <div class="segmented">
-          <input type="radio" name="parc" id="p1" value="1" checked><label for="p1">À vista</label>
-          <input type="radio" name="parc" id="p2" value="2"><label for="p2">2×</label>
-          <input type="radio" name="parc" id="p3" value="3"><label for="p3">3×</label>
-          <input type="radio" name="parc" id="p4" value="4"><label for="p4">4×</label>
-          <input type="radio" name="parc" id="p5" value="5"><label for="p5">5×</label>
-        </div>
-      </fieldset>
-
-      <div class="sim__result" aria-live="polite">
-        <div class="sim__total">
-          <span class="small muted">Valor total da participação</span>
-          <output class="sim__big num" data-out="total">R$ 5.000,00</output>
-        </div>
-        <dl class="facts">
-          <div><dt>Pacote inicial (100 ações)</dt><dd data-out="pacote">R$ 5.000,00 à vista</dd></div>
-          <div data-row="extra" hidden><dt>Ações adicionais (à vista)</dt><dd data-out="extra">—</dd></div>
-          <div><dt>Bonificação em ações, antes da operação</dt><dd data-out="bonus">até 2 ações/mês</dd></div>
-        </dl>
-      </div>
-
-      <a class="btn btn--primary btn--lg btn--block" href="https://ia.empresasnaplanta.com.br/cadastro">Criar conta e investir <svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <p class="tiny muted" id="sim-note">Cálculo baseado nas condições publicadas na FAQ. Não é projeção de lucros nem promessa de rentabilidade. Em compras parceladas, as ações passam a contar à medida que são pagas. As condições definitivas constam do contrato gerado na plataforma.</p>
-    </form>
-  </div>
-</section>
-
-
-<!-- 8 · OPORTUNIDADES ABERTAS (estilo plataformas de captação) ======= -->
+<!-- 7 · OPORTUNIDADES ABERTAS (estilo plataformas de captação) ======= -->
 <section class="section offers-section on-dark" aria-labelledby="offers-title">
   <div class="container">
     <div class="offers-section__head">
@@ -440,6 +384,62 @@
 </div>
   </div>
 </section>
+
+<!-- 8 · SIMULADOR ======================================================== -->
+<section class="section simulator" id="simulador" aria-labelledby="sim-title">
+  <div class="container simulator__grid">
+    <div class="simulator__copy">
+      <p class="eyebrow">Simulador</p>
+      <h2 id="sim-title" class="t-3xl">Monte sua participação</h2>
+      <p class="lead">Escolha quantas ações deseja e a forma de pagamento. Os valores seguem as condições publicadas na nossa FAQ.</p>
+      <ul class="checklist small" role="list">
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Cada ação custa <strong>R$ 50,00</strong>. Na primeira compra, o mínimo é um pacote de <strong>100 ações</strong>.</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Só o pacote inicial pode ser parcelado, em até 5 vezes.</span></li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Enquanto a empresa não entra em operação (até 6 meses), você recebe bonificação mensal de 2% em ações.</span></li>
+      </ul>
+    </div>
+
+    <form class="sim card" data-sim data-preco="50" data-lote="100" data-bonus="0.02" data-meses="6" aria-describedby="sim-note" novalidate>
+      <div class="field">
+        <label for="sim-qtd">Quantidade de ações</label>
+        <div class="stepper">
+          <button type="button" data-step="-10" aria-label="Diminuir 10 ações"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+          <input id="sim-qtd" name="qtd" type="number" inputmode="numeric" min="100" max="20000" step="1" value="100" aria-describedby="sim-qtd-hint">
+          <button type="button" data-step="10" aria-label="Aumentar 10 ações"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+        </div>
+        <input class="range" type="range" min="100" max="2000" step="10" value="100" aria-label="Quantidade de ações (controle deslizante)" data-sim-range>
+        <p class="hint" id="sim-qtd-hint">Mínimo de 100 ações na primeira compra.</p>
+      </div>
+
+      <fieldset class="field" style="border:0;padding:0;margin:0">
+        <legend class="label" style="margin-bottom:var(--s-2)">Pacote inicial em</legend>
+        <div class="segmented">
+          <input type="radio" name="parc" id="p1" value="1" checked><label for="p1">À vista</label>
+          <input type="radio" name="parc" id="p2" value="2"><label for="p2">2×</label>
+          <input type="radio" name="parc" id="p3" value="3"><label for="p3">3×</label>
+          <input type="radio" name="parc" id="p4" value="4"><label for="p4">4×</label>
+          <input type="radio" name="parc" id="p5" value="5"><label for="p5">5×</label>
+        </div>
+      </fieldset>
+
+      <div class="sim__result" aria-live="polite">
+        <div class="sim__total">
+          <span class="small muted">Valor total da participação</span>
+          <output class="sim__big num" data-out="total">R$ 5.000,00</output>
+        </div>
+        <dl class="facts">
+          <div><dt>Pacote inicial (100 ações)</dt><dd data-out="pacote">R$ 5.000,00 à vista</dd></div>
+          <div data-row="extra" hidden><dt>Ações adicionais (à vista)</dt><dd data-out="extra">—</dd></div>
+          <div><dt>Bonificação em ações, antes da operação</dt><dd data-out="bonus">até 2 ações/mês</dd></div>
+        </dl>
+      </div>
+
+      <a class="btn btn--primary btn--lg btn--block" href="https://ia.empresasnaplanta.com.br/cadastro">Criar conta e investir <svg class="icon icon--arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <p class="tiny muted" id="sim-note">Cálculo baseado nas condições publicadas na FAQ. Não é projeção de lucros nem promessa de rentabilidade. Em compras parceladas, as ações passam a contar à medida que são pagas. As condições definitivas constam do contrato gerado na plataforma.</p>
+    </form>
+  </div>
+</section>
+
 
 <!-- 9 · TRANSPARÊNCIA ==================================================== -->
 <section class="section transparency on-dark" aria-labelledby="transp-title">
